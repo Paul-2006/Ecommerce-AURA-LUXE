@@ -41,6 +41,28 @@ function Register() {
     e.preventDefault();
     setErrorMsg("");
 
+    // Email format validation
+    const cleanEmail = email.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(cleanEmail)) {
+      setErrorMsg("Please enter a valid email address (e.g. user@example.com).");
+      return;
+    }
+
+    // Phone number format validation
+    const cleanPhone = phoneNumber.trim();
+    const phoneDigits = cleanPhone.replace(/\D/g, "");
+    if (phoneDigits.length < 10 || phoneDigits.length > 15) {
+      setErrorMsg("Please enter a valid phone number containing 10 to 15 digits.");
+      return;
+    }
+
+    // Password length validation
+    if (!password || password.length < 6) {
+      setErrorMsg("Password must be at least 6 characters long.");
+      return;
+    }
+
     // Validation for Seller Business Documents
     if (roleId === 2) {
       if (!gstNumber.trim() || gstNumber.length < 15) {
@@ -80,11 +102,11 @@ function Register() {
     setLoading(true);
     try {
       await registerUser({
-        username,
-        email,
+        username: username.trim(),
+        email: cleanEmail,
         password,
         roleId,
-        phoneNumber,
+        phoneNumber: cleanPhone,
         gstNumber: roleId === 2 ? gstNumber : undefined,
         panNumber: roleId === 2 ? panNumber : undefined,
         vehicleNumber: roleId === 4 ? vehicleNumber : undefined,
@@ -101,19 +123,16 @@ function Register() {
         }
       });
 
-      if (phoneNumber) {
-        localStorage.setItem("user_registered_phone", phoneNumber.trim());
+      if (cleanPhone) {
+        localStorage.setItem("user_registered_phone", cleanPhone);
       }
 
-      alert(`Account Created Successfully! Your ${roleId === 2 ? "Seller Business" : roleId === 4 ? "Delivery Driver" : "Customer"} credentials and documents have been registered.`);
-      navigate(roleId === 2 ? "/seller/login" : roleId === 4 ? "/delivery/login" : "/login");
+      alert(`Account Created Successfully! Your ${roleId === 2 ? "Seller Business" : roleId === 4 ? "Delivery Driver" : "Customer"} credentials have been registered.`);
+      navigate(roleId === 2 ? "/seller/login" : roleId === 4 ? "/delivery/login" : "/customer/login");
     } catch (err) {
-      console.warn("Register fallback:", err.message);
-      if (phoneNumber) {
-        localStorage.setItem("user_registered_phone", phoneNumber.trim());
-      }
-      alert(`Account Created Successfully! Your ${roleId === 2 ? "Seller Business" : roleId === 4 ? "Delivery Driver" : "Customer"} credentials and documents have been registered.`);
-      navigate(roleId === 2 ? "/seller/login" : roleId === 4 ? "/delivery/login" : "/login");
+      console.error("Registration error:", err);
+      const respMsg = err.response?.data?.message || (typeof err.response?.data === "string" ? err.response.data : null);
+      setErrorMsg(respMsg || err.message || "Registration failed. Please check your details and try again.");
     } finally {
       setLoading(false);
     }

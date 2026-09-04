@@ -50,7 +50,31 @@ export const registerUser = async (userData) => {
   return response.data;
 };
 
-// Forgot Password (OTP)
+// Forgot Password (OTP) Recovery Flow
+export const findAccountForReset = async (identifier) => {
+  const response = await api.post("/Auth/ForgotPassword/FindAccount", { identifier });
+  return response.data;
+};
+
+export const sendForgotOtp = async (userId, channel) => {
+  const response = await api.post("/Auth/ForgotPassword/SendOtp", { userId, channel });
+  return response.data;
+};
+
+export const verifyForgotOtp = async (userId, otp) => {
+  const response = await api.post("/Auth/ForgotPassword/VerifyOtp", { userId, otp });
+  return response.data;
+};
+
+export const resetPasswordWithToken = async (userId, resetToken, newPassword) => {
+  const response = await api.post("/Auth/ForgotPassword/ResetPassword", {
+    userId,
+    resetToken,
+    newPassword
+  });
+  return response.data;
+};
+
 export const requestPasswordOtp = async (email) => {
   const response = await api.post("/Auth/ForgotPassword", { email });
   return response.data;
@@ -65,3 +89,4 @@ export const resetPassword = async (data) => {
   });
   return response.data;
 };
+
