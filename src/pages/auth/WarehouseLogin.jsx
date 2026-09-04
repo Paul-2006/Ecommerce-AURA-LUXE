@@ -8,8 +8,8 @@ function WarehouseLogin() {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
-  const [email, setEmail] = useState("warehouse@webkadai.com");
-  const [password, setPassword] = useState("Warehouse@123!");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [warehouseId, setWarehouseId] = useState("Hub #01 - Bengaluru Central");
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
@@ -17,38 +17,40 @@ function WarehouseLogin() {
   const handleWarehouseLogin = async (e) => {
     e.preventDefault();
     setErrorMsg("");
+
+    const cleanEmail = email.trim();
+    if (!cleanEmail) {
+      setErrorMsg("Please enter your warehouse manager email.");
+      return;
+    }
+    if (!password) {
+      setErrorMsg("Please enter your password.");
+      return;
+    }
+
     setLoading(true);
 
     try {
-      let authData;
-      try {
-        authData = await loginWarehouse({ email, password });
-      } catch {
-        authData = {
-          message: "Warehouse Login Successful",
-          userId: 6,
-          warehouseManagerId: 1,
-          roleId: 3,
-          role: "Warehouse",
-          username: "Kiran Kumar (Hub Manager)",
-          email,
-          token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.warehouse_token"
-        };
-      }
+      const authData = await loginWarehouse({ email: cleanEmail, password });
 
       login({
-        ...authData,
-        username: "Kiran Kumar",
-        warehouseManagerId: authData.warehouseManagerId || 1,
+        token: authData.token,
+        userId: authData.userId,
+        warehouseManagerId: authData.warehouseManagerId || authData.userId,
+        username: authData.username || cleanEmail.split("@")[0],
+        email: authData.email || cleanEmail,
         warehouseName: warehouseId,
         role: "Warehouse",
         roleId: 3
       });
 
-      alert("Warehouse Manager Authenticated: Barcode & QR Stock Scanner Terminal Ready.");
+      alert(`Warehouse Manager Authenticated! Welcome ${authData.username || cleanEmail}.`);
       navigate("/warehouse/dashboard");
     } catch (err) {
-      setErrorMsg(err.message || "Warehouse authentication failed.");
+      console.error("Warehouse login error:", err);
+      const respData = err.response?.data;
+      const msg = typeof respData === "string" ? respData : respData?.message || err.message || "Warehouse authentication failed. Please check your credentials.";
+      setErrorMsg(msg);
     } finally {
       setLoading(false);
     }
@@ -85,7 +87,7 @@ function WarehouseLogin() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="warehouse@webkadai.com"
+              placeholder="warehouse@domain.com"
               required
             />
           </div>

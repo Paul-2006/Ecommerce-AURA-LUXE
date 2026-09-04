@@ -20,49 +20,40 @@ function DeliveryLogin() {
     e.preventDefault();
     setErrorMsg("");
 
-    if (!vehicleNumber.trim()) {
-      setErrorMsg("MOTORBIKE REGISTRATION REQUIRED: Please enter your motorbike registration number (e.g. KA-05-MB-4421).");
+    const cleanEmail = email.trim();
+    if (!cleanEmail) {
+      setErrorMsg("Please enter your delivery partner email.");
       return;
     }
-
-    if (!licenseScanned && !licenseDocName) {
-      setErrorMsg("DRIVER'S LICENSE REQUIRED: Please upload a scanned copy of your driver's license (e.g. PDF/JPG/PNG).");
+    if (!password) {
+      setErrorMsg("Please enter your password.");
       return;
     }
 
     setLoading(true);
     try {
-      let authData;
-      try {
-        authData = await loginDelivery({ email, password });
-      } catch {
-        authData = {
-          message: "Delivery Login Successful",
-          userId: 5,
-          deliveryPartnerId: 1,
-          roleId: 4,
-          role: "Delivery",
-          username: email.split("@")[0] || "Delivery Partner",
-          email,
-          token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.delivery_token"
-        };
-      }
+      const authData = await loginDelivery({ email: cleanEmail, password });
 
       login({
-        ...authData,
-        username: authData.username || email.split("@")[0] || "Delivery Partner",
-        deliveryPartnerId: authData.deliveryPartnerId || 1,
+        token: authData.token,
+        userId: authData.userId,
+        deliveryPartnerId: authData.deliveryPartnerId || authData.userId,
+        username: authData.username || cleanEmail.split("@")[0],
+        email: authData.email || cleanEmail,
         role: "Delivery",
         roleId: 4,
-        vehicleNumber: vehicleNumber.trim().toUpperCase(),
+        vehicleNumber: vehicleNumber.trim().toUpperCase() || "KA-01-EA-9988",
         licenseDocName: licenseDocName || "Drivers_License.pdf",
         isOnline: true
       });
 
-      alert(`Delivery Partner Verified: Motorbike (${vehicleNumber.toUpperCase()}) & Driver License verified. Live GPS routing is active.`);
+      alert(`Delivery Partner Authenticated! Welcome ${authData.username || cleanEmail}.`);
       navigate("/delivery/dashboard");
     } catch (err) {
-      setErrorMsg(err.message || "Delivery partner authentication failed.");
+      console.error("Delivery login error:", err);
+      const respData = err.response?.data;
+      const msg = typeof respData === "string" ? respData : respData?.message || err.message || "Delivery partner authentication failed. Please check your credentials.";
+      setErrorMsg(msg);
     } finally {
       setLoading(false);
     }
@@ -75,15 +66,6 @@ function DeliveryLogin() {
       setLicenseScanned(true);
       setErrorMsg("");
     }
-  };
-
-  const handleQuickDemoFill = () => {
-    setEmail("rider@webkadai.com");
-    setPassword("Delivery@123!");
-    setVehicleNumber("KA-05-MB-4421");
-    setLicenseDocName("DL_Rider_Scan.pdf");
-    setLicenseScanned(true);
-    setErrorMsg("");
   };
 
   return (
@@ -121,34 +103,13 @@ function DeliveryLogin() {
           </div>
 
           <div className="form-group">
-            <label className="form-label">Motorbike Registration Number (Plate No.)</label>
+            <label className="form-label">Motorbike Registration Plate (Optional)</label>
             <input
               type="text"
               value={vehicleNumber}
               onChange={(e) => setVehicleNumber(e.target.value)}
               placeholder="e.g. KA-05-MB-4421"
-              required
             />
-            <span className="input-hint">Displayed to the customer on live order tracking screen</span>
-          </div>
-
-          {/* Clean License Upload Box */}
-          <div className="form-group">
-            <label className="form-label">Driver's License Document Scan</label>
-            <div className="doc-upload-field">
-              <label className="btn btn-secondary btn-sm upload-btn-label" style={{ display: "inline-block", textAlign: "center" }}>
-                {licenseDocName ? `Attached: ${licenseDocName}` : "Choose License Document (PDF/JPG)"}
-                <input
-                  type="file"
-                  accept=".pdf,.png,.jpg,.jpeg"
-                  onChange={handleLicenseUpload}
-                  style={{ display: "none" }}
-                />
-              </label>
-            </div>
-            {licenseDocName && (
-              <span className="doc-ok">Document attached: {licenseDocName}</span>
-            )}
           </div>
 
           <button type="submit" className="btn btn-success btn-lg btn-block" disabled={loading}>
@@ -157,14 +118,9 @@ function DeliveryLogin() {
         </form>
 
         <div className="auth-footer-links">
-          <button
-            type="button"
-            className="btn btn-ghost btn-sm"
-            onClick={handleQuickDemoFill}
-            style={{ fontSize: "0.78rem" }}
-          >
-            Autofill Example Credentials (Demo)
-          </button>
+          <Link to="/register" className="auth-link-text">
+            Need to register as a Delivery Agent? <strong>Register here</strong>
+          </Link>
           <Link to="/login" className="back-link">
             Return to Portal Chooser
           </Link>

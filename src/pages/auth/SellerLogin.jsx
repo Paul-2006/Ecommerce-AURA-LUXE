@@ -8,11 +8,11 @@ function SellerLogin() {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
-  const [email, setEmail] = useState("seller1@zenith.com");
-  const [password, setPassword] = useState("Seller@123!");
-  const [gstNumber, setGstNumber] = useState("29AAAAA0000A1Z5");
-  const [documentVerified, setDocumentVerified] = useState(true);
-  const [uploadedDocName, setUploadedDocName] = useState("GST_Certificate_ZenithRetail.pdf");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [gstNumber, setGstNumber] = useState("");
+  const [documentVerified, setDocumentVerified] = useState(false);
+  const [uploadedDocName, setUploadedDocName] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -20,44 +20,40 @@ function SellerLogin() {
     e.preventDefault();
     setErrorMsg("");
 
-    if (!documentVerified) {
-      setErrorMsg("DOCUMENT VERIFICATION REQUIRED: Your business trade license and GST certificate must be submitted and approved by admin before seller login is granted.");
+    const cleanEmail = email.trim();
+    if (!cleanEmail) {
+      setErrorMsg("Please enter your registered seller email address.");
+      return;
+    }
+    if (!password) {
+      setErrorMsg("Please enter your seller password.");
       return;
     }
 
     setLoading(true);
     try {
-      let authData;
-      try {
-        authData = await loginSeller({ email, password });
-      } catch {
-        authData = {
-          message: "Seller Login Successful",
-          userId: 4,
-          sellerId: 1,
-          roleId: 2,
-          role: "Seller",
-          username: "Zenith Store Seller",
-          email,
-          token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.seller_token"
-        };
-      }
+      const authData = await loginSeller({ email: cleanEmail, password });
 
       login({
-        ...authData,
-        username: "Zenith Retail Corp",
-        sellerId: authData.sellerId || 1,
+        token: authData.token,
+        userId: authData.userId,
+        sellerId: authData.sellerId || authData.userId,
+        username: authData.username || cleanEmail.split("@")[0],
+        email: authData.email || cleanEmail,
         role: "Seller",
         roleId: 2,
-        gstNumber,
+        gstNumber: gstNumber.trim(),
         verificationStatus: "Approved",
-        documentName: uploadedDocName
+        documentName: uploadedDocName || "GST_Certificate.pdf"
       });
 
-      alert("Seller Verified: Business credentials and GST documents verified successfully.");
+      alert(`Seller Login Successful! Welcome ${authData.username || cleanEmail}.`);
       navigate("/seller/dashboard");
     } catch (err) {
-      setErrorMsg(err.message || "Seller authentication failed.");
+      console.error("Seller login error:", err);
+      const respData = err.response?.data;
+      const msg = typeof respData === "string" ? respData : respData?.message || err.message || "Seller authentication failed. Please check your credentials.";
+      setErrorMsg(msg);
     } finally {
       setLoading(false);
     }
@@ -69,7 +65,7 @@ function SellerLogin() {
       setUploadedDocName(file.name);
       setDocumentVerified(true);
       setErrorMsg("");
-      alert(`Document "${file.name}" uploaded for verification.`);
+      alert(`Document "${file.name}" uploaded for seller record.`);
     }
   };
 
@@ -77,34 +73,9 @@ function SellerLogin() {
     <div className="auth-page-container centered-container">
       <div className="auth-card-wrapper glass-panel">
         <div className="auth-header">
-          <span className="badge-pill badge-warning">Merchant Verification</span>
+          <span className="badge-pill badge-warning">Merchant Access</span>
           <h2>Merchant Seller Login</h2>
           <p>Sign in to your merchant dashboard to manage products, pricing, and orders.</p>
-        </div>
-
-        {/* Business Document Verification Status Box */}
-        <div className="seller-verification-box">
-          <div className="verification-status-header">
-            <span className="status-indicator-dot"></span>
-            <div>
-              <strong>Business Document Verification</strong>
-              <p>GSTIN & Trade License Clearance</p>
-            </div>
-            <span className={`badge-pill ${documentVerified ? "badge-success" : "badge-warning"}`}>
-              {documentVerified ? "Documents Verified" : "Pending Approval"}
-            </span>
-          </div>
-
-          <div className="verified-doc-preview">
-            <div className="doc-info">
-              <span className="doc-name">{uploadedDocName}</span>
-              <span className="doc-status-text">GSTIN: {gstNumber}</span>
-            </div>
-            <label className="btn btn-secondary btn-sm upload-btn-label">
-              Upload New Doc
-              <input type="file" accept=".pdf,.png,.jpg,.jpeg" onChange={handleDocUpload} style={{ display: "none" }} />
-            </label>
-          </div>
         </div>
 
         {errorMsg && <div className="auth-error-alert">{errorMsg}</div>}
@@ -133,18 +104,17 @@ function SellerLogin() {
           </div>
 
           <div className="form-group">
-            <label className="form-label">GST Number (Mandatory for Trade)</label>
+            <label className="form-label">GST Number (Optional / Onboarding)</label>
             <input
               type="text"
               value={gstNumber}
               onChange={(e) => setGstNumber(e.target.value)}
               placeholder="e.g. 29AAAAA0000A1Z5"
-              required
             />
           </div>
 
           <button type="submit" className="btn btn-primary btn-lg btn-block" disabled={loading}>
-            {loading ? "Verifying Documents..." : "Authenticate Seller"}
+            {loading ? "Authenticating Seller..." : "Authenticate Seller"}
           </button>
         </form>
 
