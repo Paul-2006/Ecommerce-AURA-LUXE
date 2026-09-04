@@ -1,0 +1,368 @@
+/* ==========================================================================
+   CLASSICAL LUXURY HOME & STOREFRONT STYLES
+   ========================================================================== */
+
+.home-page {
+  padding-top: 32px;
+  padding-bottom: 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+/* 1. Hero Section: Classical Luxury Storefront Banner */
+.hero-section {
+  position: relative;
+  width: 100%;
+  padding: clamp(48px, 6vw, 76px) clamp(24px, 5vw, 64px);
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  text-align: center;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.hero-content {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 16px;
+  background: #fbf9f5;
+  color: #c5a059;
+  border: 1px solid #c5a059;
+  border-radius: var(--radius-xs);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: #0f172a;
+  margin-bottom: 4px;
+}
+
+[data-theme="dark"] .hero-title {
+  color: #f8f6f0;
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  color: var(--text-sub);
+  max-width: 760px;
+  line-height: 1.85;
+  margin-bottom: 12px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+/* Home Portal Switcher Buttons Bar */
+.home-portal-buttons-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 16px 24px;
+  background: var(--bg-main);
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border-light);
+  width: 100%;
+  max-width: 760px;
+}
+
+.portal-bar-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.portal-buttons-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* Hero Stats Row */
+.hero-stats-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(24px, 4vw, 56px);
+  margin-top: 20px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-light);
+  width: 100%;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-num {
+  font-size: clamp(1.4rem, 2.3vw, 1.9rem);
+  font-weight: 700;
+  color: #0f172a;
+  font-family: var(--font-serif);
+  line-height: 1.2;
+}
+
+[data-theme="dark"] .stat-num {
+  color: #c5a059;
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 36px;
+  background-color: var(--border-light);
+}
+
+/* 2. Classical Search Section */
+.home-search-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.search-form-card {
+  width: 100%;
+  max-width: 720px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-xs);
+  box-shadow: var(--shadow-sm);
+}
+
+.search-input {
+  border: none !important;
+  background: transparent !important;
+  color: var(--text-main) !important;
+  font-size: 0.95rem;
+  padding: 8px 6px;
+  line-height: 1.6;
+}
+
+.search-input:focus {
+  box-shadow: none !important;
+}
+
+/* 3. Sections & Headings */
+.home-section {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+}
+
+.section-heading-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.section-heading-box h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.7rem, 2.8vw, 2.3rem);
+  color: #0f172a;
+  margin-bottom: 2px;
+}
+
+[data-theme="dark"] .section-heading-box h2 {
+  color: #f8f6f0;
+}
+
+.section-heading-box p {
+  color: var(--text-muted);
+  font-size: 0.94rem;
+  line-height: 1.75;
+}
+
+/* Classical Categories Grid */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.category-card {
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  cursor: pointer;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xs);
+  transition: all var(--transition-fast);
+}
+
+.category-card:hover {
+  transform: translateY(-2px);
+  border-color: #c5a059;
+  box-shadow: var(--shadow-md);
+}
+
+.category-name {
+  font-family: var(--font-serif);
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.3;
+}
+
+.category-desc {
+  font-size: 0.84rem;
+  color: var(--text-sub);
+  line-height: 1.65;
+}
+
+/* Featured Products Grid */
+.featured-products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 22px;
+  width: 100%;
+}
+
+.view-all-btn-box {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Classical Offer Banner */
+.offer-banner-section {
+  padding: 48px 40px;
+  background: #0f172a;
+  color: #ffffff;
+  border-radius: var(--radius-xs);
+  text-align: center;
+  box-shadow: var(--shadow-md);
+  border: 1px solid #c5a059;
+}
+
+.offer-banner-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.offer-tag {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c5a059;
+}
+
+.offer-banner-content h2 {
+  font-family: var(--font-serif);
+  color: #ffffff;
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  line-height: 1.3;
+}
+
+.offer-banner-content p {
+  color: #d1d5db;
+  font-size: 0.95rem;
+  line-height: 1.85;
+}
+
+.promo-code {
+  color: #c5a059;
+  font-family: monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* Classical Trust Seals & Services */
+.trust-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.trust-card {
+  padding: 28px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xs);
+  box-shadow: var(--shadow-sm);
+}
+
+.trust-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  color: var(--text-main);
+  line-height: 1.35;
+}
+
+.trust-card p {
+  font-size: 0.86rem;
+  color: var(--text-sub);
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .hero-stats-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .stat-divider {
+    display: none;
+  }
+}

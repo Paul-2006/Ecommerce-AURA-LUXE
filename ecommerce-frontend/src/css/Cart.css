@@ -1,0 +1,233 @@
+.cart-page-container {
+  max-width: 1350px;
+  margin: 0 auto;
+  padding: 30px 24px 80px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cart-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cart-title {
+  font-size: 2rem;
+  color: #ffffff;
+}
+
+.cart-empty-card {
+  text-align: center;
+  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.empty-cart-icon { color: var(--accent-cyan); }
+
+.cart-grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 30px;
+}
+
+.cart-items-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.shipping-progress-card {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-color: rgba(6, 182, 212, 0.3);
+}
+
+.progress-text-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--text-main);
+}
+
+.truck-cyan { color: var(--accent-cyan); }
+.unlocked-text { color: var(--accent-emerald); font-weight: 700; display: flex; align-items: center; gap: 6px; }
+
+.shipping-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.shipping-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+  transition: width 0.4s ease;
+}
+
+.cart-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cart-item-row {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.cart-item-img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.cart-item-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-item-cat {
+  font-size: 0.72rem;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+}
+
+.cart-item-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 2px 0;
+}
+
+.cart-item-price {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.cart-item-subtotal {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.subtotal-val {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.trash-btn {
+  color: var(--text-dim);
+  padding: 6px;
+  border-radius: 6px;
+  transition: var(--transition-fast);
+}
+
+.trash-btn:hover {
+  color: var(--accent-pink);
+  background: rgba(236, 72, 153, 0.15);
+}
+
+/* Summary Card */
+.summary-card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.coupon-form {
+  display: flex;
+  gap: 8px;
+}
+
+.coupon-input-box {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+}
+
+.coupon-input-box input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 0.85rem;
+}
+
+.applied-coupon-pill {
+  font-size: 0.8rem;
+  color: var(--accent-emerald);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.summary-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid var(--border-light);
+  padding-top: 16px;
+}
+
+.sum-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.discount-row { color: var(--accent-pink); }
+
+.total-row {
+  border-top: 1px solid var(--border-light);
+  padding-top: 12px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.total-val {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--accent-cyan);
+}
+
+.checkout-btn { width: 100%; }
+
+.checkout-guarantee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+@media (max-width: 900px) {
+  .cart-grid-layout { grid-template-columns: 1fr; }
+}

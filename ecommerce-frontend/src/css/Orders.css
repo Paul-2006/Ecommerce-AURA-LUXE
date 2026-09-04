@@ -1,0 +1,219 @@
+.orders-page-container {
+  max-width: 1350px;
+  margin: 0 auto;
+  padding: 30px 24px 80px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.orders-title {
+  font-size: 2rem;
+  color: #ffffff;
+}
+
+.orders-sub {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.orders-empty-card {
+  text-align: center;
+  padding: 70px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.empty-pkg-icon { color: var(--accent-purple); }
+
+.orders-list-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.order-item-card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.order-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 14px;
+}
+
+.order-id-group {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.order-ref-code {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.order-date-text {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.order-status-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: rgba(6, 182, 212, 0.15);
+  border: 1px solid var(--accent-cyan);
+  color: var(--accent-cyan);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+/* Shipment Pipeline */
+.shipment-pipeline-card {
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: var(--radius-md);
+}
+
+.pipeline-steps {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.pipeline-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  z-index: 2;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+.step-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+}
+
+.step-completed .step-circle {
+  background: var(--accent-emerald);
+  color: #000;
+  border-color: var(--accent-emerald);
+}
+
+.step-completed span {
+  color: var(--accent-emerald);
+  font-weight: 600;
+}
+
+.step-active .step-circle {
+  background: var(--accent-cyan);
+  color: #000;
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 15px var(--accent-cyan-glow);
+}
+
+.step-active span {
+  color: #fff;
+  font-weight: 700;
+}
+
+.pipeline-line {
+  flex: 1;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0 10px;
+}
+
+/* Body */
+.order-card-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.order-items-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.order-prod-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+}
+
+.order-prod-row img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.order-prod-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.prod-title { font-size: 0.88rem; font-weight: 600; color: #fff; }
+.prod-qty-price { font-size: 0.78rem; color: var(--text-muted); }
+
+.order-meta-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.meta-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.meta-icon { color: var(--accent-cyan); }
+
+.meta-line strong { color: #fff; }
+
+.order-total-badge {
+  margin-top: 6px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-light);
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .order-card-body { grid-template-columns: 1fr; }
+  .pipeline-steps { flex-direction: column; gap: 10px; align-items: flex-start; }
+  .pipeline-line { display: none; }
+}

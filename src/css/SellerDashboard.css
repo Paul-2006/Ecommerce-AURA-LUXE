@@ -1,0 +1,116 @@
+/* ==========================================================================
+   CLASSICAL LUXURY SELLER DASHBOARD STYLES
+   ========================================================================== */
+
+.seller-dashboard-container,
+.my-products-container,
+.seller-orders-container {
+  padding-top: 28px;
+  padding-bottom: 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.seller-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.seller-metric-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px 22px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--transition-fast);
+  gap: 14px;
+}
+
+.seller-metric-card:hover {
+  transform: translateY(-2px);
+  border-color: #c5a059;
+  box-shadow: var(--shadow-md);
+}
+
+.seller-metric-card .metric-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.seller-metric-card .metric-value {
+  font-family: var(--font-sans);
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+[data-theme="dark"] .seller-metric-card .metric-value {
+  color: #c5a059;
+}
+
+.seller-metric-card .metric-name {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Seller Action Cards */
+.seller-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+  width: 100%;
+}
+
+.seller-action-card {
+  padding: 28px 24px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-xs);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+
+.seller-action-card:hover {
+  transform: translateY(-2px);
+  border-color: #0f172a;
+  box-shadow: var(--shadow-md);
+}
+
+.seller-action-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+[data-theme="dark"] .seller-action-card h3 {
+  color: #f8f6f0;
+}
+
+.seller-action-card p {
+  font-size: 0.88rem;
+  color: var(--text-sub);
+  line-height: 1.7;
+  margin-bottom: 6px;
+}
+
+.seller-action-card button {
+  margin-top: auto;
+}

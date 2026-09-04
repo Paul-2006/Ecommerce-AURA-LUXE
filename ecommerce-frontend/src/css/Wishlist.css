@@ -1,0 +1,29 @@
+.wishlist-page-container {
+  max-width: 1350px;
+  margin: 0 auto;
+  padding: 30px 24px 80px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.wishlist-title {
+  font-size: 2rem;
+  color: #ffffff;
+}
+
+.wishlist-sub {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.wishlist-empty-card {
+  text-align: center;
+  padding: 70px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.empty-heart-icon { color: var(--accent-pink); }

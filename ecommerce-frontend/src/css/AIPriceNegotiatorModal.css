@@ -1,0 +1,169 @@
+.negotiator-card {
+  width: 460px;
+  max-width: 95vw;
+  padding: 24px;
+  background: rgba(11, 15, 23, 0.96);
+  border: 1px solid var(--accent-purple);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(139, 92, 246, 0.35);
+  position: relative;
+}
+
+.negotiator-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+}
+
+.bot-avatar-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+}
+
+.negotiator-title {
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.negotiator-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.negotiator-product-summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.negotiator-product-summary img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.summary-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.summary-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.summary-list-price {
+  font-size: 0.8rem;
+  color: var(--accent-cyan);
+}
+
+.negotiator-input-area {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.negotiator-input-area label {
+  font-size: 0.82rem;
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.price-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.dollar-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--text-dim);
+}
+
+.price-input-wrapper input {
+  width: 100%;
+  padding: 12px 12px 12px 36px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-light);
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+}
+
+.price-input-wrapper input:focus {
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+}
+
+.full-btn {
+  width: 100%;
+}
+
+.negotiating-state {
+  text-align: center;
+  padding: 30px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: var(--accent-purple);
+  font-size: 0.88rem;
+}
+
+.bot-spin-glow {
+  animation: pulseGlow 1.5s infinite ease-in-out;
+}
+
+.negotiate-result-box {
+  text-align: center;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.accepted-box {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.counter-box {
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.check-emerald { color: var(--accent-emerald); }
+.sparkle-amber { color: var(--accent-amber); }
+
+.negotiator-guarantee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  border-top: 1px solid var(--border-light);
+  padding-top: 12px;
+}

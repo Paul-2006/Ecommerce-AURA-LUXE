@@ -1,0 +1,370 @@
+/* ==========================================================================
+   CLASSICAL LUXURY PRODUCTS CATALOG STYLES
+   ========================================================================== */
+
+.products-page-container {
+  padding-top: 20px;
+  padding-bottom: 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1380px;
+  margin: 0 auto;
+  animation: fadeInProductsCatalog 0.3s ease-out;
+}
+
+@keyframes fadeInProductsCatalog {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 1. Classical Hero Header Bar & Controls Toolbar */
+.catalog-hero-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 28px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xs);
+  flex-wrap: wrap;
+  box-shadow: var(--shadow-sm);
+}
+
+.catalog-title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
+.catalog-title-block h2 {
+  font-family: var(--font-serif);
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.2;
+}
+
+[data-theme="dark"] .catalog-title-block h2 {
+  color: #f8f6f0;
+}
+
+.catalog-controls-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  max-width: 680px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+/* Classical Toolbar Search Input */
+.toolbar-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 240px;
+  background: var(--bg-main);
+  padding: 8px 14px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border-medium);
+  transition: all var(--transition-fast);
+}
+
+.toolbar-search:focus-within {
+  border-color: #0f172a;
+  background: var(--bg-surface);
+}
+
+[data-theme="dark"] .toolbar-search:focus-within {
+  border-color: #c5a059;
+}
+
+.search-symbol {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.toolbar-search-input {
+  flex: 1;
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  color: var(--text-main) !important;
+  padding: 2px 4px !important;
+  font-size: 0.88rem !important;
+  font-weight: 500 !important;
+  box-shadow: none !important;
+}
+
+.clear-search-btn {
+  background: rgba(148, 163, 184, 0.2);
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+}
+
+.clear-search-btn:hover {
+  background: #991b1b;
+  color: #ffffff;
+}
+
+/* Classical Sort Dropdown */
+.toolbar-sort {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sort-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-sub);
+  white-space: nowrap;
+}
+
+.sort-select {
+  padding: 8px 14px;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-xs);
+  background: var(--bg-surface);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+  outline: none;
+  cursor: pointer;
+}
+
+.sort-select:hover {
+  border-color: #0f172a;
+}
+
+/* 2. Classical Quick Filter Toggles & Service Bar */
+.useful-tools-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 20px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xs);
+  flex-wrap: wrap;
+}
+
+.quick-toggles-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.useful-toggle-btn {
+  padding: 6px 14px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: var(--radius-xs);
+  background: var(--bg-main);
+  color: var(--text-sub);
+  border: 1px solid var(--border-medium);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.useful-toggle-btn:hover {
+  border-color: #0f172a;
+  color: #0f172a;
+}
+
+.useful-toggle-btn.active {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+}
+
+[data-theme="dark"] .useful-toggle-btn.active {
+  background: #c5a059;
+  color: #0e131f;
+  border-color: #c5a059;
+}
+
+.useful-trust-strip {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+
+/* 3. Classical Category Bar */
+.category-pills-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 0;
+  scrollbar-width: none;
+}
+
+.category-pills-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.category-pill {
+  padding: 8px 18px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-xs);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-sub);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.category-pill:hover {
+  border-color: #c5a059;
+  color: #c5a059;
+}
+
+.category-pill.active {
+  background: #0f172a;
+  color: #c5a059;
+  border-color: #0f172a;
+}
+
+[data-theme="dark"] .category-pill.active {
+  background: #c5a059;
+  color: #0e131f;
+  border-color: #c5a059;
+}
+
+/* 4. Results Meta Row */
+.results-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.results-count-text {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.results-count-text strong {
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+.clear-filter-btn {
+  padding: 4px 12px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: var(--radius-xs);
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+  cursor: pointer;
+}
+
+.clear-filter-btn:hover {
+  background: #991b1b;
+  color: #ffffff;
+}
+
+/* 5. Products Catalog Grid */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 22px;
+  width: 100%;
+}
+
+/* 6. Loading & Empty States */
+.loading-container,
+.empty-results-box {
+  padding: 60px 20px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.loader-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-medium);
+  border-top-color: #0f172a;
+  border-radius: 50%;
+  animation: spinLoader 0.75s linear infinite;
+}
+
+@keyframes spinLoader {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 900px) {
+  .catalog-hero-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .catalog-controls-group {
+    max-width: 100%;
+  }
+
+  .useful-tools-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 600px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

@@ -1,0 +1,189 @@
+.compare-modal-card {
+  width: 1050px;
+  max-width: 95vw;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 24px;
+  background: rgba(11, 15, 23, 0.96);
+  border: 1px solid var(--accent-purple);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(139, 92, 246, 0.3);
+}
+
+.compare-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+}
+
+.compare-header-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.compare-icon-glow {
+  color: var(--accent-purple);
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+.compare-empty-box {
+  text-align: center;
+  padding: 50px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.empty-icon {
+  color: var(--text-dim);
+}
+
+.compare-empty-box h3 {
+  font-size: 1.1rem;
+  color: #ffffff;
+}
+
+.compare-empty-box p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  max-width: 420px;
+}
+
+.compare-matrix-scroll {
+  overflow-x: auto;
+}
+
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.compare-table th, .compare-table td {
+  padding: 14px;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: top;
+}
+
+.spec-label-col {
+  width: 180px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.table-prod-header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  padding: 10px;
+}
+
+.remove-compare-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remove-compare-btn:hover {
+  background: var(--accent-pink);
+  color: #fff;
+}
+
+.table-prod-header img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.matrix-prod-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.matrix-prod-price {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--accent-cyan);
+}
+
+.matrix-add-btn {
+  padding: 6px 12px !important;
+  font-size: 0.78rem !important;
+}
+
+.matrix-stat-highlight {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.matrix-stat-sub {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.badge-cyan-score {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent-emerald);
+  background: rgba(16, 185, 129, 0.15);
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.matrix-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.matrix-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.verdict-card {
+  padding: 10px;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 10px;
+  font-size: 0.78rem;
+  color: var(--text-main);
+  font-style: italic;
+  display: flex;
+  gap: 8px;
+}
+
+.sparkle-purple {
+  color: var(--accent-purple);
+  flex-shrink: 0;
+  margin-top: 2px;
+}

@@ -1,0 +1,182 @@
+/* Portal Login Page */
+
+.login-container {
+
+    width: 420px;
+    margin: 80px auto;
+    padding: 35px;
+
+    background: #ffffff;
+
+    border-radius: 12px;
+
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.15);
+
+    text-align: center;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+
+
+/* Heading */
+
+.login-container h2 {
+
+    color: #2874f0;
+
+    margin-bottom: 30px;
+
+    font-size: 28px;
+
+}
+
+
+
+/* Input fields */
+
+.login-container input {
+
+    width: 90%;
+
+    padding: 13px;
+
+    margin: 10px 0;
+
+    border: 1px solid #ccc;
+
+    border-radius: 6px;
+
+    font-size: 15px;
+
+    outline: none;
+
+}
+
+
+
+.login-container input:focus {
+
+    border-color: #2874f0;
+
+}
+
+
+
+/* Portal dropdown */
+
+.login-container select {
+
+    width: 96%;
+
+    padding: 13px;
+
+    margin: 15px 0;
+
+    border: 1px solid #ccc;
+
+    border-radius: 6px;
+
+    font-size: 15px;
+
+    background:white;
+
+}
+
+
+
+/* Login button */
+
+.login-container button {
+
+    width: 96%;
+
+    padding: 13px;
+
+    margin-top: 20px;
+
+    border:none;
+
+    border-radius: 6px;
+
+    background:#2874f0;
+
+    color:white;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+}
+
+
+
+.login-container button:hover {
+
+    background:#1255c7;
+
+}
+
+
+
+/* Portal buttons if used */
+
+.portal-buttons {
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    margin-top:20px;
+
+}
+
+
+
+.portal-buttons button {
+
+    width:auto;
+
+    padding:10px 20px;
+
+}
+
+
+
+/* Page background */
+
+body {
+
+    margin:0;
+
+    background:#f2f2f2;
+
+}
+
+
+
+/* Mobile responsive */
+
+@media(max-width:500px){
+
+    .login-container{
+
+        width:85%;
+
+        padding:25px;
+
+    }
+
+
+    .login-container h2{
+
+        font-size:22px;
+
+    }
+
+}

@@ -1,0 +1,236 @@
+.quickview-modal-card {
+  width: 900px;
+  max-width: 95vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 30px;
+  position: relative;
+  background: rgba(11, 15, 23, 0.96);
+  border: 1px solid var(--border-glow);
+}
+
+.quickview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 30px;
+}
+
+.quickview-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.quickview-main-img-box {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #000;
+}
+
+.quickview-main-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.quick-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+}
+
+.quickview-thumbs {
+  display: flex;
+  gap: 10px;
+}
+
+.thumb-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  opacity: 0.6;
+  transition: var(--transition-fast);
+}
+
+.thumb-btn.active-thumb, .thumb-btn:hover {
+  opacity: 1;
+  border-color: var(--accent-cyan);
+}
+
+.thumb-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Details */
+.quickview-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.quick-category {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+}
+
+.quick-title {
+  font-size: 1.4rem;
+  margin: 4px 0 10px 0;
+  line-height: 1.3;
+}
+
+.quick-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.star-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.stock-status {
+  color: var(--accent-emerald);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+}
+
+.quick-price-box {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.quick-price {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.quick-orig-price {
+  font-size: 1.1rem;
+  color: var(--text-dim);
+  text-decoration: line-through;
+}
+
+.quick-description {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.quick-ai-box {
+  padding: 12px;
+  background: rgba(6, 182, 212, 0.08);
+  border: 1px solid rgba(6, 182, 212, 0.25);
+  border-radius: var(--radius-md);
+  margin-bottom: 20px;
+}
+
+.ai-box-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.ai-verdict {
+  font-size: 0.82rem;
+  color: var(--text-main);
+  font-style: italic;
+}
+
+.quick-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.qty-picker {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 4px;
+}
+
+.qty-picker button {
+  width: 32px;
+  height: 32px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.qty-picker span {
+  padding: 0 12px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.flex-1 { flex: 1; }
+
+.quick-wishlist-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-light);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+}
+
+.quick-wishlist-btn:hover, .quick-wishlist-btn.active-wish {
+  color: var(--accent-pink);
+  border-color: var(--accent-pink);
+  background: rgba(236, 72, 153, 0.15);
+}
+
+.quick-perks {
+  display: flex;
+  gap: 20px;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  border-top: 1px solid var(--border-light);
+  padding-top: 14px;
+}
+
+.quick-perks span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+@media (max-width: 768px) {
+  .quickview-grid {
+    grid-template-columns: 1fr;
+  }
+}

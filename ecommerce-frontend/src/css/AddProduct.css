@@ -1,0 +1,94 @@
+.add-product-page-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 24px 80px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.add-prod-card {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.add-prod-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 16px;
+}
+
+.icon-header-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--accent-cyan);
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-prod-header h2 {
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.add-prod-header span {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.add-prod-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.label-with-ai {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ai-gen-btn {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent-purple);
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  padding: 4px 10px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition-fast);
+}
+
+.ai-gen-btn:hover {
+  background: var(--accent-purple);
+  color: #fff;
+}
+
+.add-prod-form textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-light);
+  color: #fff;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.full-submit-btn { width: 100%; margin-top: 10px; }
