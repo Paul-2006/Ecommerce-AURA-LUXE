@@ -132,7 +132,11 @@ function Register() {
     } catch (err) {
       console.error("Registration error:", err);
       const respMsg = err.response?.data?.message || (typeof err.response?.data === "string" ? err.response.data : null);
-      setErrorMsg(respMsg || err.message || "Registration failed. Please check your details and try again.");
+      if (err.message === "Network Error" || !err.response) {
+        setErrorMsg("Network Connection Error: Unable to reach the backend API server. Please ensure your ASP.NET Core API server (http://localhost:5151) is running.");
+      } else {
+        setErrorMsg(respMsg || err.message || "Registration failed. Please check your details and try again.");
+      }
     } finally {
       setLoading(false);
     }
