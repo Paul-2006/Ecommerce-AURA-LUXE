@@ -3,8 +3,8 @@ import { useLocation } from "react-router-dom";
 function DynamicEcommerceBackground() {
   const location = useLocation();
 
-  // Hide e-commerce background mesh blobs & shopping icons on all Admin routes
-  if (location.pathname.startsWith("/admin")) {
+  // Hide e-commerce background mesh blobs & shopping icons on Admin and Seller routes
+  if (location.pathname.startsWith("/admin") || location.pathname.startsWith("/seller")) {
     return null;
   }
 

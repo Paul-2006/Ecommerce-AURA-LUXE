@@ -2,7 +2,8 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { addProduct, addSellerProduct, uploadProductImage } from "../../services/sellerService";
-import "../../css/AddProduct.css";
+import { ArrowLeft, Upload, CheckCircle2 } from "lucide-react";
+import "../../css/SellerPortal.css";
 
 function AddProduct() {
   const navigate = useNavigate();
@@ -13,7 +14,9 @@ function AddProduct() {
     productName: "",
     description: "",
     brand: "",
-    warranty: "1 Year Official Warranty",
+    sku: `SKU-${Date.now().toString().slice(-6)}`,
+    discount: "0",
+    warranty: "1 Year Official Brand Warranty",
     approvalStatus: "Pending"
   });
 
@@ -51,7 +54,7 @@ function AddProduct() {
       const productId = productRes.productId || productRes.data?.productId || Date.now();
 
       await addSellerProduct({
-        sellerId: user?.sellerId || 1,
+        sellerId: user?.sellerId || user?.userId || 1,
         productId,
         price: Number(sellerListing.price),
         stockQuantity: Number(sellerListing.stockQuantity)
@@ -61,7 +64,7 @@ function AddProduct() {
         await uploadProductImage(productId, image);
       }
 
-      alert("Product Submitted: Sent to Admin console for catalog approval.");
+      alert("Product Submitted: Sent to Admin console for catalog clearance.");
       navigate("/seller/products");
     } catch (err) {
       console.error(err);
@@ -73,19 +76,28 @@ function AddProduct() {
   };
 
   return (
-    <div className="add-product-page-container centered-container">
+    <div className="seller-page-container">
       {/* Header */}
-      <div className="page-header center-content">
-        <span className="badge-pill badge-primary">Merchant Catalog</span>
-        <h1>Add New Marketplace Product</h1>
-        <p>List high-grade products for customer discovery across our marketplace catalog.</p>
+      <div className="seller-page-header glass-panel" style={{ padding: "20px 24px", marginBottom: "20px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div>
+            <span className="badge-pill badge-secondary">Catalog Management</span>
+            <h1 style={{ margin: "6px 0 2px 0", fontSize: "1.35rem" }}>Add New Marketplace Product Listing</h1>
+            <p style={{ margin: 0, fontSize: "0.86rem" }}>
+              List high-grade products for customer discovery across our marketplace catalog.
+            </p>
+          </div>
+          <button className="btn btn-outline btn-sm" onClick={() => navigate("/seller/products")}>
+            <ArrowLeft className="w-4 h-4" aria-hidden="true" /> Back to Products
+          </button>
+        </div>
       </div>
 
-      <div className="add-product-card glass-panel">
-        <form className="add-product-form" onSubmit={handleSubmit}>
-          <div className="form-grid-2">
+      <div className="glass-panel" style={{ padding: "28px", maxWidth: "840px" }}>
+        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
             <div className="form-group">
-              <label className="form-label">Product Name *</label>
+              <label>Product Title *</label>
               <input
                 type="text"
                 name="productName"
@@ -97,7 +109,7 @@ function AddProduct() {
             </div>
 
             <div className="form-group">
-              <label className="form-label">Brand Name *</label>
+              <label>Brand Name *</label>
               <input
                 type="text"
                 name="brand"
@@ -109,14 +121,13 @@ function AddProduct() {
             </div>
           </div>
 
-          <div className="form-grid-3">
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "16px" }}>
             <div className="form-group">
-              <label className="form-label">Category</label>
+              <label>Category</label>
               <select
                 name="categoryId"
                 value={product.categoryId}
                 onChange={handleProductChange}
-                className="input-modern"
               >
                 <option value={1}>Mobiles & 5G Phones</option>
                 <option value={2}>Laptops & Computers</option>
@@ -127,7 +138,7 @@ function AddProduct() {
             </div>
 
             <div className="form-group">
-              <label className="form-label">Seller Price (₹ INR) *</label>
+              <label>Seller List Price (₹) *</label>
               <input
                 type="number"
                 min="1"
@@ -141,7 +152,7 @@ function AddProduct() {
             </div>
 
             <div className="form-group">
-              <label className="form-label">Initial Stock Units *</label>
+              <label>Initial Stock Quantity *</label>
               <input
                 type="number"
                 min="1"
@@ -154,19 +165,31 @@ function AddProduct() {
             </div>
           </div>
 
-          <div className="form-group">
-            <label className="form-label">Warranty Details</label>
-            <input
-              type="text"
-              name="warranty"
-              value={product.warranty}
-              onChange={handleProductChange}
-              placeholder="e.g. 1 Year Manufacturer Warranty"
-            />
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+            <div className="form-group">
+              <label>SKU / Stock Keeping Unit</label>
+              <input
+                type="text"
+                name="sku"
+                value={product.sku}
+                onChange={handleProductChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Warranty Terms</label>
+              <input
+                type="text"
+                name="warranty"
+                value={product.warranty}
+                onChange={handleProductChange}
+              />
+            </div>
           </div>
 
           <div className="form-group">
-            <label className="form-label">Full Technical Description</label>
+            <label>Full Technical Description *</label>
             <textarea
               name="description"
               rows="4"
@@ -179,28 +202,36 @@ function AddProduct() {
 
           {/* Image Upload Box */}
           <div className="form-group">
-            <label className="form-label">Product Showcase Image</label>
-            <div className="image-upload-dropzone">
-              <input type="file" accept="image/*" onChange={handleImageSelect} id="prod-img-input" />
-              <label htmlFor="prod-img-input" className="upload-dropzone-label">
+            <label>Product Photo Showcase</label>
+            <div style={{ border: "2px dashed var(--seller-border)", borderRadius: "10px", padding: "20px", textAlign: "center", background: "var(--seller-surface-alt)" }}>
+              <input type="file" accept="image/*" onChange={handleImageSelect} id="prod-img-input" style={{ display: "none" }} />
+              <label htmlFor="prod-img-input" style={{ cursor: "pointer", display: "block" }}>
                 {imagePreview ? (
-                  <img src={imagePreview} alt="Preview" className="img-upload-preview" />
+                  <img src={imagePreview} alt="Preview" style={{ maxHeight: "160px", margin: "0 auto", borderRadius: "8px" }} />
                 ) : (
-                  <div className="dropzone-placeholder">
-                    <strong>Click to upload product photo</strong>
-                    <p>PNG, JPG, WebP up to 10MB</p>
+                  <div>
+                    <Upload className="w-8 h-8 mx-auto" style={{ color: "var(--seller-secondary)" }} aria-hidden="true" />
+                    <strong style={{ display: "block", marginTop: "8px", color: "var(--seller-primary)" }}>Click to upload product photo</strong>
+                    <span style={{ fontSize: "0.78rem", color: "var(--seller-text-secondary)" }}>PNG, JPG, WebP up to 10MB</span>
                   </div>
                 )}
               </label>
             </div>
           </div>
 
-          <div className="form-actions-row">
-            <button type="button" className="btn btn-secondary" onClick={() => navigate("/seller/products")}>
+          <div className="admin-alert admin-alert-warning" style={{ margin: 0 }}>
+            <CheckCircle2 className="w-4 h-4" aria-hidden="true" />
+            <span style={{ fontSize: "0.82rem" }}>
+              Note: Submitted listings are routed to the <strong>Master Admin Product Approval Desk</strong>. Once verified, the listing will go live on the customer catalog.
+            </span>
+          </div>
+
+          <div style={{ display: "flex", gap: "10px", justifyContent: "flex-end", marginTop: "10px" }}>
+            <button type="button" className="btn btn-outline" onClick={() => navigate("/seller/products")}>
               Cancel
             </button>
-            <button type="submit" className="btn btn-primary btn-lg" disabled={loading}>
-              {loading ? "Submitting Listing..." : "Submit Product for Catalog Approval"}
+            <button type="submit" className="btn btn-primary" disabled={loading}>
+              {loading ? "Submitting Listing..." : "Submit Product for Clearance"}
             </button>
           </div>
         </form>

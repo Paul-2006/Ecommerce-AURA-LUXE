@@ -1,0 +1,703 @@
+/* ==========================================================================
+   ENTERPRISE MERCHANT SELLER PORTAL - DEDICATED STYLESHEET
+   ========================================================================== */
+
+:root {
+    --seller-primary: #172033;
+    --seller-primary-dark: #0E1524;
+    --seller-secondary: #B08D57;
+    --seller-accent: #D4B483;
+    --seller-background: #F6F3ED;
+    --seller-surface: #FFFFFF;
+    --seller-surface-alt: #ECE7DD;
+    --seller-text: #1C2431;
+    --seller-text-secondary: #667085;
+    --seller-border: #D9D3C7;
+    --seller-success: #3F7652;
+    --seller-warning: #A8752A;
+    --seller-danger: #A54A4A;
+}
+
+/* Global Body Override when on Seller Portal */
+body:has(.seller-portal-wrapper),
+html:has(.seller-portal-wrapper) {
+    background-color: #F6F3ED !important;
+    background: #F6F3ED !important;
+}
+
+/* Base Scope & Layout */
+.seller-portal-wrapper {
+    --seller-primary: #172033;
+    --seller-primary-dark: #0E1524;
+    --seller-secondary: #B08D57;
+    --seller-accent: #D4B483;
+    --seller-background: #F6F3ED;
+    --seller-surface: #FFFFFF;
+    --seller-surface-alt: #ECE7DD;
+    --seller-text: #1C2431;
+    --seller-text-secondary: #667085;
+    --seller-border: #D9D3C7;
+    --seller-success: #3F7652;
+    --seller-warning: #A8752A;
+    --seller-danger: #A54A4A;
+
+    /* Override global theme variable names within seller portal subtree */
+    --bg-main: #F6F3ED !important;
+    --bg-surface: #FFFFFF !important;
+    --bg-card: #FFFFFF !important;
+    --text-main: #1C2431 !important;
+    --text-sub: #1C2431 !important;
+    --text-muted: #667085 !important;
+    --border-light: #D9D3C7 !important;
+    --border-medium: #D9D3C7 !important;
+    --primary: #172033 !important;
+    --accent: #B08D57 !important;
+    --radius-btn: 10px !important;
+    --radius-card: 14px !important;
+    --radius-input: 10px !important;
+
+    min-height: 100vh;
+    background-color: #F6F3ED !important;
+    color: #1C2431 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+    display: flex;
+    position: relative;
+    z-index: 10;
+}
+
+/* Dark Mode Override Enforcement for Seller Portal */
+[data-theme="dark"] .seller-portal-wrapper,
+[data-theme="dark"] body:has(.seller-portal-wrapper) {
+    background-color: #F6F3ED !important;
+    background: #F6F3ED !important;
+    color: #1C2431 !important;
+    --bg-main: #F6F3ED !important;
+    --bg-surface: #FFFFFF !important;
+    --bg-card: #FFFFFF !important;
+    --text-main: #1C2431 !important;
+    --text-sub: #1C2431 !important;
+    --text-muted: #667085 !important;
+    --border-light: #D9D3C7 !important;
+    --border-medium: #D9D3C7 !important;
+    --primary: #172033 !important;
+}
+
+/* Main Container Area */
+.seller-main-container {
+    flex: 1;
+    margin-left: 260px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--seller-background) !important;
+    transition: margin-left 0.3s ease;
+    width: calc(100% - 260px);
+}
+
+@media (max-width: 1024px) {
+    .seller-main-container {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   1. FIXED SELLER SIDEBAR
+   -------------------------------------------------------------------------- */
+.seller-sidebar {
+    width: 260px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #172033 !important;
+    color: #F6F3ED !important;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    border-right: 1px solid #0E1524 !important;
+    box-shadow: 4px 0 20px rgba(14, 21, 36, 0.15);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+}
+
+.seller-sidebar-header {
+    padding: 20px 20px 16px 20px;
+    border-bottom: 1px solid rgba(217, 211, 199, 0.15) !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.seller-sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.seller-brand-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: #B08D57 !important;
+    color: #FFFFFF !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.seller-brand-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.seller-brand-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: #FFFFFF !important;
+    line-height: 1.2;
+}
+
+.seller-brand-subtitle {
+    font-size: 0.72rem;
+    color: #D4B483 !important;
+    letter-spacing: 0.03em;
+    font-weight: 600;
+}
+
+/* Sidebar Navigation Menu */
+.seller-sidebar-nav {
+    flex: 1;
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow-y: auto;
+}
+
+.seller-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    border-radius: 10px !important;
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: #ECE7DD !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+}
+
+.seller-nav-item:hover {
+    background-color: rgba(212, 180, 131, 0.15) !important;
+    color: #D4B483 !important;
+    transform: translateX(3px);
+}
+
+.seller-nav-item.active {
+    background-color: #B08D57 !important;
+    color: #FFFFFF !important;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(176, 141, 87, 0.3);
+}
+
+.seller-nav-item.active svg {
+    color: #FFFFFF !important;
+}
+
+.seller-nav-item svg {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+    color: #D4B483 !important;
+    transition: color 0.2s ease;
+}
+
+.seller-sidebar-footer {
+    padding: 16px;
+    border-top: 1px solid rgba(217, 211, 199, 0.15) !important;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: #0E1524 !important;
+}
+
+.seller-operator-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(217, 211, 199, 0.15) !important;
+    border-radius: 10px;
+}
+
+.seller-operator-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: #B08D57 !important;
+    color: #FFFFFF !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.seller-operator-info {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.seller-operator-name {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #FFFFFF !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.seller-operator-role {
+    font-size: 0.72rem;
+    color: #D4B483 !important;
+}
+
+/* Sidebar Responsive Overlay */
+@media (max-width: 1024px) {
+    .seller-sidebar {
+        transform: translateX(-100%);
+    }
+    .seller-sidebar.open {
+        transform: translateX(0);
+    }
+    .seller-sidebar-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(14, 21, 36, 0.6);
+        backdrop-filter: blur(4px);
+        z-index: 999;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   2. CLEAN SELLER TOP BAR
+   -------------------------------------------------------------------------- */
+.seller-topbar {
+    background-color: #FFFFFF !important;
+    border-bottom: 1px solid #D9D3C7 !important;
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 900;
+    box-shadow: 0 1px 4px rgba(23, 32, 51, 0.04);
+}
+
+.seller-topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.seller-mobile-toggle {
+    display: none;
+    background: transparent;
+    border: 1px solid #D9D3C7 !important;
+    border-radius: 8px;
+    padding: 6px;
+    cursor: pointer;
+    color: #1C2431 !important;
+}
+
+@media (max-width: 1024px) {
+    .seller-mobile-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.seller-page-header-title {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #172033 !important;
+    letter-spacing: -0.01em;
+}
+
+.seller-topbar-search {
+    position: relative;
+    width: 280px;
+}
+
+.seller-topbar-search input {
+    width: 100%;
+    padding: 8px 12px 8px 36px;
+    border-radius: 10px !important;
+    border: 1px solid #D9D3C7 !important;
+    background: #F6F3ED !important;
+    color: #1C2431 !important;
+    font-size: 0.85rem;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.seller-topbar-search input:focus {
+    border-color: #B08D57 !important;
+    box-shadow: 0 0 0 3px rgba(176, 141, 87, 0.18) !important;
+    background: #FFFFFF !important;
+}
+
+.seller-topbar-search svg {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    color: #667085 !important;
+}
+
+.seller-topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.seller-topbar-badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: #ECE7DD !important;
+    border: 1px solid #D9D3C7 !important;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #172033 !important;
+}
+
+/* --------------------------------------------------------------------------
+   3. SELLER CONTENT AREA & CONTAINERS
+   -------------------------------------------------------------------------- */
+.seller-portal-content {
+    padding: 24px 28px 48px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    flex: 1;
+}
+
+/* Header Banners inside pages */
+.seller-dashboard-header,
+.seller-page-header,
+.seller-portal-wrapper .glass-panel {
+    background: #FFFFFF !important;
+    border: 1px solid #D9D3C7 !important;
+    border-radius: 14px !important;
+    box-shadow: 0 2px 8px rgba(23, 32, 51, 0.04) !important;
+    color: #1C2431 !important;
+}
+
+.seller-dashboard-header h1,
+.seller-page-header h1,
+.seller-portal-wrapper .glass-panel h1,
+.seller-portal-wrapper .glass-panel h2,
+.seller-portal-wrapper .glass-panel h3 {
+    color: #172033 !important;
+    font-family: inherit !important;
+    font-weight: 700 !important;
+}
+
+.seller-dashboard-header p,
+.seller-page-header p,
+.seller-portal-wrapper .glass-panel p {
+    color: #667085 !important;
+}
+
+/* --------------------------------------------------------------------------
+   4. REDESIGNED METRICS CARDS
+   -------------------------------------------------------------------------- */
+.seller-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    width: 100%;
+}
+
+.seller-metric-card,
+.seller-portal-wrapper .metric-card {
+    background: #FFFFFF !important;
+    border: 1px solid #D9D3C7 !important;
+    border-radius: 14px !important;
+    padding: 20px 18px !important;
+    box-shadow: 0 2px 8px rgba(23, 32, 51, 0.04) !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+    transition: all 0.2s ease !important;
+    cursor: pointer;
+}
+
+.seller-metric-card:hover,
+.seller-portal-wrapper .metric-card:hover {
+    transform: translateY(-2px) !important;
+    border-color: #B08D57 !important;
+    box-shadow: 0 4px 14px rgba(176, 141, 87, 0.15) !important;
+}
+
+.seller-metric-card .metric-val,
+.seller-metric-card .metric-value,
+.seller-portal-wrapper .metric-card .metric-val,
+.seller-portal-wrapper .metric-info strong {
+    font-size: 1.6rem !important;
+    font-weight: 800 !important;
+    color: #172033 !important;
+    line-height: 1.2;
+}
+
+.seller-metric-card .metric-title,
+.seller-metric-card .metric-name,
+.seller-portal-wrapper .metric-card .metric-title,
+.seller-portal-wrapper .metric-info span {
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    color: #667085 !important;
+}
+
+/* --------------------------------------------------------------------------
+   5. REUSABLE ENTERPRISE TABLE STYLE
+   -------------------------------------------------------------------------- */
+.seller-portal-wrapper .table-responsive,
+.seller-table-container {
+    background: #FFFFFF !important;
+    border: 1px solid #D9D3C7 !important;
+    border-radius: 14px !important;
+    overflow-x: auto;
+    box-shadow: 0 2px 8px rgba(23, 32, 51, 0.04) !important;
+}
+
+.seller-portal-wrapper .table-modern,
+table.seller-table,
+.seller-portal-wrapper .table-responsive table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    color: #1C2431 !important;
+    background: #FFFFFF !important;
+}
+
+.seller-portal-wrapper .table-modern th,
+table.seller-table th,
+.seller-portal-wrapper .table-responsive th {
+    background: #172033 !important;
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+    font-size: 0.8rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    padding: 14px 16px !important;
+    text-align: left !important;
+    border-bottom: 2px solid #0E1524 !important;
+}
+
+.seller-portal-wrapper .table-modern th:first-child,
+.seller-portal-wrapper .table-responsive th:first-child {
+    border-top-left-radius: 12px;
+}
+
+.seller-portal-wrapper .table-modern th:last-child,
+.seller-portal-wrapper .table-responsive th:last-child {
+    border-top-right-radius: 12px;
+}
+
+.seller-portal-wrapper .table-modern td,
+table.seller-table td,
+.seller-portal-wrapper .table-responsive td {
+    padding: 14px 16px !important;
+    border-bottom: 1px solid #D9D3C7 !important;
+    color: #1C2431 !important;
+    font-size: 0.86rem !important;
+    vertical-align: middle;
+}
+
+.seller-portal-wrapper .table-modern tr:last-child td,
+.seller-portal-wrapper .table-responsive tr:last-child td {
+    border-bottom: none !important;
+}
+
+.seller-portal-wrapper .table-modern tr:hover td,
+.seller-portal-wrapper .table-responsive tr:hover td {
+    background-color: #ECE7DD !important;
+}
+
+/* --------------------------------------------------------------------------
+   6. ROUNDED STATUS BADGES
+   -------------------------------------------------------------------------- */
+.seller-portal-wrapper .badge-pill,
+.status-badge {
+    border-radius: 20px !important;
+    font-size: 0.74rem !important;
+    font-weight: 700 !important;
+    padding: 4px 12px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    line-height: 1.4 !important;
+}
+
+/* Success / Active / Approved */
+.seller-portal-wrapper .badge-success,
+.badge-approved,
+.badge-active {
+    background-color: #EBF3ED !important;
+    color: #3F7652 !important;
+    border: 1px solid rgba(63, 118, 82, 0.3) !important;
+}
+
+/* Warning / Pending */
+.seller-portal-wrapper .badge-warning,
+.badge-pending {
+    background-color: #FDF7EC !important;
+    color: #A8752A !important;
+    border: 1px solid rgba(168, 117, 42, 0.3) !important;
+}
+
+/* Danger / Rejected / Suspended */
+.seller-portal-wrapper .badge-danger,
+.badge-rejected,
+.badge-suspended {
+    background-color: #FDF0F0 !important;
+    color: #A54A4A !important;
+    border: 1px solid rgba(165, 74, 74, 0.3) !important;
+}
+
+/* Slate / Inactive / Secondary */
+.seller-portal-wrapper .badge-secondary,
+.seller-portal-wrapper .badge-primary,
+.badge-inactive {
+    background-color: #F1F3F5 !important;
+    color: #667085 !important;
+    border: 1px solid #D9D3C7 !important;
+}
+
+/* --------------------------------------------------------------------------
+   7. SELLER BUTTON SYSTEM (All buttons 10px rounded edges)
+   -------------------------------------------------------------------------- */
+.seller-portal-wrapper button,
+.seller-portal-wrapper .btn {
+    border-radius: 10px !important;
+    font-size: 0.84rem !important;
+    font-weight: 600 !important;
+    padding: 9px 18px !important;
+    transition: all 0.2s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    cursor: pointer !important;
+}
+
+.seller-portal-wrapper .btn-primary {
+    background-color: #172033 !important;
+    color: #FFFFFF !important;
+    border: 1px solid #0E1524 !important;
+}
+
+.seller-portal-wrapper .btn-primary:hover {
+    background-color: #0E1524 !important;
+    box-shadow: 0 4px 10px rgba(14, 21, 36, 0.2) !important;
+}
+
+.seller-portal-wrapper .btn-secondary {
+    background-color: #B08D57 !important;
+    color: #FFFFFF !important;
+    border: 1px solid #B08D57 !important;
+}
+
+.seller-portal-wrapper .btn-secondary:hover {
+    background-color: #9C7A48 !important;
+    box-shadow: 0 4px 10px rgba(176, 141, 87, 0.25) !important;
+}
+
+.seller-portal-wrapper .btn-danger {
+    background-color: #A54A4A !important;
+    color: #FFFFFF !important;
+    border: 1px solid #A54A4A !important;
+}
+
+.seller-portal-wrapper .btn-danger:hover {
+    background-color: #8C3E3E !important;
+    box-shadow: 0 4px 10px rgba(165, 74, 74, 0.25) !important;
+}
+
+.seller-portal-wrapper .btn-warning {
+    background-color: #A8752A !important;
+    color: #FFFFFF !important;
+    border: 1px solid #A8752A !important;
+}
+
+.seller-portal-wrapper .btn-warning:hover {
+    background-color: #8E6221 !important;
+}
+
+.seller-portal-wrapper .btn-outline,
+.seller-portal-wrapper .btn-ghost {
+    background-color: transparent !important;
+    color: #172033 !important;
+    border: 1px solid #D9D3C7 !important;
+}
+
+.seller-portal-wrapper .btn-outline:hover,
+.seller-portal-wrapper .btn-ghost:hover {
+    background-color: #ECE7DD !important;
+    border-color: #D9D3C7 !important;
+}
+
+/* --------------------------------------------------------------------------
+   8. SELLER FORMS & INPUTS
+   -------------------------------------------------------------------------- */
+.seller-portal-wrapper input[type="text"],
+.seller-portal-wrapper input[type="email"],
+.seller-portal-wrapper input[type="password"],
+.seller-portal-wrapper input[type="search"],
+.seller-portal-wrapper select,
+.seller-portal-wrapper textarea,
+.seller-form-input {
+    border-radius: 10px !important;
+    border: 1px solid #D9D3C7 !important;
+    background-color: #FFFFFF !important;
+    color: #1C2431 !important;
+    padding: 10px 14px !important;
+    font-size: 0.88rem !important;
+    outline: none !important;
+    transition: all 0.2s ease !important;
+}
+
+.seller-portal-wrapper input:focus,
+.seller-portal-wrapper select:focus,
+.seller-portal-wrapper textarea:focus {
+    border-color: #B08D57 !important;
+    box-shadow: 0 0 0 3px rgba(176, 141, 87, 0.2) !important;
+}
+
+.seller-portal-wrapper label {
+    font-size: 0.82rem !important;
+    font-weight: 700 !important;
+    color: #172033 !important;
+    margin-bottom: 6px !important;
+    display: block !important;
+}

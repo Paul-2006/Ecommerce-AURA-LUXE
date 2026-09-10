@@ -34,11 +34,25 @@ import AdminDashboard from "./pages/dashboards/AdminDashboard";
 import WarehouseDashboard from "./pages/dashboards/WarehouseDashboard";
 import DeliveryDashboard from "./pages/dashboards/DeliveryDashboard";
 
-// Seller Actions
+// Seller Portal Components & Pages
+import SellerLayout from "./components/seller/SellerLayout";
 import AddProduct from "./pages/seller/AddProduct";
 import MyProducts from "./pages/seller/MyProducts";
 import EditProduct from "./pages/seller/EditProduct";
+import SellerInventory from "./pages/seller/SellerInventory";
 import SellerOrders from "./pages/seller/SellerOrders";
+import SellerReturns from "./pages/seller/SellerReturns";
+import SellerCustomers from "./pages/seller/SellerCustomers";
+import SellerReviews from "./pages/seller/SellerReviews";
+import SellerComplaints from "./pages/seller/SellerComplaints";
+import SellerAnalytics from "./pages/seller/SellerAnalytics";
+import SellerPayments from "./pages/seller/SellerPayments";
+import SellerShipping from "./pages/seller/SellerShipping";
+import SellerNotifications from "./pages/seller/SellerNotifications";
+import SellerReports from "./pages/seller/SellerReports";
+import SellerStore from "./pages/seller/SellerStore";
+import SellerProfile from "./pages/seller/SellerProfile";
+import SellerSettings from "./pages/seller/SellerSettings";
 
 import AdminLayout from "./components/admin/AdminLayout";
 
@@ -163,47 +177,37 @@ function App() {
           }
         />
 
-        {/* Protected Seller Routes */}
+        {/* Isolated Protected Seller Merchant Center Routes */}
         <Route
-          path="/seller/dashboard"
+          path="/seller"
           element={
             <ProtectedRoute allowedRoles={["Seller", 2]}>
-              <SellerDashboard />
+              <SellerLayout />
             </ProtectedRoute>
           }
-        />
-        <Route
-          path="/seller/add-product"
-          element={
-            <ProtectedRoute allowedRoles={["Seller", 2]}>
-              <AddProduct />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/seller/products"
-          element={
-            <ProtectedRoute allowedRoles={["Seller", 2]}>
-              <MyProducts />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/seller/edit-product/:id"
-          element={
-            <ProtectedRoute allowedRoles={["Seller", 2]}>
-              <EditProduct />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/seller/orders"
-          element={
-            <ProtectedRoute allowedRoles={["Seller", 2]}>
-              <SellerOrders />
-            </ProtectedRoute>
-          }
-        />
+        >
+          <Route index element={<Navigate to="/seller/dashboard" replace />} />
+          <Route path="dashboard" element={<SellerDashboard />} />
+          <Route path="products" element={<MyProducts />} />
+          <Route path="products/add" element={<AddProduct />} />
+          <Route path="products/edit/:id" element={<EditProduct />} />
+          <Route path="add-product" element={<AddProduct />} />
+          <Route path="edit-product/:id" element={<EditProduct />} />
+          <Route path="inventory" element={<SellerInventory />} />
+          <Route path="orders" element={<SellerOrders />} />
+          <Route path="returns" element={<SellerReturns />} />
+          <Route path="customers" element={<SellerCustomers />} />
+          <Route path="reviews" element={<SellerReviews />} />
+          <Route path="complaints" element={<SellerComplaints />} />
+          <Route path="analytics" element={<SellerAnalytics />} />
+          <Route path="payments" element={<SellerPayments />} />
+          <Route path="shipping" element={<SellerShipping />} />
+          <Route path="notifications" element={<SellerNotifications />} />
+          <Route path="reports" element={<SellerReports />} />
+          <Route path="store" element={<SellerStore />} />
+          <Route path="profile" element={<SellerProfile />} />
+          <Route path="settings" element={<SellerSettings />} />
+        </Route>
 
         {/* Isolated Protected Admin Control Center Routes */}
         <Route

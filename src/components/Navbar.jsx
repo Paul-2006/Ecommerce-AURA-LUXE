@@ -32,7 +32,7 @@ function Navbar() {
   const location = useLocation();
 
   // If Admin or on Admin routes, do not render customer navigation bar
-  if (isAdmin || user?.role === "Admin" || location.pathname.startsWith("/admin")) {
+  if (isAdmin || user?.role === "Admin" || location.pathname.startsWith("/admin") || location.pathname.startsWith("/seller")) {
     return null;
   }
 

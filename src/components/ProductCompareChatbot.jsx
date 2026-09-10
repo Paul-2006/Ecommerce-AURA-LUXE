@@ -14,8 +14,8 @@ function ProductCompareChatbot() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Hide shopping chatbot on all Admin management routes
-  if (location.pathname.startsWith("/admin")) {
+  // Hide shopping chatbot on all Admin and Seller management routes
+  if (location.pathname.startsWith("/admin") || location.pathname.startsWith("/seller")) {
     return null;
   }
   const { isCustomer } = useContext(AuthContext);
