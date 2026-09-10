@@ -1,5 +1,5 @@
 /* ==========================================================================
-   CLASSICAL LUXURY PRODUCTS CATALOG STYLES
+   CLASSICAL & PROFESSIONAL PRODUCTS CATALOG STYLES
    ========================================================================== */
 
 .products-page-container {
@@ -10,21 +10,9 @@
   gap: 20px;
   max-width: 1380px;
   margin: 0 auto;
-  animation: fadeInProductsCatalog 0.3s ease-out;
 }
 
-@keyframes fadeInProductsCatalog {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* 1. Classical Hero Header Bar & Controls Toolbar */
+/* 1. Catalog Hero Header Bar & Controls Toolbar */
 .catalog-hero-bar {
   display: flex;
   align-items: center;
@@ -33,7 +21,7 @@
   padding: 20px 28px;
   background: var(--bg-surface);
   border: 1px solid var(--border-light);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-card);
   flex-wrap: wrap;
   box-shadow: var(--shadow-sm);
 }
@@ -46,16 +34,12 @@
 }
 
 .catalog-title-block h2 {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 1.55rem;
-  font-weight: 700;
-  color: #0f172a;
+  font-weight: 800;
+  color: var(--text-main);
   margin: 0;
   line-height: 1.2;
-}
-
-[data-theme="dark"] .catalog-title-block h2 {
-  color: #f8f6f0;
 }
 
 .catalog-controls-group {
@@ -68,7 +52,7 @@
   flex-wrap: wrap;
 }
 
-/* Classical Toolbar Search Input */
+/* Toolbar Search Input */
 .toolbar-search {
   display: flex;
   align-items: center;
@@ -77,18 +61,14 @@
   min-width: 240px;
   background: var(--bg-main);
   padding: 8px 14px;
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-input);
   border: 1px solid var(--border-medium);
   transition: all var(--transition-fast);
 }
 
 .toolbar-search:focus-within {
-  border-color: #0f172a;
+  border-color: var(--accent);
   background: var(--bg-surface);
-}
-
-[data-theme="dark"] .toolbar-search:focus-within {
-  border-color: #c5a059;
 }
 
 .search-symbol {
@@ -123,11 +103,11 @@
 }
 
 .clear-search-btn:hover {
-  background: #991b1b;
+  background: #dc2626;
   color: #ffffff;
 }
 
-/* Classical Sort Dropdown */
+/* Sort Dropdown */
 .toolbar-sort {
   display: flex;
   align-items: center;
@@ -146,7 +126,7 @@
 .sort-select {
   padding: 8px 14px;
   border: 1px solid var(--border-medium);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-input);
   background: var(--bg-surface);
   font-size: 0.85rem;
   font-weight: 600;
@@ -156,10 +136,10 @@
 }
 
 .sort-select:hover {
-  border-color: #0f172a;
+  border-color: var(--primary);
 }
 
-/* 2. Classical Quick Filter Toggles & Service Bar */
+/* Useful Tools Bar */
 .useful-tools-bar {
   display: flex;
   align-items: center;
@@ -168,7 +148,7 @@
   padding: 10px 20px;
   background: var(--bg-surface);
   border: 1px solid var(--border-light);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-card);
   flex-wrap: wrap;
 }
 
@@ -185,7 +165,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-btn);
   background: var(--bg-main);
   color: var(--text-sub);
   border: 1px solid var(--border-medium);
@@ -194,8 +174,8 @@
 }
 
 .useful-toggle-btn:hover {
-  border-color: #0f172a;
-  color: #0f172a;
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
 .useful-toggle-btn.active {
@@ -205,9 +185,9 @@
 }
 
 [data-theme="dark"] .useful-toggle-btn.active {
-  background: #c5a059;
-  color: #0e131f;
-  border-color: #c5a059;
+  background: #38bdf8;
+  color: #0b0f19;
+  border-color: #38bdf8;
 }
 
 .useful-trust-strip {
@@ -221,7 +201,7 @@
   flex-wrap: wrap;
 }
 
-/* 3. Classical Category Bar */
+/* Category Pills Bar */
 .category-pills-bar {
   display: flex;
   align-items: center;
@@ -239,7 +219,7 @@
   padding: 8px 18px;
   background: var(--bg-surface);
   border: 1px solid var(--border-medium);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-btn);
   font-size: 0.82rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -255,23 +235,23 @@
 }
 
 .category-pill:hover {
-  border-color: #c5a059;
-  color: #c5a059;
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .category-pill.active {
   background: #0f172a;
-  color: #c5a059;
+  color: #ffffff;
   border-color: #0f172a;
 }
 
 [data-theme="dark"] .category-pill.active {
-  background: #c5a059;
-  color: #0e131f;
-  border-color: #c5a059;
+  background: #38bdf8;
+  color: #0b0f19;
+  border-color: #38bdf8;
 }
 
-/* 4. Results Meta Row */
+/* Results Meta Row */
 .results-meta-row {
   display: flex;
   align-items: center;
@@ -298,19 +278,19 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-btn);
   background: #fef2f2;
-  color: #991b1b;
+  color: #dc2626;
   border: 1px solid #fecaca;
   cursor: pointer;
 }
 
 .clear-filter-btn:hover {
-  background: #991b1b;
+  background: #dc2626;
   color: #ffffff;
 }
 
-/* 5. Products Catalog Grid */
+/* Products Grid */
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -318,12 +298,12 @@
   width: 100%;
 }
 
-/* 6. Loading & Empty States */
+/* Loading & Empty States */
 .loading-container,
 .empty-results-box {
   padding: 60px 20px;
   background: var(--bg-surface);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-card);
   border: 1px solid var(--border-light);
   display: flex;
   flex-direction: column;
@@ -337,7 +317,7 @@
   width: 40px;
   height: 40px;
   border: 3px solid var(--border-medium);
-  border-top-color: #0f172a;
+  border-top-color: var(--accent);
   border-radius: 50%;
   animation: spinLoader 0.75s linear infinite;
 }

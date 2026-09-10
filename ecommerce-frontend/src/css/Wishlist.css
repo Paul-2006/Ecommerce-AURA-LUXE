@@ -1,5 +1,5 @@
 /* ==========================================================================
-   CLASSICAL LUXURY WISHLIST STYLES
+   CLASSICAL & PROFESSIONAL WISHLIST STYLES
    ========================================================================== */
 
 .wishlist-page-container {
@@ -14,7 +14,7 @@
   padding: 64px 28px;
   text-align: center;
   background: var(--bg-surface);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-card);
   border: 1px solid var(--border-light);
   box-shadow: var(--shadow-sm);
   display: flex;
@@ -24,9 +24,10 @@
 }
 
 .empty-wishlist-card h2 {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 1.7rem;
-  color: #0f172a;
+  font-weight: 800;
+  color: var(--text-main);
   line-height: 1.3;
 }
 
@@ -47,18 +48,18 @@
   display: flex;
   flex-direction: column;
   background: var(--bg-surface);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-card);
   overflow: hidden;
   border: 1px solid var(--border-light);
   text-align: left;
-  transition: all var(--transition-fast);
+  transition: all var(--transition-normal);
   box-shadow: var(--shadow-sm);
 }
 
 .wishlist-card:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-md);
-  border-color: #c5a059;
+  border-color: var(--accent);
 }
 
 .wishlist-img {
@@ -78,10 +79,10 @@
 }
 
 .wishlist-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 1.05rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-main);
   line-height: 1.35;
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -89,20 +90,12 @@
   overflow: hidden;
 }
 
-[data-theme="dark"] .wishlist-title {
-  color: #f8f6f0;
-}
-
 .wishlist-price {
   font-family: var(--font-sans);
   font-size: 1.25rem;
-  font-weight: 700;
-  color: #0f172a;
+  font-weight: 800;
+  color: var(--text-main);
   line-height: 1.2;
-}
-
-[data-theme="dark"] .wishlist-price {
-  color: #c5a059;
 }
 
 .wishlist-actions {
@@ -118,4 +111,5 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  border-radius: var(--radius-btn);
 }

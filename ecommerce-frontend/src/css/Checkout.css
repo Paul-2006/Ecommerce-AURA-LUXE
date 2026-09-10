@@ -1,5 +1,5 @@
 /* ==========================================================================
-   CLASSICAL LUXURY CHECKOUT STYLES
+   CLASSICAL & PROFESSIONAL CHECKOUT STYLES
    ========================================================================== */
 
 .checkout-page-container {
@@ -29,7 +29,7 @@
 .checkout-card {
   padding: 28px 32px;
   background: var(--bg-surface);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-card);
   border: 1px solid var(--border-light);
   box-shadow: var(--shadow-sm);
   display: flex;
@@ -47,28 +47,25 @@
 .step-num-badge {
   width: 30px;
   height: 30px;
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-btn);
   background: #0f172a;
-  color: #c5a059;
-  font-weight: 700;
+  color: #ffffff;
+  font-weight: 800;
   font-size: 0.88rem;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border: 1px solid #c5a059;
+  border: 1px solid #1e293b;
 }
 
 .card-step-header h3 {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 1.3rem;
-  color: #0f172a;
+  font-weight: 800;
+  color: var(--text-main);
   line-height: 1.3;
   margin-bottom: 2px;
-}
-
-[data-theme="dark"] .card-step-header h3 {
-  color: #f8f6f0;
 }
 
 .card-step-header p {
@@ -93,7 +90,7 @@
   justify-content: space-between;
   padding: 12px 16px;
   background: var(--bg-main);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-input);
   border: 1px solid var(--border-light);
   flex-wrap: wrap;
   gap: 12px;
@@ -108,7 +105,7 @@
   color: var(--text-main);
 }
 
-/* Classical Payment Options */
+/* Payment Options */
 .payment-options-grid {
   display: flex;
   flex-direction: column;
@@ -122,24 +119,19 @@
   padding: 16px 18px;
   background: var(--bg-surface);
   border: 1px solid var(--border-medium);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-input);
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .payment-method-card:hover {
-  border-color: #0f172a;
+  border-color: var(--primary);
 }
 
 .payment-method-card.selected {
   background: var(--bg-main);
-  border-color: #0f172a;
-  box-shadow: 0 0 0 1px #0f172a;
-}
-
-[data-theme="dark"] .payment-method-card.selected {
-  border-color: #c5a059;
-  box-shadow: 0 0 0 1px #c5a059;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
 }
 
 .payment-content {
@@ -164,9 +156,10 @@
   width: 100%;
   padding: 14px;
   font-size: 0.94rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
+  border-radius: var(--radius-btn);
 }
 
 /* Summary Column */
@@ -178,7 +171,7 @@
 .checkout-summary-box {
   padding: 28px;
   background: var(--bg-surface);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-card);
   border: 1px solid var(--border-light);
   box-shadow: var(--shadow-sm);
   display: flex;
@@ -188,13 +181,10 @@
 }
 
 .checkout-summary-box h3 {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 1.35rem;
-  color: #0f172a;
-}
-
-[data-theme="dark"] .checkout-summary-box h3 {
-  color: #f8f6f0;
+  font-weight: 800;
+  color: var(--text-main);
 }
 
 .summary-items-list {
@@ -228,25 +218,17 @@
 
 .summary-line.total-line {
   font-size: 1.25rem;
-  font-weight: 700;
-  color: #0f172a;
+  font-weight: 800;
+  color: var(--text-main);
   padding-top: 4px;
 }
 
-[data-theme="dark"] .summary-line.total-line {
-  color: #c5a059;
-}
-
 .total-val {
-  color: #0f172a;
-}
-
-[data-theme="dark"] .total-val {
-  color: #c5a059;
+  color: var(--text-main);
 }
 
 .free-tag {
-  color: #15803d;
+  color: #059669;
   font-weight: 700;
 }
 
@@ -256,7 +238,7 @@
   gap: 6px;
   padding: 14px;
   background: var(--bg-main);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-input);
   border: 1px solid var(--border-light);
   margin-top: 6px;
 }
@@ -267,7 +249,7 @@
   margin: 0;
 }
 
-/* ORDER ACKNOWLEDGEMENT & SMS DISPATCH MODAL STYLING */
+/* ORDER ACKNOWLEDGEMENT MODAL */
 .order-ack-modal-overlay {
   position: fixed;
   inset: 0;
@@ -286,7 +268,7 @@
   max-width: 880px;
   max-height: 92vh;
   background: var(--bg-surface);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-card);
   border: 1px solid var(--border-medium);
   box-shadow: var(--shadow-lg);
   padding: clamp(24px, 4vw, 36px);
@@ -314,28 +296,25 @@
 }
 
 .ack-check-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: var(--radius-xs);
-  background: #15803d;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-btn);
+  background: #059669;
   color: #ffffff;
   font-size: 1.4rem;
-  font-weight: 700;
+  font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .ack-success-badge h2 {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: clamp(1.4rem, 2.2vw, 1.8rem);
-  color: #0f172a;
+  font-weight: 800;
+  color: var(--text-main);
   margin: 0;
   line-height: 1.2;
-}
-
-[data-theme="dark"] .ack-success-badge h2 {
-  color: #f8f6f0;
 }
 
 .ack-success-badge p {
@@ -352,7 +331,7 @@
 
 .ack-card-box {
   padding: 20px;
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-card);
   border: 1px solid var(--border-light);
   background: var(--bg-main);
   display: flex;
@@ -371,7 +350,7 @@
   font-size: 0.76rem;
   font-weight: 700;
   padding: 3px 8px;
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-sm);
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
@@ -382,19 +361,19 @@
 }
 
 .ack-tag.sms-tag {
-  background: #f0fdf4;
-  color: #166534;
-  border: 1px solid #bbf7d0;
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
 }
 
 .sms-sent-badge {
   font-size: 0.72rem;
   font-weight: 700;
-  color: #15803d;
-  background: #f0fdf4;
+  color: #059669;
+  background: #ecfdf5;
   padding: 3px 8px;
-  border-radius: var(--radius-xs);
-  border: 1px solid #bbf7d0;
+  border-radius: var(--radius-sm);
+  border: 1px solid #a7f3d0;
 }
 
 .ack-time {
@@ -408,7 +387,7 @@
   gap: 8px;
   padding: 12px;
   background: var(--bg-surface);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-input);
   border: 1px solid var(--border-light);
 }
 
@@ -444,18 +423,14 @@
 }
 
 .ack-amount-row strong {
-  color: #0f172a;
+  color: var(--text-main);
   font-size: 1.05rem;
-}
-
-[data-theme="dark"] .ack-amount-row strong {
-  color: #c5a059;
 }
 
 .ack-agent-card {
   padding: 14px;
   background: var(--bg-surface);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-input);
   border: 1px solid var(--border-light);
   display: flex;
   flex-direction: column;
@@ -471,9 +446,9 @@
 .ack-agent-avatar {
   width: 40px;
   height: 40px;
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-btn);
   background: #0f172a;
-  color: #c5a059;
+  color: #ffffff;
   font-weight: 700;
   font-size: 1rem;
   display: flex;
@@ -501,7 +476,7 @@
 .ack-agent-status {
   font-size: 0.76rem;
   font-weight: 700;
-  color: #15803d;
+  color: #059669;
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -516,7 +491,7 @@
 .ack-stat-box {
   padding: 10px;
   background: var(--bg-surface);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-input);
   border: 1px solid var(--border-medium);
   display: flex;
   flex-direction: column;
@@ -525,13 +500,13 @@
 }
 
 .ack-stat-box.otp-box {
-  border-color: #991b1b;
+  border-color: #dc2626;
   background: #fef2f2;
 }
 
 .ack-stat-box.eta-box {
-  border-color: #0f172a;
-  background: #f8fafc;
+  border-color: var(--primary);
+  background: var(--bg-main);
 }
 
 .stat-tag {
@@ -545,22 +520,22 @@
 .otp-number {
   font-family: monospace;
   font-size: 1.4rem;
-  color: #991b1b;
+  color: #dc2626;
   letter-spacing: 2px;
   line-height: 1.2;
 }
 
 .eta-number {
   font-size: 1.2rem;
-  color: #0f172a;
+  color: var(--primary);
   line-height: 1.2;
 }
 
 .phone-mockup-wrapper {
   padding: 16px;
   background: #0f172a;
-  border-radius: var(--radius-xs);
-  border: 1px solid #c5a059;
+  border-radius: var(--radius-card);
+  border: 1px solid #1e293b;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -578,7 +553,7 @@
 .phone-carrier span {
   font-size: 0.8rem;
   font-weight: 700;
-  color: #c5a059;
+  color: #38bdf8;
 }
 
 .phone-carrier small {
@@ -589,7 +564,7 @@
 .sms-bubble {
   background: #1e293b;
   border: 1px solid #334155;
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-input);
   padding: 12px;
   display: flex;
   flex-direction: column;
@@ -602,7 +577,7 @@
   align-items: center;
   justify-content: space-between;
   font-size: 0.76rem;
-  color: #c5a059;
+  color: #38bdf8;
 }
 
 .sms-body-text {
@@ -616,14 +591,14 @@
 
 .sms-footer {
   font-size: 0.68rem;
-  color: #4ade80;
+  color: #34d399;
   font-weight: 700;
 }
 
 .sms-recipient-meta {
   padding: 10px;
   background: var(--bg-surface);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-input);
   border: 1px solid var(--border-light);
   display: flex;
   flex-direction: column;

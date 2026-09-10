@@ -1,5 +1,5 @@
 /* ==========================================================================
-   CLASSICAL LUXURY E-COMMERCE BACKGROUND & BUTTON SYSTEM
+   CLASSICAL & PROFESSIONAL E-COMMERCE CORE LAYOUT & BUTTON SYSTEM
    ========================================================================== */
 
 #root {
@@ -10,9 +10,7 @@
   background-color: var(--bg-main);
 }
 
-/* ==========================================================================
-   1. CLASSICAL AMBIENT BACKGROUND OVERLAY
-   ========================================================================== */
+/* 1. CLASSICAL AMBIENT BACKGROUND OVERLAY */
 .app-dynamic-background {
   position: fixed;
   inset: 0;
@@ -21,23 +19,23 @@
   overflow: hidden;
 }
 
-/* Subtle Warm Ivory & Muted Gold Ambient Radial Wash */
+/* Subtle Warm Ambient Wash */
 .ambient-mesh-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.12;
+  filter: blur(120px);
+  opacity: 0.08;
   pointer-events: none;
 }
 
 [data-theme="dark"] .ambient-mesh-blob {
-  opacity: 0.08;
+  opacity: 0.05;
 }
 
 .blob-1 {
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, #c5a059 0%, rgba(197, 160, 89, 0) 70%);
+  background: radial-gradient(circle, #2563eb 0%, rgba(37, 99, 235, 0) 70%);
   top: -120px;
   left: -100px;
   animation: floatMesh1 25s ease-in-out infinite alternate;
@@ -55,7 +53,7 @@
 .blob-3 {
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, #881337 0%, rgba(136, 19, 55, 0) 70%);
+  background: radial-gradient(circle, #059669 0%, rgba(5, 150, 105, 0) 70%);
   top: 45%;
   left: 60%;
   animation: floatMesh3 28s ease-in-out infinite alternate;
@@ -64,7 +62,7 @@
 .blob-4 {
   width: 450px;
   height: 450px;
-  background: radial-gradient(circle, #1b2a47 0%, rgba(27, 42, 71, 0) 70%);
+  background: radial-gradient(circle, #1e293b 0%, rgba(30, 41, 59, 0) 70%);
   bottom: 20%;
   left: 10%;
   animation: floatMesh1 22s ease-in-out infinite alternate-reverse;
@@ -93,13 +91,13 @@
   position: absolute;
   inset: 0;
   background-image: 
-    linear-gradient(to right, rgba(197, 160, 89, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(197, 160, 89, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(148, 163, 184, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.04) 1px, transparent 1px);
   background-size: 48px 48px;
   opacity: 0.5;
 }
 
-/* Floating E-Commerce Vector Icons in Muted Gold / Navy Accent */
+/* Floating Vector Icons */
 .floating-ecommerce-icons {
   position: absolute;
   inset: 0;
@@ -109,14 +107,13 @@
 
 .float-icon {
   position: absolute;
-  color: #c5a059;
-  opacity: 0.05;
-  filter: drop-shadow(0 2px 4px rgba(15, 23, 42, 0.05));
+  color: #64748b;
+  opacity: 0.04;
 }
 
 [data-theme="dark"] .float-icon {
-  color: #d4af37;
-  opacity: 0.04;
+  color: #94a3b8;
+  opacity: 0.03;
 }
 
 .icon-bag-1 { width: 64px; height: 64px; top: 14%; left: 6%; animation: floatAnim1 20s ease-in-out infinite alternate; }
@@ -164,9 +161,7 @@
   z-index: 1;
 }
 
-/* ==========================================================================
-   2. CLASSICAL REFINED BUTTON SYSTEM
-   ========================================================================== */
+/* 2. REFINED ROUNDED BUTTON SYSTEM (All buttons have 10px rounded edges) */
 
 button,
 .btn {
@@ -178,9 +173,9 @@ button,
   font-size: 0.86rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.07em;
-  padding: 11px 24px;
-  border-radius: var(--radius-xs);
+  letter-spacing: 0.05em;
+  padding: 10px 22px;
+  border-radius: var(--radius-btn);
   border: 1px solid transparent;
   cursor: pointer;
   user-select: none;
@@ -197,13 +192,13 @@ button:active,
   transform: translateY(1px);
 }
 
-/* 1. Primary Action Button: Classical Navy */
+/* 1. Primary Action Button: Classical Midnight Navy */
 .btn-primary,
 button:not([class*="btn-"]):not([class*="remove"]):not([class*="compare"]):not([class*="aura"]):not(.nav-links a):not(.lang-option-btn):not(.theme-choice-btn):not(.hint-chip):not(.product-chip) {
   background: #0f172a;
   color: #ffffff;
   border-color: #0f172a;
-  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.15);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
 }
 
 .btn-primary:hover,
@@ -212,27 +207,41 @@ button:not([class*="btn-"]):not([class*="remove"]):not([class*="compare"]):not([
   border-color: #1e293b;
   color: #ffffff;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
 }
 
-/* 2. Aura AI Action Button: Muted Gold & Amber Accent */
+[data-theme="dark"] .btn-primary {
+  background: #38bdf8;
+  color: #0b0f19;
+  border-color: #38bdf8;
+}
+
+[data-theme="dark"] .btn-primary:hover {
+  background: #7dd3fc;
+  border-color: #7dd3fc;
+  color: #0b0f19;
+}
+
+/* 2. Action / Accent Button: Modern Royal Blue */
 .btn-aura,
-.aura-btn {
-  background: #c5a059 !important;
+.aura-btn,
+.btn-accent {
+  background: #2563eb !important;
   color: #ffffff !important;
-  border-color: #c5a059 !important;
-  box-shadow: 0 2px 6px rgba(197, 160, 89, 0.25) !important;
+  border-color: #2563eb !important;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25) !important;
 }
 
 .btn-aura:hover,
-.aura-btn:hover {
-  background: #b45309 !important;
-  border-color: #b45309 !important;
+.aura-btn:hover,
+.btn-accent:hover {
+  background: #1d4ed8 !important;
+  border-color: #1d4ed8 !important;
   color: #ffffff !important;
   transform: translateY(-1px);
 }
 
-/* 3. Secondary Button: Warm Ivory Surface with Thin Dark Border */
+/* 3. Secondary Button: Clean Crisp Surface */
 .btn-secondary {
   background: var(--bg-surface);
   color: var(--text-main);
@@ -247,93 +256,76 @@ button:not([class*="btn-"]):not([class*="remove"]):not([class*="compare"]):not([
   transform: translateY(-1px);
 }
 
-/* 4. Compare Button: Burgundy Wine Accent */
+/* 4. Compare Button */
 .btn-compare,
 .compare-btn,
 .ai-compare-btn,
 button.compare-btn {
-  background: #881337 !important;
+  background: #1e293b !important;
   color: #ffffff !important;
   font-weight: 600 !important;
-  border: 1px solid #701a75 !important;
-  box-shadow: 0 2px 8px rgba(136, 19, 55, 0.2) !important;
+  border: 1px solid #334155 !important;
+  box-shadow: 0 2px 8px rgba(30, 41, 59, 0.2) !important;
 }
 
 .btn-compare:hover,
 .compare-btn:hover,
 .ai-compare-btn:hover,
 button.compare-btn:hover {
-  background: #701a75 !important;
+  background: #334155 !important;
   color: #ffffff !important;
   transform: translateY(-1px);
 }
 
-/* 5. Success & Save Button: Classic Emerald Green */
+/* 5. Success & Save Button: Emerald Green */
 .btn-success,
 .btn-save,
 .save-btn {
-  background: #15803d !important;
+  background: #059669 !important;
   color: #ffffff !important;
   font-weight: 600 !important;
-  border: 1px solid #166534 !important;
-  box-shadow: 0 2px 6px rgba(21, 128, 61, 0.2) !important;
+  border: 1px solid #047857 !important;
+  box-shadow: 0 2px 6px rgba(5, 150, 105, 0.2) !important;
 }
 
 .btn-success:hover,
 .btn-save:hover,
 .save-btn:hover {
-  background: #166534 !important;
+  background: #047857 !important;
   color: #ffffff !important;
   transform: translateY(-1px);
 }
 
-/* 6. Danger Button: Deep Red */
+/* 6. Danger Button: Crimson Red */
 .btn-danger,
 .remove-btn {
-  background: #991b1b !important;
+  background: #dc2626 !important;
   color: #ffffff !important;
-  border-color: #7f1d1d !important;
-  box-shadow: 0 2px 6px rgba(153, 27, 27, 0.2) !important;
+  border-color: #b91c1c !important;
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.2) !important;
 }
 
 .btn-danger:hover,
 .remove-btn:hover {
-  background: #7f1d1d !important;
+  background: #b91c1c !important;
   color: #ffffff !important;
   transform: translateY(-1px);
 }
 
-/* 7. Warning Button: Muted Amber */
+/* 7. Warning Button: Amber */
 .btn-warning {
-  background: #b45309;
+  background: #d97706;
   color: #ffffff;
-  border-color: #92400e;
+  border-color: #b45309;
 }
 
 .btn-warning:hover {
-  background: #92400e;
-  color: #ffffff;
-  transform: translateY(-1px);
-}
-
-/* 8. Luxury Gold Button */
-.btn-luxury,
-.btn-gold {
-  background: #c5a059;
-  color: #ffffff;
-  border: 1px solid #c5a059;
-  box-shadow: 0 2px 8px rgba(197, 160, 89, 0.3);
-}
-
-.btn-luxury:hover,
-.btn-gold:hover {
   background: #b45309;
-  border-color: #b45309;
   color: #ffffff;
   transform: translateY(-1px);
 }
 
-/* 9. Ghost Button */
+/* 8. Ghost Button */
 .btn-ghost {
   background: transparent;
   color: var(--text-main);
@@ -342,28 +334,28 @@ button.compare-btn:hover {
 }
 
 .btn-ghost:hover {
-  background: rgba(15, 23, 42, 0.04);
+  background: rgba(15, 23, 42, 0.05);
   color: var(--primary);
   border-color: var(--border-light);
 }
 
-/* Classical Button Sizes */
+/* Button Sizes */
 .btn-sm {
-  padding: 7px 16px;
+  padding: 6px 14px;
   font-size: 0.78rem;
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-btn);
 }
 
 .btn-md {
   padding: 10px 22px;
   font-size: 0.86rem;
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-btn);
 }
 
 .btn-lg {
-  padding: 13px 30px;
+  padding: 12px 28px;
   font-size: 0.94rem;
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-btn);
 }
 
 .btn-block {

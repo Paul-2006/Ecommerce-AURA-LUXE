@@ -1,5 +1,5 @@
 /* ==========================================================================
-   CLASSICAL LUXURY HOME & STOREFRONT STYLES
+   CLASSICAL & PROFESSIONAL HOME & STOREFRONT STYLES
    ========================================================================== */
 
 .home-page {
@@ -10,13 +10,13 @@
   gap: 56px;
 }
 
-/* 1. Hero Section: Classical Luxury Storefront Banner */
+/* 1. Hero Section */
 .hero-section {
   position: relative;
   width: 100%;
   padding: clamp(48px, 6vw, 76px) clamp(24px, 5vw, 64px);
   background: var(--bg-surface);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-card);
   overflow: hidden;
   text-align: center;
   border: 1px solid var(--border-light);
@@ -37,35 +37,31 @@
   align-items: center;
   gap: 8px;
   padding: 5px 16px;
-  background: #fbf9f5;
-  color: #c5a059;
-  border: 1px solid #c5a059;
-  border-radius: var(--radius-xs);
+  background: var(--accent-light);
+  color: var(--accent);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
   font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   line-height: 1.4;
 }
 
 .hero-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: clamp(2.2rem, 4vw, 3.4rem);
-  font-weight: 700;
-  line-height: 1.25;
-  color: #0f172a;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text-main);
   margin-bottom: 4px;
 }
 
-[data-theme="dark"] .hero-title {
-  color: #f8f6f0;
-}
-
 .hero-subtitle {
-  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  font-size: clamp(1rem, 1.5vw, 1.12rem);
   color: var(--text-sub);
   max-width: 760px;
-  line-height: 1.85;
+  line-height: 1.8;
   margin-bottom: 12px;
 }
 
@@ -86,7 +82,7 @@
   margin-top: 18px;
   padding: 16px 24px;
   background: var(--bg-main);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-card);
   border: 1px solid var(--border-light);
   width: 100%;
   max-width: 760px;
@@ -97,7 +93,7 @@
   font-weight: 700;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
 }
 
 .portal-buttons-group {
@@ -128,14 +124,10 @@
 
 .stat-num {
   font-size: clamp(1.4rem, 2.3vw, 1.9rem);
-  font-weight: 700;
-  color: #0f172a;
-  font-family: var(--font-serif);
+  font-weight: 800;
+  color: var(--text-main);
+  font-family: var(--font-sans);
   line-height: 1.2;
-}
-
-[data-theme="dark"] .stat-num {
-  color: #c5a059;
 }
 
 .stat-label {
@@ -168,7 +160,7 @@
   gap: 12px;
   background: var(--bg-surface);
   border: 1px solid var(--border-medium);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-input);
   box-shadow: var(--shadow-sm);
 }
 
@@ -204,23 +196,20 @@
 }
 
 .section-heading-box h2 {
-  font-family: var(--font-serif);
-  font-size: clamp(1.7rem, 2.8vw, 2.3rem);
-  color: #0f172a;
+  font-family: var(--font-sans);
+  font-size: clamp(1.7rem, 2.8vw, 2.2rem);
+  font-weight: 800;
+  color: var(--text-main);
   margin-bottom: 2px;
-}
-
-[data-theme="dark"] .section-heading-box h2 {
-  color: #f8f6f0;
 }
 
 .section-heading-box p {
   color: var(--text-muted);
   font-size: 0.94rem;
-  line-height: 1.75;
+  line-height: 1.7;
 }
 
-/* Classical Categories Grid */
+/* Categories Grid */
 .categories-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -238,18 +227,18 @@
   cursor: pointer;
   background: var(--bg-surface);
   border: 1px solid var(--border-light);
-  border-radius: var(--radius-xs);
-  transition: all var(--transition-fast);
+  border-radius: var(--radius-card);
+  transition: all var(--transition-normal);
 }
 
 .category-card:hover {
-  transform: translateY(-2px);
-  border-color: #c5a059;
+  transform: translateY(-3px);
+  border-color: var(--accent);
   box-shadow: var(--shadow-md);
 }
 
 .category-name {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 1.18rem;
   font-weight: 700;
   color: var(--text-main);
@@ -259,13 +248,13 @@
 .category-desc {
   font-size: 0.84rem;
   color: var(--text-sub);
-  line-height: 1.65;
+  line-height: 1.6;
 }
 
 /* Featured Products Grid */
 .featured-products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 22px;
   width: 100%;
 }
@@ -276,15 +265,15 @@
   justify-content: center;
 }
 
-/* Classical Offer Banner */
+/* Offer Banner */
 .offer-banner-section {
   padding: 48px 40px;
   background: #0f172a;
   color: #ffffff;
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-card);
   text-align: center;
   box-shadow: var(--shadow-md);
-  border: 1px solid #c5a059;
+  border: 1px solid #1e293b;
 }
 
 .offer-banner-content {
@@ -299,32 +288,33 @@
 .offer-tag {
   font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #c5a059;
+  color: #38bdf8;
 }
 
 .offer-banner-content h2 {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   color: #ffffff;
   font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  font-weight: 800;
   line-height: 1.3;
 }
 
 .offer-banner-content p {
-  color: #d1d5db;
+  color: #cbd5e1;
   font-size: 0.95rem;
-  line-height: 1.85;
+  line-height: 1.8;
 }
 
 .promo-code {
-  color: #c5a059;
+  color: #38bdf8;
   font-family: monospace;
   font-size: 1.1rem;
   font-weight: 700;
 }
 
-/* Classical Trust Seals & Services */
+/* Trust Features Grid */
 .trust-features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -340,13 +330,14 @@
   text-align: left;
   background: var(--bg-surface);
   border: 1px solid var(--border-light);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-card);
   box-shadow: var(--shadow-sm);
 }
 
 .trust-card h3 {
-  font-family: var(--font-serif);
-  font-size: 1.12rem;
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 700;
   color: var(--text-main);
   line-height: 1.35;
 }
@@ -354,7 +345,7 @@
 .trust-card p {
   font-size: 0.86rem;
   color: var(--text-sub);
-  line-height: 1.7;
+  line-height: 1.65;
 }
 
 @media (max-width: 768px) {

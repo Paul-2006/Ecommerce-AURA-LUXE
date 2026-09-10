@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ATTRACTIVE MODERN VIBRANT AI ASSISTANT STYLES
+   CLASSICAL & PROFESSIONAL AI ASSISTANT STYLES
    ========================================================================== */
 
 .compare-chatbot-root {
@@ -16,31 +16,32 @@
   gap: 10px;
 }
 
-/* Kiva / Aura AI Launcher Button */
+/* Kiva / Nova Copilot Launcher Button */
 .compare-launcher-btn.annachi-launcher,
 .compare-launcher-btn.aura-launcher {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 24px;
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+  padding: 11px 22px;
+  background: #0f172a;
   color: #ffffff;
-  border-radius: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.45), 0 0 15px rgba(217, 70, 239, 0.3);
-  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
-  font-size: 0.88rem;
+  border-radius: var(--radius-full);
+  border: 1px solid #1e293b;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.25);
+  font-family: var(--font-sans);
+  font-size: 0.86rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all var(--transition-normal);
 }
 
 .compare-launcher-btn.annachi-launcher:hover,
 .compare-launcher-btn.aura-launcher:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 12px 30px rgba(99, 102, 241, 0.6), 0 0 25px rgba(217, 70, 239, 0.5);
+  transform: translateY(-2px);
+  background: #1e293b;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.35);
 }
 
 .annachi-symbol-badge,
@@ -48,53 +49,52 @@
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: #ffffff;
-  color: #4f46e5;
+  background: #2563eb;
+  color: #ffffff;
   font-weight: 800;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   line-height: 1;
 }
 
 /* Floating Mic */
 .quick-floating-mic.annachi-quick-mic,
 .quick-floating-mic.aura-quick-mic {
-  width: 48px;
-  height: 48px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
+  background: #2563eb;
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 6px 20px rgba(236, 72, 153, 0.45);
+  border: 1px solid #2563eb;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
   padding: 0;
   font-size: 1.1rem;
 }
 
 .quick-floating-mic.annachi-quick-mic:hover,
 .quick-floating-mic.aura-quick-mic:hover {
-  transform: scale(1.08);
-  box-shadow: 0 8px 25px rgba(236, 72, 153, 0.6);
+  transform: scale(1.06);
+  background: #1d4ed8;
 }
 
 .quick-floating-mic.listening {
-  background: #ef4444;
-  border-color: #ef4444;
+  background: #dc2626;
+  border-color: #dc2626;
   color: #ffffff;
   animation: pulseMic 1.2s infinite;
 }
 
 @keyframes pulseMic {
-  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6); }
-  70% { box-shadow: 0 0 0 14px rgba(239, 68, 68, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.6); }
+  70% { box-shadow: 0 0 0 14px rgba(220, 38, 38, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
 }
 
 /* Chat Panel Window */
@@ -104,23 +104,23 @@
   max-width: calc(100vw - 32px);
   max-height: calc(100vh - 90px);
   background: #0f172a;
-  border-radius: 20px;
+  border-radius: var(--radius-card);
   display: flex;
   flex-direction: column;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 35px rgba(99, 102, 241, 0.25);
-  border: 1px solid rgba(168, 85, 247, 0.35);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  border: 1px solid #1e293b;
   overflow: hidden;
 }
 
 /* Header */
 .compare-header.aura-header {
   padding: 16px 20px;
-  background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+  background: #0f172a;
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(168, 85, 247, 0.3);
+  border-bottom: 1px solid #1e293b;
 }
 
 .compare-header-title {
@@ -131,7 +131,7 @@
 }
 
 .compare-header-title strong {
-  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  font-family: var(--font-sans);
   font-size: 1.05rem;
   font-weight: 700;
   color: #f8fafc;
@@ -140,10 +140,10 @@
 
 .online-indicator {
   font-size: 0.72rem;
-  color: #a855f7;
+  color: #38bdf8;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
 }
 
 .header-controls {
@@ -157,9 +157,9 @@
   align-items: center;
   gap: 4px;
   padding: 4px 10px;
-  background: #ef4444;
+  background: #dc2626;
   color: #ffffff;
-  border-radius: 8px;
+  border-radius: var(--radius-btn);
   border: none;
   font-size: 0.72rem;
   font-weight: 700;
@@ -172,7 +172,7 @@
   color: #ffffff;
   width: 34px;
   height: 34px;
-  border-radius: 10px;
+  border-radius: var(--radius-btn);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -182,8 +182,8 @@
 }
 
 .voice-toggle-btn.active {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: #2563eb;
+  border-color: #2563eb;
 }
 
 .compare-close-btn {
@@ -192,7 +192,7 @@
   color: #ffffff;
   width: 32px;
   height: 32px;
-  border-radius: 10px;
+  border-radius: var(--radius-btn);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -203,16 +203,16 @@
 }
 
 .compare-close-btn:hover {
-  background: rgba(239, 68, 68, 0.2);
-  border-color: #ef4444;
+  background: rgba(220, 38, 38, 0.2);
+  border-color: #dc2626;
   color: #f87171;
 }
 
 /* Listening State Banner */
 .voice-listening-banner.aura-listening {
   padding: 10px 16px;
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(168, 85, 247, 0.2));
-  border-bottom: 1px solid rgba(239, 68, 68, 0.3);
+  background: rgba(220, 38, 38, 0.15);
+  border-bottom: 1px solid rgba(220, 38, 38, 0.3);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -230,7 +230,7 @@
 .wave-bar {
   width: 3px;
   height: 14px;
-  background: #a855f7;
+  background: #38bdf8;
   border-radius: 2px;
   animation: wave 1s infinite ease-in-out;
 }
@@ -278,18 +278,18 @@
 }
 
 .chat-bubble.user {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  background: #2563eb;
   color: #ffffff;
-  border-radius: 16px 16px 2px 16px;
-  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+  border-radius: 14px 14px 2px 14px;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
   font-weight: 500;
 }
 
 .chat-bubble.bot.aura-bubble {
-  background: rgba(30, 27, 75, 0.75);
-  border: 1px solid rgba(99, 102, 241, 0.35);
-  color: #f1f5f9;
-  border-radius: 16px 16px 16px 2px;
+  background: #161e2e;
+  border: 1px solid #243044;
+  color: #f8fafc;
+  border-radius: 14px 14px 14px 2px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -303,7 +303,7 @@
 /* Typing Indicator */
 .chat-bubble.bot.typing.aura-typing {
   font-size: 0.82rem;
-  color: #a855f7;
+  color: #38bdf8;
   font-weight: 600;
   font-style: italic;
 }
@@ -312,7 +312,7 @@
 .compare-input-form.aura-input {
   padding: 12px 16px;
   background: #0f172a;
-  border-top: 1px solid rgba(168, 85, 247, 0.25);
+  border-top: 1px solid #1e293b;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -321,9 +321,9 @@
 .voice-mic-btn.aura-mic {
   width: 40px;
   height: 40px;
-  border-radius: 12px;
-  background: rgba(30, 41, 59, 0.85);
-  border: 1px solid rgba(168, 85, 247, 0.35);
+  border-radius: var(--radius-btn);
+  background: #1e293b;
+  border: 1px solid #334155;
   color: #f8fafc;
   display: flex;
   align-items: center;
@@ -335,13 +335,13 @@
 }
 
 .voice-mic-btn.aura-mic:hover {
-  border-color: #a855f7;
-  background: rgba(99, 102, 241, 0.2);
+  border-color: #38bdf8;
+  color: #38bdf8;
 }
 
 .voice-mic-btn.aura-mic.listening {
-  background: #ef4444;
-  border-color: #ef4444;
+  background: #dc2626;
+  border-color: #dc2626;
   color: #ffffff;
 }
 
@@ -349,34 +349,34 @@
   flex: 1;
   padding: 10px 16px;
   font-size: 0.9rem;
-  border-radius: 12px;
-  border: 1px solid rgba(168, 85, 247, 0.35);
-  background: rgba(30, 41, 59, 0.85);
+  border-radius: var(--radius-input);
+  border: 1px solid #334155;
+  background: #161e2e;
   color: #f8fafc;
   transition: all 0.2s ease;
 }
 
 .compare-input-field.aura-field:focus {
-  border-color: #a855f7;
+  border-color: #38bdf8;
   outline: none;
-  box-shadow: 0 0 12px rgba(168, 85, 247, 0.35);
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
 }
 
 .send-btn.aura-send,
 .btn-gold {
   padding: 10px 20px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  border-radius: var(--radius-btn);
+  background: #2563eb;
   color: #ffffff;
   border: none;
   font-weight: 700;
   font-size: 0.88rem;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
   transition: all 0.2s ease;
 }
 
 .send-btn.aura-send:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(168, 85, 247, 0.6);
+  background: #1d4ed8;
 }

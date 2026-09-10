@@ -1,5 +1,5 @@
 /* ==========================================================================
-   CLASSICAL LUXURY ADD PRODUCT STYLES
+   CLASSICAL & PROFESSIONAL ADD PRODUCT STYLES
    ========================================================================== */
 
 .add-product-page-container {
@@ -16,7 +16,7 @@
   margin: 0 auto;
   padding: clamp(28px, 4.5vw, 44px);
   background: var(--bg-surface);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-card);
   border: 1px solid var(--border-light);
   box-shadow: var(--shadow-sm);
   text-align: left;
@@ -30,8 +30,8 @@
 
 .image-upload-dropzone {
   width: 100%;
-  border: 1px dashed var(--border-medium);
-  border-radius: var(--radius-xs);
+  border: 2px dashed var(--border-medium);
+  border-radius: var(--radius-input);
   background: var(--bg-main);
   overflow: hidden;
   position: relative;
@@ -39,7 +39,7 @@
 }
 
 .image-upload-dropzone:hover {
-  border-color: #0f172a;
+  border-color: var(--accent);
   background: var(--bg-surface);
 }
 
@@ -81,7 +81,7 @@
 .img-upload-preview {
   max-height: 220px;
   object-fit: contain;
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-input);
 }
 
 .form-actions-row {

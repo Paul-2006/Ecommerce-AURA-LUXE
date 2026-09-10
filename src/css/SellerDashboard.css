@@ -1,5 +1,5 @@
 /* ==========================================================================
-   CLASSICAL LUXURY SELLER DASHBOARD STYLES
+   CLASSICAL & PROFESSIONAL SELLER DASHBOARD STYLES
    ========================================================================== */
 
 .seller-dashboard-container,
@@ -25,18 +25,18 @@
   justify-content: space-between;
   padding: 24px 22px;
   background: var(--bg-surface);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-card);
   border: 1px solid var(--border-light);
   box-shadow: var(--shadow-sm);
   cursor: pointer;
   text-align: left;
-  transition: all var(--transition-fast);
+  transition: all var(--transition-normal);
   gap: 14px;
 }
 
 .seller-metric-card:hover {
-  transform: translateY(-2px);
-  border-color: #c5a059;
+  transform: translateY(-3px);
+  border-color: var(--accent);
   box-shadow: var(--shadow-md);
 }
 
@@ -49,13 +49,9 @@
 .seller-metric-card .metric-value {
   font-family: var(--font-sans);
   font-size: 1.55rem;
-  font-weight: 700;
-  color: #0f172a;
+  font-weight: 800;
+  color: var(--text-main);
   line-height: 1.2;
-}
-
-[data-theme="dark"] .seller-metric-card .metric-value {
-  color: #c5a059;
 }
 
 .seller-metric-card .metric-name {
@@ -77,40 +73,37 @@
 .seller-action-card {
   padding: 28px 24px;
   background: var(--bg-surface);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-card);
   display: flex;
   flex-direction: column;
   gap: 14px;
   text-align: left;
   border: 1px solid var(--border-light);
   box-shadow: var(--shadow-sm);
-  transition: all var(--transition-fast);
+  transition: all var(--transition-normal);
 }
 
 .seller-action-card:hover {
-  transform: translateY(-2px);
-  border-color: #0f172a;
+  transform: translateY(-3px);
+  border-color: var(--accent);
   box-shadow: var(--shadow-md);
 }
 
 .seller-action-card h3 {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 1.25rem;
   font-weight: 700;
-  color: #0f172a;
-}
-
-[data-theme="dark"] .seller-action-card h3 {
-  color: #f8f6f0;
+  color: var(--text-main);
 }
 
 .seller-action-card p {
   font-size: 0.88rem;
   color: var(--text-sub);
-  line-height: 1.7;
+  line-height: 1.6;
   margin-bottom: 6px;
 }
 
 .seller-action-card button {
   margin-top: auto;
+  border-radius: var(--radius-btn);
 }

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   CLASSICAL LUXURY PRODUCT DETAILS STYLES
+   CLASSICAL & PROFESSIONAL PRODUCT DETAILS STYLES
    ========================================================================== */
 
 .product-details-container {
@@ -10,7 +10,7 @@
   gap: 28px;
 }
 
-/* Classical Breadcrumbs */
+/* Breadcrumbs */
 .details-breadcrumb {
   display: flex;
   align-items: center;
@@ -28,7 +28,7 @@
 }
 
 .details-breadcrumb span:hover {
-  color: #c5a059;
+  color: var(--accent);
 }
 
 .details-breadcrumb .current {
@@ -37,14 +37,14 @@
   cursor: default;
 }
 
-/* Main Classical Grid Layout */
+/* Grid Layout */
 .details-main-grid {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
   gap: 44px;
   padding: clamp(28px, 4vw, 48px);
   background: var(--bg-surface);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-card);
   border: 1px solid var(--border-light);
   box-shadow: var(--shadow-sm);
 }
@@ -55,7 +55,7 @@
   width: 100%;
   height: 480px;
   background: var(--bg-main);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-card);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -67,8 +67,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: var(--radius-xs);
-  transition: transform 0.5s ease;
+  border-radius: var(--radius-card);
+  transition: transform 0.4s ease;
 }
 
 .details-main-img:hover {
@@ -82,11 +82,11 @@
   padding: 8px 16px;
   background: var(--bg-surface);
   border: 1px solid var(--border-medium);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-btn);
   font-size: 0.82rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   cursor: pointer;
   box-shadow: var(--shadow-sm);
   transition: all var(--transition-fast);
@@ -94,13 +94,13 @@
 }
 
 .details-wishlist-float:hover {
-  border-color: #881337;
-  color: #881337;
+  border-color: #dc2626;
+  color: #dc2626;
 }
 
 .details-wishlist-float.active {
-  background: #881337;
-  border-color: #881337;
+  background: #dc2626;
+  border-color: #dc2626;
   color: #ffffff;
 }
 
@@ -126,7 +126,7 @@
   gap: 8px;
   font-size: 0.88rem;
   font-weight: 700;
-  color: #c5a059;
+  color: #d97706;
 }
 
 .reviews-count {
@@ -136,26 +136,22 @@
 }
 
 .details-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: clamp(1.7rem, 2.6vw, 2.4rem);
-  font-weight: 700;
-  color: #0f172a;
+  font-weight: 800;
+  color: var(--text-main);
   line-height: 1.3;
   margin-bottom: 4px;
 }
 
-[data-theme="dark"] .details-title {
-  color: #f8f6f0;
-}
-
-/* Classical Price Card */
+/* Price Card */
 .details-price-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 18px 24px;
   background: var(--bg-main);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-card);
   border: 1px solid var(--border-light);
   flex-wrap: wrap;
   gap: 14px;
@@ -170,13 +166,9 @@
 .price-big {
   font-family: var(--font-sans);
   font-size: 2.1rem;
-  font-weight: 700;
-  color: #0f172a;
+  font-weight: 800;
+  color: var(--text-main);
   line-height: 1.2;
-}
-
-[data-theme="dark"] .price-big {
-  color: #c5a059;
 }
 
 .tax-inclusive-tag {
@@ -186,29 +178,29 @@
 
 .details-stock-badge {
   font-size: 0.78rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   padding: 6px 16px;
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-sm);
 }
 
 .details-stock-badge.in-stock {
-  background: #f0fdf4;
-  color: #166534;
-  border: 1px solid #bbf7d0;
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
 }
 
 .details-stock-badge.out-stock {
   background: #fef2f2;
-  color: #991b1b;
+  color: #b91c1c;
   border: 1px solid #fecaca;
 }
 
 .details-description {
   font-size: 0.95rem;
   color: var(--text-sub);
-  line-height: 1.85;
+  line-height: 1.8;
   margin-bottom: 6px;
 }
 
@@ -273,7 +265,7 @@
   align-items: center;
   background: var(--bg-surface);
   border: 1px solid var(--border-medium);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-btn);
   overflow: hidden;
 }
 
@@ -290,7 +282,7 @@
 }
 
 .qty-btn:hover {
-  background: rgba(15, 23, 42, 0.04);
+  background: rgba(15, 23, 42, 0.05);
 }
 
 .qty-value {
@@ -313,7 +305,7 @@
   margin-top: 14px;
   padding: 18px 22px;
   background: var(--bg-surface);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-card);
   border: 1px solid var(--border-light);
   box-shadow: var(--shadow-sm);
 }
@@ -332,8 +324,9 @@
 }
 
 .ai-card-title h4 {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 1.05rem;
+  font-weight: 700;
   color: var(--text-main);
   margin: 0;
 }
@@ -348,7 +341,7 @@
   margin-top: 14px;
   padding: 14px 16px;
   background: var(--bg-main);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-input);
   border: 1px solid var(--border-light);
   font-size: 0.88rem;
   line-height: 1.7;

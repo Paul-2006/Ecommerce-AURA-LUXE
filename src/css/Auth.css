@@ -1,5 +1,5 @@
 /* ==========================================================================
-   CLASSICAL LUXURY AUTHENTICATION STYLES
+   CLASSICAL & PROFESSIONAL AUTHENTICATION STYLES
    ========================================================================== */
 
 .auth-page-container {
@@ -15,7 +15,7 @@
   max-width: 520px;
   background: var(--bg-surface);
   padding: clamp(32px, 5vw, 48px);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-card);
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -33,62 +33,59 @@
 }
 
 .auth-icon-badge {
-  width: 52px;
-  height: 52px;
-  border-radius: var(--radius-xs);
+  width: 54px;
+  height: 54px;
+  border-radius: var(--radius-btn);
   background: #0f172a;
-  color: #c5a059;
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   margin-bottom: 4px;
-  border: 1px solid #c5a059;
+  border: 1px solid #1e293b;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
 }
 
 .auth-icon-badge.admin-badge {
   background: #0f172a;
-  color: #c5a059;
-  border-color: #c5a059;
+  color: #38bdf8;
+  border-color: #0f172a;
 }
 
 .auth-icon-badge.seller-badge {
-  background: #881337;
+  background: #1e293b;
   color: #ffffff;
-  border-color: #881337;
+  border-color: #1e293b;
 }
 
 .auth-icon-badge.delivery-badge {
-  background: #15803d;
+  background: #059669;
   color: #ffffff;
-  border-color: #15803d;
+  border-color: #059669;
 }
 
 .auth-header h2 {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 1.8rem;
-  font-weight: 700;
-  color: #0f172a;
+  font-weight: 800;
+  color: var(--text-main);
   line-height: 1.3;
-}
-
-[data-theme="dark"] .auth-header h2 {
-  color: #f8f6f0;
 }
 
 .auth-header p {
   font-size: 0.9rem;
   color: var(--text-muted);
-  line-height: 1.75;
+  line-height: 1.7;
 }
 
 .security-notice {
   background: #fef2f2;
-  color: #991b1b !important;
+  color: #b91c1c !important;
   border: 1px solid #fecaca;
-  padding: 10px 14px;
-  border-radius: var(--radius-xs);
-  font-size: 0.8rem !important;
+  padding: 12px 16px;
+  border-radius: var(--radius-input);
+  font-size: 0.82rem !important;
   margin-top: 6px;
   line-height: 1.5;
 }
@@ -97,9 +94,9 @@
 .auth-error-alert {
   padding: 12px 16px;
   background: #fef2f2;
-  color: #991b1b;
+  color: #b91c1c;
   border: 1px solid #fecaca;
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-input);
   font-size: 0.85rem;
   font-weight: 600;
   line-height: 1.5;
@@ -112,7 +109,7 @@
   gap: 10px;
   background: var(--bg-main);
   padding: 16px;
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-input);
   border: 1px solid var(--border-light);
 }
 
@@ -121,7 +118,7 @@
   font-weight: 700;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
 }
 
 .admin-slots-grid {
@@ -134,7 +131,7 @@
   padding: 12px;
   background: var(--bg-surface);
   border: 1px solid var(--border-medium);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-input);
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -143,19 +140,19 @@
 }
 
 .admin-slot-card:hover {
-  border-color: #0f172a;
+  border-color: var(--primary);
 }
 
 .admin-slot-card.selected {
-  border-color: #0f172a;
-  background: #f8fafc;
-  box-shadow: 0 0 0 1px #0f172a;
+  border-color: var(--accent);
+  background: var(--accent-light);
+  box-shadow: 0 0 0 1px var(--accent);
 }
 
 [data-theme="dark"] .admin-slot-card.selected {
-  border-color: #c5a059;
-  background: #161d2c;
-  box-shadow: 0 0 0 1px #c5a059;
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  box-shadow: 0 0 0 1px #38bdf8;
 }
 
 .slot-header {
@@ -168,7 +165,7 @@
 }
 
 .slot-active-check {
-  color: #0f172a;
+  color: var(--accent);
 }
 
 .admin-slot-card strong {
@@ -184,17 +181,17 @@
 
 .slot-role {
   font-size: 0.72rem;
-  color: #c5a059;
+  color: var(--accent);
   font-weight: 700;
 }
 
-/* Seller & Delivery Compliance Boxes */
+/* Compliance Boxes */
 .seller-verification-box,
 .delivery-compliance-box {
   padding: 16px;
   background: var(--bg-main);
   border: 1px solid var(--border-light);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-input);
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -211,6 +208,7 @@
 .verification-status-header p {
   font-size: 0.76rem;
   color: var(--text-muted);
+  margin: 0;
 }
 
 .verified-doc-preview,
@@ -220,7 +218,7 @@
   gap: 12px;
   background: var(--bg-surface);
   padding: 10px 12px;
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-input);
   border: 1px solid var(--border-light);
 }
 
@@ -249,6 +247,7 @@
   margin: 0;
   font-size: 0.76rem;
   padding: 6px 12px;
+  border-radius: var(--radius-btn);
 }
 
 /* Role Selector Tabs */
@@ -257,8 +256,8 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 6px;
   background: var(--bg-main);
-  padding: 4px;
-  border-radius: var(--radius-xs);
+  padding: 5px;
+  border-radius: var(--radius-input);
   border: 1px solid var(--border-light);
 }
 
@@ -267,11 +266,11 @@
   background: transparent;
   border: none;
   font-size: 0.78rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   color: var(--text-sub);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-sm);
   cursor: pointer;
   transition: all var(--transition-fast);
   box-shadow: none;
@@ -286,14 +285,14 @@
 }
 
 [data-theme="dark"] .role-tab.active {
-  background: #c5a059;
-  color: #0e131f;
+  background: #38bdf8;
+  color: #0b0f19;
 }
 
 .role-specific-inputs {
   padding: 14px;
   background: var(--bg-main);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-input);
   border: 1px solid var(--border-light);
   display: flex;
   flex-direction: column;
@@ -308,7 +307,7 @@
 
 .doc-ok {
   font-size: 0.78rem;
-  color: #15803d;
+  color: #059669;
   font-weight: 600;
 }
 
@@ -341,11 +340,7 @@
 }
 
 .auth-link-text strong {
-  color: #0f172a;
-}
-
-[data-theme="dark"] .auth-link-text strong {
-  color: #c5a059;
+  color: var(--primary);
 }
 
 .back-link {
@@ -354,7 +349,7 @@
 }
 
 .back-link:hover {
-  color: #0f172a;
+  color: var(--primary);
 }
 
 @media (max-width: 480px) {
