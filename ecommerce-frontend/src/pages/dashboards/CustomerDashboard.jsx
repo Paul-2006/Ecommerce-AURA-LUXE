@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import { Package, Heart, ShoppingCart, Settings } from "lucide-react";
 import "../../css/Dashboard.css";
 
 function CustomerDashboard() {
@@ -86,7 +87,9 @@ function CustomerDashboard() {
 
         <div className="shortcuts-grid">
           <div className="shortcut-item" onClick={() => navigate("/orders")}>
-            <strong>📦 My Orders & Live Tracking</strong>
+            <strong style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+              <Package className="w-4 h-4 text-indigo-500" aria-hidden="true" /> My Orders & Live Tracking
+            </strong>
             <p>View order history, invoices, and live delivery rider coordinates</p>
             <button className="btn btn-primary btn-sm" style={{ marginTop: "12px", width: "100%" }}>
               View Orders
@@ -94,7 +97,9 @@ function CustomerDashboard() {
           </div>
 
           <div className="shortcut-item" onClick={() => navigate("/wishlist")}>
-            <strong>💖 Saved Wishlist</strong>
+            <strong style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+              <Heart className="w-4 h-4 text-rose-500" aria-hidden="true" /> Saved Wishlist
+            </strong>
             <p>Manage your saved hardware items and get instant deal notifications</p>
             <button className="btn btn-secondary btn-sm" style={{ marginTop: "12px", width: "100%" }}>
               View Wishlist ({wishlistCount})
@@ -102,7 +107,9 @@ function CustomerDashboard() {
           </div>
 
           <div className="shortcut-item" onClick={() => navigate("/cart")}>
-            <strong>🛒 Active Shopping Cart</strong>
+            <strong style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+              <ShoppingCart className="w-4 h-4 text-emerald-500" aria-hidden="true" /> Active Shopping Cart
+            </strong>
             <p>Review selected hardware, apply discount coupons, and checkout</p>
             <button className="btn btn-secondary btn-sm" style={{ marginTop: "12px", width: "100%" }}>
               View Cart ({cartCount})
@@ -110,7 +117,9 @@ function CustomerDashboard() {
           </div>
 
           <div className="shortcut-item" onClick={() => navigate("/profile")}>
-            <strong>⚙️ Profile & Account Settings</strong>
+            <strong style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+              <Settings className="w-4 h-4 text-amber-500" aria-hidden="true" /> Profile & Account Settings
+            </strong>
             <p>Update your delivery address, phone number, and security preferences</p>
             <button className="btn btn-secondary btn-sm" style={{ marginTop: "12px", width: "100%" }}>
               Manage Account

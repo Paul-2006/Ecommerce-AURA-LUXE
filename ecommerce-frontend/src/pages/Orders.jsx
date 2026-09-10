@@ -6,6 +6,7 @@ import { getNotifications } from "../services/notificationService";
 import LiveMapTracker from "../components/LiveMapTracker";
 import WebKadaiLogo from "../components/WebKadaiLogo";
 import { getMediaUrl } from "../services/api";
+import { CheckCircle2, Truck, MapPin, Smartphone, Printer } from "lucide-react";
 import "../css/Orders.css";
 
 function Orders() {
@@ -73,12 +74,14 @@ function Orders() {
                 <p>Notification & SMS dispatched to registered phone: <strong>+91 {latestAck.customerPhone}</strong></p>
               </div>
             </div>
-            <span className="badge-pill badge-success">✓ Dispatched</span>
+            <span className="badge-pill badge-success" style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+              <CheckCircle2 className="w-3.5 h-3.5" aria-hidden="true" /> Dispatched
+            </span>
           </div>
 
           <div className="ack-banner-grid">
             <div className="ack-agent-mini">
-              <span className="agent-icon">🏍️</span>
+              <Truck className="w-5 h-5 text-indigo-500 mr-2 flex-shrink-0" aria-hidden="true" />
               <div>
                 <span>Delivery Agent:</span>
                 <strong>{latestAck.deliveryAgent?.name}</strong>
@@ -103,10 +106,13 @@ function Orders() {
             <button
               className="btn btn-luxury btn-sm"
               onClick={() => setActiveTrackingOrderId(latestAck.orderId)}
+              style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}
             >
-              📍 Track Live Map Telemetry
+              <MapPin className="w-4 h-4" aria-hidden="true" /> Track Live Map Telemetry
             </button>
-            <span className="sms-sent-tag">📲 SMS delivered to +91 {latestAck.customerPhone}</span>
+            <span className="sms-sent-tag" style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+              <Smartphone className="w-3.5 h-3.5" aria-hidden="true" /> SMS delivered to +91 {latestAck.customerPhone}
+            </span>
           </div>
         </div>
       )}
@@ -346,8 +352,8 @@ function Orders() {
             {/* Footer */}
             <div className="invoice-actions-footer">
               <span className="invoice-auth-seal">Digitally Signed & Validated • AURA Luxe Tax Authority</span>
-              <button className="btn btn-primary btn-sm" onClick={() => window.print()}>
-                🖨️ Print / Save PDF
+              <button className="btn btn-primary btn-sm" onClick={() => window.print()} style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                <Printer className="w-4 h-4" aria-hidden="true" /> Print / Save PDF
               </button>
             </div>
           </div>

@@ -5,6 +5,7 @@ import { useLanguage } from "../context/LanguageContext";
 import { getLocalCart, saveLocalCart } from "../services/cartService";
 import { createOrder } from "../services/orderService";
 import { createOrderAcknowledgement } from "../services/notificationService";
+import { CheckCircle2, Bell, Smartphone, MapPin, ShoppingBag } from "lucide-react";
 import "../css/Checkout.css";
 
 function Checkout() {
@@ -408,7 +409,7 @@ function Checkout() {
             {/* Top Success Header */}
             <div className="ack-header-bar">
               <div className="ack-success-badge">
-                <span className="ack-check-icon">✓</span>
+                <CheckCircle2 className="w-6 h-6 text-emerald-500" aria-hidden="true" />
                 <div>
                   <h2>Order Placed & Dispatched!</h2>
                   <p>Acknowledgement sent to In-Portal Notifications & Registered Phone Number</p>
@@ -422,7 +423,9 @@ function Checkout() {
               {/* Left: In-Portal Acknowledgement Card */}
               <div className="ack-card-box portal-ack-card">
                 <div className="ack-card-header">
-                  <span className="ack-tag portal-tag">🔔 In-Portal Dispatch Notification</span>
+                  <span className="ack-tag portal-tag" style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                    <Bell className="w-4 h-4" aria-hidden="true" /> In-Portal Dispatch Notification
+                  </span>
                   <span className="ack-time">{orderAckData.formattedTime}</span>
                 </div>
 
@@ -446,7 +449,6 @@ function Checkout() {
                 {/* Delivery Agent Card */}
                 <div className="ack-agent-card">
                   <div className="ack-agent-header">
-                    <span className="ack-agent-avatar">{orderAckData.deliveryAgent?.avatar}</span>
                     <div className="ack-agent-details">
                       <h4>{orderAckData.deliveryAgent?.name} (Assigned Rider)</h4>
                       <p>Motorbike: <strong className="plate-badge">{orderAckData.deliveryAgent?.vehicleNumber}</strong></p>
@@ -475,8 +477,12 @@ function Checkout() {
               {/* Right: Registered Phone SMS Dispatch Simulation */}
               <div className="ack-card-box phone-sms-card">
                 <div className="ack-card-header">
-                  <span className="ack-tag sms-tag">📲 Registered Phone SMS Dispatch</span>
-                  <span className="sms-sent-badge">✓ DELIVERED</span>
+                  <span className="ack-tag sms-tag" style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                    <Smartphone className="w-4 h-4" aria-hidden="true" /> Registered Phone SMS Dispatch
+                  </span>
+                  <span className="sms-sent-badge" style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                    <CheckCircle2 className="w-3.5 h-3.5" aria-hidden="true" /> DELIVERED
+                  </span>
                 </div>
 
                 <div className="phone-mockup-wrapper">
@@ -494,7 +500,9 @@ function Checkout() {
                     </div>
                     <p className="sms-body-text">{orderAckData.smsContent}</p>
                     <div className="sms-footer">
-                      <span>✓ Delivered via SMS Gateway</span>
+                      <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" aria-hidden="true" /> Delivered via SMS Gateway
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -516,8 +524,9 @@ function Checkout() {
                   setOrderAckData(null);
                   navigate("/orders");
                 }}
+                style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px" }}
               >
-                📍 Track Live GPS Rider & View Invoices
+                <MapPin className="w-4 h-4" aria-hidden="true" /> Track Live GPS Rider & View Invoices
               </button>
 
               <button
@@ -527,8 +536,9 @@ function Checkout() {
                   setOrderAckData(null);
                   navigate("/products");
                 }}
+                style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px" }}
               >
-                🛍️ Continue Shopping
+                <ShoppingBag className="w-4 h-4" aria-hidden="true" /> Continue Shopping
               </button>
             </div>
           </div>

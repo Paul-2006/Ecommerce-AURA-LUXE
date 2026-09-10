@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { loginDelivery } from "../../services/authService";
+import { Zap } from "lucide-react";
 import "../../css/Auth.css";
 
 function DeliveryLogin() {
@@ -125,9 +126,9 @@ function DeliveryLogin() {
                 setPassword("Delivery@123!");
                 setVehicleNumber("KA-05-MB-4421");
               }}
-              style={{ background: "rgba(16, 185, 129, 0.12)", border: "1px solid rgba(16, 185, 129, 0.4)", color: "#34d399", width: "100%", padding: "10px", borderRadius: "8px", cursor: "pointer", fontWeight: "600" }}
+              style={{ background: "rgba(16, 185, 129, 0.12)", border: "1px solid rgba(16, 185, 129, 0.4)", color: "#34d399", width: "100%", padding: "10px", borderRadius: "8px", cursor: "pointer", fontWeight: "600", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
             >
-              ⚡ Fill Quick Demo Credentials (delivery@webkadai.com)
+              <Zap className="w-4 h-4 mr-2" aria-hidden="true" /> Fill Quick Demo Credentials (delivery@webkadai.com)
             </button>
           </div>
         </form>

@@ -1,20 +1,20 @@
 import { useEffect, useState, useRef, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { MessageSquare, Mic, Volume2, VolumeX, X, Square, Send, Star, CheckCircle2, ShoppingCart } from "lucide-react";
 import { AuthContext } from "../context/AuthContext";
 import { useLanguage } from "../context/LanguageContext";
 import { useTheme } from "../context/ThemeContext";
 import { getProducts, DEMO_PRODUCTS } from "../services/productService";
 import { addCart } from "../services/cartService";
-import { queryBackendAiAssistant, compareProductsBackend } from "../services/aiBackendService";
-import { queryGroqAuraAI, getGroqApiKey, setGroqApiKey } from "../services/groqService";
+import { queryBackendAiAssistant } from "../services/aiBackendService";
+import { getGroqApiKey, setGroqApiKey } from "../services/groqService";
 import "../css/ProductCompareChatbot.css";
 
 function ProductCompareChatbot() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { isCustomer, isAdmin, isSeller, isWarehouse, isDelivery } = useContext(AuthContext);
+  const { isCustomer } = useContext(AuthContext);
   const { language } = useLanguage();
-  const { isDark, toggleTheme, setTheme } = useTheme();
 
   const [open, setOpen] = useState(false);
   const [products, setProducts] = useState([]);
@@ -22,23 +22,15 @@ function ProductCompareChatbot() {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // API Key Config Modal State
-  const [showKeyModal, setShowKeyModal] = useState(false);
-  const [apiKeyInput, setApiKeyInput] = useState(getGroqApiKey() || "");
-
-  // Alternating Girl / Boy Voice State
+  // Voice State
   const voiceTurnCounter = useRef(0);
-  const [activeVoiceTag, setActiveVoiceTag] = useState("Priya (Girl Voice)");
-
-  // Voice Interaction & Cancel State
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [voiceEnabled, setVoiceEnabled] = useState(true);
   const [voiceStatusText, setVoiceStatusText] = useState("");
   const recognitionRef = useRef(null);
 
-  const initialGreeting =
-    "Hello! I'm Kiva, your AI assistant. How can I help you today?";
+  const initialGreeting = "Hello! I'm Kiva, your AI shopping assistant. How can I help you today?";
 
   const [messages, setMessages] = useState([
     {
@@ -69,7 +61,7 @@ function ProductCompareChatbot() {
 
       recognition.onstart = () => {
         setIsListening(true);
-        setVoiceStatusText("Listening in English... Speak your shopping command");
+        setVoiceStatusText("Listening... Speak your shopping command");
       };
 
       recognition.onresult = (event) => {
@@ -117,8 +109,7 @@ function ProductCompareChatbot() {
     }
   };
 
-  // Text-to-Speech TalkBack with Voice Cancellation
-  const speakTextAlternatingGender = (textToSpeak) => {
+  const speakText = (textToSpeak) => {
     if (!voiceEnabled || !window.speechSynthesis) return;
 
     window.speechSynthesis.cancel();
@@ -126,27 +117,20 @@ function ProductCompareChatbot() {
     const cleanText = textToSpeak
       .replace(/[#*`_~]/g, "")
       .replace(/https?:\/\/\S+/g, "")
-      .replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, "")
       .trim();
 
     if (!cleanText) return;
 
     const utterance = new SpeechSynthesisUtterance(cleanText);
     utterance.rate = 1.0;
-    utterance.pitch = voiceTurnCounter.current % 2 === 0 ? 1.25 : 0.95; // Girl vs Boy Pitch
 
     const voices = window.speechSynthesis.getVoices();
     if (voices.length > 0) {
       const englishVoices = voices.filter((v) => v.lang.includes("en"));
       if (englishVoices.length > 0) {
-        const selectedVoice = englishVoices[voiceTurnCounter.current % englishVoices.length];
-        utterance.voice = selectedVoice;
+        utterance.voice = englishVoices[0];
       }
     }
-
-    voiceTurnCounter.current += 1;
-    const currentTag = voiceTurnCounter.current % 2 === 0 ? "Priya (Girl Voice)" : "Rahul (Boy Voice)";
-    setActiveVoiceTag(currentTag);
 
     utterance.onstart = () => setIsSpeaking(true);
     utterance.onend = () => setIsSpeaking(false);
@@ -183,15 +167,11 @@ function ProductCompareChatbot() {
     }
   };
 
-  // -------------------------------------------------------------
-  // AI ASSISTANT QUERY ENGINE (ASP.NET CORE BACKEND + GEMINI AI)
-  // -------------------------------------------------------------
   const handleAiAssistantQuery = async (userInput) => {
     if (!userInput || !userInput.trim()) return;
 
     const raw = userInput.toLowerCase().trim();
 
-    // 1. Instant Cancel / Quiet Command
     if (
       raw === "cancel" ||
       raw === "stop" ||
@@ -202,92 +182,63 @@ function ProductCompareChatbot() {
     ) {
       stopSpeechTalkBack();
       const reply = "Understood! I've silenced audio playback. How else can I assist your shopping today?";
-      addBotMessage(userInput, reply, null, activeVoiceTag);
+      addBotMessage(userInput, reply);
       return;
     }
 
-    // 2. Direct Navigation Commands
     if (raw.includes("take me to products") || raw.includes("go to products") || raw.includes("open shop")) {
       navigate("/products");
-      addBotMessage(userInput, "Opening the products catalog for you now!", null, activeVoiceTag);
+      addBotMessage(userInput, "Opening the products catalog for you now!");
       return;
     }
     if (raw.includes("go to cart") || raw.includes("open cart")) {
       navigate("/cart");
-      addBotMessage(userInput, "Taking you to your shopping cart!", null, activeVoiceTag);
+      addBotMessage(userInput, "Taking you to your shopping cart!");
       return;
     }
     if (raw.includes("track my orders") || raw.includes("go to orders")) {
       navigate("/orders");
-      addBotMessage(userInput, "Navigating to your live orders and GPS tracking!", null, activeVoiceTag);
+      addBotMessage(userInput, "Navigating to your live orders and GPS tracking!");
       return;
     }
 
     setLoading(true);
 
     try {
-      // Query ASP.NET Core Backend Gemini AI Endpoint
       const aiResponse = await queryBackendAiAssistant({
         query: userInput,
         history: messages.slice(-4).map(m => ({ sender: m.from, text: m.text }))
       });
-
-      const isGirl = voiceTurnCounter.current % 2 === 0;
-      const currentSpeaker = isGirl ? "Priya (Girl Voice)" : "Rahul (Boy Voice)";
 
       const recommendedCards = aiResponse.recommendedProducts || [];
 
       addBotMessage(
         userInput,
         aiResponse.answer,
-        [
-          { label: "🛍️ Browse Products", prompt: "Go to products" },
-          { label: "🛒 Open Cart", prompt: "Go to cart" },
-          { label: "📍 Track Orders", prompt: "Track my orders" }
-        ],
-        currentSpeaker,
         recommendedCards
       );
 
-      speakTextAlternatingGender(aiResponse.answer);
+      speakText(aiResponse.answer);
     } catch (err) {
-      console.error("Aura AI Assistant Backend error:", err);
-      const fallbackReply = "I am truly sorry, but I couldn't connect to our backend AI service right now. Would you like to explore our products catalog or cart directly?";
-      addBotMessage(userInput, fallbackReply, null, activeVoiceTag);
-      speakTextAlternatingGender(fallbackReply);
+      console.error("AI Assistant error:", err);
+      const fallbackReply = "I couldn't connect to our backend AI service right now. Would you like to explore our products catalog or cart directly?";
+      addBotMessage(userInput, fallbackReply);
+      speakText(fallbackReply);
     } finally {
       setLoading(false);
     }
   };
 
-  const addBotMessage = (userText, botText, actionButtons = null, speakerTag = null, recommendedProducts = []) => {
+  const addBotMessage = (userText, botText, recommendedProducts = []) => {
     setMessages((prev) => [
       ...prev,
       { from: "user", text: userText },
       {
         from: "bot",
         text: botText,
-        actions: actionButtons,
-        voiceTag: speakerTag || activeVoiceTag,
         recommendedProducts
       }
     ]);
-  };
-
-  const toggleProduct = (productId) => {
-    if (selectedIds.includes(productId)) {
-      setSelectedIds(selectedIds.filter((id) => id !== productId));
-    } else {
-      if (selectedIds.length < 4) {
-        const updated = [...selectedIds, productId];
-        setSelectedIds(updated);
-        if (updated.length >= 2) {
-          const prods = (products.length > 0 ? products : DEMO_PRODUCTS).filter((p) => updated.includes(p.productId));
-          const pNames = prods.map((p) => p.productName).join(" vs ");
-          handleAiAssistantQuery(`Compare these products: ${pNames}`);
-        }
-      }
-    }
   };
 
   const handleAddToCartFromAi = async (product) => {
@@ -308,12 +259,6 @@ function ProductCompareChatbot() {
     setQuery("");
   };
 
-  const handleSaveGroqKey = () => {
-    setGroqApiKey(apiKeyInput);
-    setShowKeyModal(false);
-    alert("Groq API Key saved successfully!");
-  };
-
   if (!showCustomerAI) {
     return null;
   }
@@ -325,17 +270,17 @@ function ProductCompareChatbot() {
           {/* Header */}
           <div className="compare-header aura-header">
             <div className="compare-header-title">
-              <span className="annachi-symbol-badge">K</span>
+              <MessageSquare size={20} className="text-blue-500" aria-hidden="true" />
               <div>
-                <strong>Kiva AI Concierge</strong>
-                <span className="online-indicator">● Online</span>
+                <strong>Kiva AI Assistant</strong>
+                <span className="online-indicator">Active</span>
               </div>
             </div>
 
             <div className="header-controls">
               {isSpeaking && (
                 <button type="button" className="cancel-speaking-btn" onClick={stopSpeechTalkBack} title="Stop Speech">
-                  <span className="stop-square">■</span> Stop
+                  <Square size={12} fill="currentColor" aria-hidden="true" /> Stop
                 </button>
               )}
 
@@ -346,18 +291,19 @@ function ProductCompareChatbot() {
                   stopSpeechTalkBack();
                   setVoiceEnabled(!voiceEnabled);
                 }}
-                title={voiceEnabled ? "Mute Voice Speech" : "Enable Voice Speech"}
+                title={voiceEnabled ? "Mute Speech" : "Enable Speech"}
+                aria-label="Toggle Voice"
               >
-                {voiceEnabled ? "🔊" : "🔇"}
+                {voiceEnabled ? <Volume2 size={16} aria-hidden="true" /> : <VolumeX size={16} aria-hidden="true" />}
               </button>
 
-              <button type="button" className="compare-close-btn" onClick={() => setOpen(false)} title="Close Assistant">
-                ✕
+              <button type="button" className="compare-close-btn" onClick={() => setOpen(false)} title="Close Assistant" aria-label="Close Assistant">
+                <X size={16} aria-hidden="true" />
               </button>
             </div>
           </div>
 
-          {/* Listening State Banner */}
+          {/* Listening Banner */}
           {isListening && (
             <div className="voice-listening-banner aura-listening">
               <div className="sound-wave">
@@ -365,24 +311,10 @@ function ProductCompareChatbot() {
                 <span className="wave-bar"></span>
                 <span className="wave-bar"></span>
                 <span className="wave-bar"></span>
-                <span className="wave-bar"></span>
               </div>
-              <span>{voiceStatusText || "Listening in English..."}</span>
+              <span>{voiceStatusText || "Listening..."}</span>
               <button type="button" className="btn btn-ghost btn-sm" onClick={toggleListening}>
                 Stop
-              </button>
-            </div>
-          )}
-
-          {/* Active Speaking Indicator Bar */}
-          {isSpeaking && (
-            <div className="voice-speaking-indicator-bar" onClick={stopSpeechTalkBack}>
-              <span className="speaking-pulse-dot"></span>
-              <span>
-                {voiceTurnCounter.current % 2 === 0 ? "👧 Priya (Girl Voice)" : "👦 Rahul (Boy Voice)"} is speaking...
-              </span>
-              <button type="button" className="btn btn-danger btn-sm stop-btn" onClick={(e) => { e.stopPropagation(); stopSpeechTalkBack(); }}>
-                Cancel Audio
               </button>
             </div>
           )}
@@ -394,7 +326,7 @@ function ProductCompareChatbot() {
                 <div className={`chat-bubble ${msg.from} aura-bubble`}>
                   <p className="chat-bubble-text">{msg.text}</p>
 
-                  {/* Grounded Recommended Product Cards */}
+                  {/* Recommended Product Cards */}
                   {msg.recommendedProducts && msg.recommendedProducts.length > 0 && (
                     <div className="ai-recommended-cards-grid">
                       {msg.recommendedProducts.map((prod) => (
@@ -409,12 +341,11 @@ function ProductCompareChatbot() {
                             <h5 className="ai-card-title">{prod.productName}</h5>
                             <div className="ai-card-price-row">
                               <strong className="ai-card-price">₹{prod.price?.toLocaleString("en-IN")}</strong>
-                              {prod.originalPrice > prod.price && (
-                                <span className="ai-card-mrp">₹{prod.originalPrice?.toLocaleString("en-IN")}</span>
-                              )}
                             </div>
                             <div className="ai-card-meta">
-                              <span className="rating-pill">★ {prod.rating || 4.7}</span>
+                              <span className="rating-pill">
+                                <Star size={12} fill="currentColor" stroke="none" aria-hidden="true" /> {prod.rating || 4.7}
+                              </span>
                               <span className="badge-pill badge-success">In Stock</span>
                             </div>
                             <div className="ai-card-actions">
@@ -457,9 +388,10 @@ function ProductCompareChatbot() {
               type="button"
               className={`voice-mic-btn aura-mic ${isListening ? "listening" : ""}`}
               onClick={toggleListening}
-              title="Speak voice command in English"
+              title="Speak voice command"
+              aria-label="Voice Input"
             >
-              🎙️
+              <Mic size={18} aria-hidden="true" />
             </button>
             <input
               type="text"
@@ -468,8 +400,8 @@ function ProductCompareChatbot() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
-            <button type="submit" className="btn btn-gold btn-sm send-btn aura-send" disabled={loading}>
-              Send
+            <button type="submit" className="btn btn-primary btn-sm send-btn aura-send" disabled={loading} aria-label="Send Message">
+              <Send size={16} aria-hidden="true" />
             </button>
           </form>
         </div>
@@ -481,18 +413,18 @@ function ProductCompareChatbot() {
             onClick={() => setOpen(true)}
             aria-label="Open Kiva AI Shopping Assistant"
           >
-            <span className="annachi-symbol-badge">K</span>
-            <span className="launcher-text">Kiva AI Assistant</span>
+            <MessageSquare size={18} aria-hidden="true" />
+            <span className="launcher-text">Kiva AI</span>
           </button>
 
           <button
             type="button"
             className={`quick-floating-mic annachi-quick-mic ${isListening ? "listening" : ""}`}
             onClick={toggleListening}
-            title="Speak in English with Kiva AI (Alternating Voice & Navigation)"
+            title="Speak voice command"
             aria-label="Kiva Voice Command"
           >
-            🎙️
+            <Mic size={18} aria-hidden="true" />
           </button>
         </div>
       )}

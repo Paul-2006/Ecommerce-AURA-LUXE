@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { Building2, MapPin, Truck, X, Crosshair, Map, Phone, MessageSquare, Star } from "lucide-react";
 import { getNotifications } from "../services/notificationService";
 import "../css/Orders.css";
 
@@ -15,29 +16,26 @@ function LiveMapTracker({ orderId, onClose }) {
   const [eta, setEta] = useState(8);
   const [driverStatus, setDriverStatus] = useState("In transit with your package");
   const [currentCoords, setCurrentCoords] = useState({ lat: 12.9580, lng: 77.6100 });
-  const [tileMode, setTileMode] = useState("voyager"); // 'voyager' | 'osm' | 'dark'
+  const [tileMode, setTileMode] = useState("voyager");
 
-  // Retrieve notification metadata if available
   const [notifData] = useState(() => {
     const notifs = getNotifications();
     return notifs && notifs.length > 0 ? notifs[0] : null;
   });
 
-  // Real GPS Waypoints Route (Bangalore Central Hub to Customer Delivery)
   const ROUTE_COORDS = [
-    [12.9716, 77.5946], // 1. Central Warehouse Hub (Majestic/MG Road)
-    [12.9680, 77.5990], // 2. Richmond Circle
-    [12.9645, 77.6045], // 3. Victoria Road
-    [12.9580, 77.6100], // 4. Austin Town
-    [12.9510, 77.6160], // 5. Viveknagar
-    [12.9430, 77.6210], // 6. Koramangala 80ft Road
-    [12.9352, 77.6245]  // 7. Customer Delivery Address
+    [12.9716, 77.5946],
+    [12.9680, 77.5990],
+    [12.9645, 77.6045],
+    [12.9580, 77.6100],
+    [12.9510, 77.6160],
+    [12.9430, 77.6210],
+    [12.9352, 77.6245]
   ];
 
   const origin = ROUTE_COORDS[0];
   const destination = ROUTE_COORDS[ROUTE_COORDS.length - 1];
 
-  // Helper to interpolate position along polyline
   const getInterpolatedPoint = (pct) => {
     const totalSegments = ROUTE_COORDS.length - 1;
     const scaled = (pct / 100) * totalSegments;
@@ -52,7 +50,6 @@ function LiveMapTracker({ orderId, onClose }) {
     return { lat, lng };
   };
 
-  // Initialize Real Leaflet OpenStreetMap Map
   useEffect(() => {
     if (!mapContainerRef.current) return;
 
@@ -82,7 +79,6 @@ function LiveMapTracker({ orderId, onClose }) {
 
     L.tileLayer(tileUrl, { maxZoom: 19, attribution }).addTo(map);
 
-    // 1. Route Polyline
     const polyline = L.polyline(ROUTE_COORDS, {
       color: "#2563eb",
       weight: 6,
@@ -92,10 +88,9 @@ function LiveMapTracker({ orderId, onClose }) {
     }).addTo(map);
     routePolylineRef.current = polyline;
 
-    // 2. Origin Hub Pin
     const originIcon = L.divIcon({
       className: "leaflet-origin-pin",
-      html: `<div style="background:#1e40af;color:#fff;padding:6px;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(30,64,175,0.6);border:2px solid #fff;font-size:16px;">🏢</div>`,
+      html: `<div style="background:#0f172a;color:#fff;padding:6px;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(15,23,42,0.4);border:2px solid #fff;font-size:14px;">HUB</div>`,
       iconSize: [34, 34],
       iconAnchor: [17, 17]
     });
@@ -103,10 +98,9 @@ function LiveMapTracker({ orderId, onClose }) {
       .bindPopup("<strong>AURA Luxe Central Fulfillment Hub</strong><br/>Dispatch origin point")
       .addTo(map);
 
-    // 3. Destination Pin
     const destIcon = L.divIcon({
       className: "leaflet-dest-pin",
-      html: `<div style="background:#059669;color:#fff;padding:6px;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(5,150,105,0.6);border:2px solid #fff;font-size:16px;">📍</div>`,
+      html: `<div style="background:#059669;color:#fff;padding:6px;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(5,150,105,0.4);border:2px solid #fff;font-size:14px;">DEST</div>`,
       iconSize: [34, 34],
       iconAnchor: [17, 17]
     });
@@ -114,13 +108,12 @@ function LiveMapTracker({ orderId, onClose }) {
       .bindPopup("<strong>Customer Delivery Address</strong><br/>Plot 42, Tech Corridor, Bengaluru")
       .addTo(map);
 
-    // 4. Live Motorbike Rider Marker
     const initialPos = getInterpolatedPoint(progress);
     const riderIcon = L.divIcon({
       className: "leaflet-rider-pin",
       html: `<div style="position:relative;width:44px;height:44px;display:flex;align-items:center;justify-content:center;">
-              <span style="position:absolute;width:100%;height:100%;border-radius:50%;background:rgba(234,88,12,0.35);animation:pulseMicAura 1.5s infinite;"></span>
-              <div style="background:linear-gradient(135deg, #f59e0b, #ea580c);color:#fff;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(234,88,12,0.6);border:2px solid #ffffff;font-size:18px;">🏍️</div>
+              <span style="position:absolute;width:100%;height:100%;border-radius:50%;background:rgba(37,99,235,0.25);animation:pulseMicAura 1.5s infinite;"></span>
+              <div style="background:#2563eb;color:#fff;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(37,99,235,0.4);border:2px solid #ffffff;font-size:14px;font-weight:bold;">LIVE</div>
             </div>`,
       iconSize: [44, 44],
       iconAnchor: [22, 22]
@@ -141,7 +134,6 @@ function LiveMapTracker({ orderId, onClose }) {
     };
   }, [tileMode]);
 
-  // Real-time animation loop along route
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress((prev) => {
@@ -221,20 +213,16 @@ function LiveMapTracker({ orderId, onClose }) {
             </div>
           </div>
           <button className="btn btn-ghost btn-sm close-modal-btn" onClick={onClose} aria-label="Close">
-            ✕
+            <X size={16} aria-hidden="true" />
           </button>
         </div>
 
         {/* 2-Column Split: MAIN MAP (LEFT) & RIDER DETAILS (RIGHT) */}
         <div className="tracker-split-grid" style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 340px", gap: "18px", minHeight: 0 }}>
-          {/* =========================================================================
-              LEFT: MAIN UNOBSTRUCTED MAP CANVAS (FULL HEIGHT & WIDTH)
-              ========================================================================= */}
           <div style={{ position: "relative", width: "100%", height: "100%", minHeight: "380px", borderRadius: "18px", overflow: "hidden", border: "1.5px solid var(--border-medium)" }}>
-            {/* Leaflet Map Target */}
             <div ref={mapContainerRef} style={{ width: "100%", height: "100%", zIndex: 1 }} />
 
-            {/* Floating Live Telemetry HUD Overlay (Top-Left) */}
+            {/* Floating Live Telemetry HUD Overlay */}
             <div className="map-hud-overlay" style={{ zIndex: 500, top: "12px", left: "12px", right: "auto", display: "flex", gap: "14px", padding: "8px 14px", background: "rgba(15, 23, 42, 0.88)", backdropFilter: "blur(6px)", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.18)", color: "#fff" }}>
               <div className="hud-metric">
                 <span className="hud-label" style={{ fontSize: "0.68rem", color: "#94a3b8", fontWeight: 800 }}>SPEED</span>
@@ -250,7 +238,7 @@ function LiveMapTracker({ orderId, onClose }) {
               </div>
             </div>
 
-            {/* Floating Map Controls (Bottom-Right) */}
+            {/* Floating Map Controls */}
             <div style={{ position: "absolute", bottom: "12px", right: "12px", zIndex: 500, display: "flex", gap: "8px" }}>
               <button
                 type="button"
@@ -258,7 +246,7 @@ function LiveMapTracker({ orderId, onClose }) {
                 onClick={handleCenterOnRider}
                 style={{ background: "rgba(15, 23, 42, 0.88)", color: "#fff", border: "1px solid rgba(255,255,255,0.2)", backdropFilter: "blur(6px)" }}
               >
-                🎯 Center Rider
+                <Crosshair size={14} aria-hidden="true" /> Center Rider
               </button>
               <button
                 type="button"
@@ -266,14 +254,12 @@ function LiveMapTracker({ orderId, onClose }) {
                 onClick={() => setTileMode(tileMode === "voyager" ? "osm" : tileMode === "osm" ? "dark" : "voyager")}
                 style={{ background: "rgba(15, 23, 42, 0.88)", color: "#fff", border: "1px solid rgba(255,255,255,0.2)", backdropFilter: "blur(6px)" }}
               >
-                🗺️ {tileMode.toUpperCase()}
+                <Map size={14} aria-hidden="true" /> {tileMode.toUpperCase()}
               </button>
             </div>
           </div>
 
-          {/* =========================================================================
-              RIGHT: DRIVER & DELIVERY TELEMETRY SIDEBAR
-              ========================================================================= */}
+          {/* RIDER & DELIVERY TELEMETRY SIDEBAR */}
           <div
             className="tracker-sidebar glass-panel"
             style={{
@@ -288,7 +274,6 @@ function LiveMapTracker({ orderId, onClose }) {
               textAlign: "left"
             }}
           >
-            {/* Status Header */}
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid var(--border-light)", paddingBottom: "10px" }}>
               <div>
                 <strong style={{ fontSize: "0.92rem", color: "var(--text-main)", display: "block" }}>Dispatched Rider</strong>
@@ -300,13 +285,15 @@ function LiveMapTracker({ orderId, onClose }) {
             {/* Rider Profile Card */}
             <div style={{ padding: "12px", background: "var(--bg-surface)", borderRadius: "12px", border: "1px solid var(--border-medium)", display: "flex", flexDirection: "column", gap: "8px" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                <div style={{ width: "44px", height: "44px", borderRadius: "50%", background: "rgba(40, 116, 240, 0.12)", color: "var(--primary)", fontWeight: 800, fontSize: "1.1rem", display: "flex", alignItems: "center", justifyContent: "center", border: "1.5px solid var(--border-medium)" }}>
+                <div style={{ width: "44px", height: "44px", borderRadius: "50%", background: "rgba(37, 99, 235, 0.12)", color: "var(--primary)", fontWeight: 800, fontSize: "1.1rem", display: "flex", alignItems: "center", justifyContent: "center", border: "1.5px solid var(--border-medium)" }}>
                   RK
                 </div>
                 <div>
                   <h4 style={{ margin: 0, fontSize: "0.98rem", color: "var(--text-main)" }}>{agentName}</h4>
                   <span style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>Verified Delivery Partner</span>
-                  <span style={{ display: "block", fontSize: "0.76rem", color: "#f59e0b", fontWeight: 700 }}>4.92 ★ (1,420 Deliveries)</span>
+                  <span style={{ display: "block", fontSize: "0.76rem", color: "#d97706", fontWeight: 700 }}>
+                    <Star size={12} fill="currentColor" stroke="none" aria-hidden="true" /> 4.92 / 5.0 (1,420 Deliveries)
+                  </span>
                 </div>
               </div>
 
@@ -315,8 +302,8 @@ function LiveMapTracker({ orderId, onClose }) {
                 <div style={{ marginTop: "2px" }}>Phone: <strong>{agentPhone}</strong></div>
               </div>
 
-              <div style={{ padding: "6px 10px", background: "rgba(40, 116, 240, 0.08)", borderRadius: "8px", border: "1px solid rgba(40, 116, 240, 0.2)", fontSize: "0.76rem", color: "var(--primary)", fontWeight: 600 }}>
-                📍 {driverStatus}
+              <div style={{ padding: "6px 10px", background: "rgba(37, 99, 235, 0.08)", borderRadius: "8px", border: "1px solid rgba(37, 99, 235, 0.2)", fontSize: "0.76rem", color: "var(--primary)", fontWeight: 600, display: "flex", alignItems: "center", gap: "6px" }}>
+                <MapPin size={14} aria-hidden="true" /> {driverStatus}
               </div>
             </div>
 
@@ -324,19 +311,19 @@ function LiveMapTracker({ orderId, onClose }) {
             <div
               style={{
                 padding: "12px 14px",
-                background: "rgba(239, 68, 68, 0.06)",
+                background: "rgba(220, 38, 38, 0.06)",
                 borderRadius: "12px",
-                border: "1.5px dashed #ef4444",
+                border: "1.5px dashed #dc2626",
                 textAlign: "center",
                 display: "flex",
                 flexDirection: "column",
                 gap: "2px"
               }}
             >
-              <span style={{ fontSize: "0.7rem", fontWeight: 800, color: "#ef4444", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+              <span style={{ fontSize: "0.7rem", fontWeight: 800, color: "#dc2626", letterSpacing: "0.05em", textTransform: "uppercase" }}>
                 Delivery Verification OTP
               </span>
-              <strong style={{ fontFamily: "monospace", fontSize: "1.6rem", letterSpacing: "4px", color: "#ef4444", lineHeight: 1.2 }}>
+              <strong style={{ fontFamily: "monospace", fontSize: "1.6rem", letterSpacing: "4px", color: "#dc2626", lineHeight: 1.2 }}>
                 {otpCode}
               </strong>
               <small style={{ fontSize: "0.72rem", color: "var(--text-muted)" }}>
@@ -369,7 +356,7 @@ function LiveMapTracker({ orderId, onClose }) {
                   onClick={() => alert(`Calling Delivery Agent ${agentName} (${agentPhone})...`)}
                   style={{ width: "100%", fontSize: "0.78rem", padding: "8px 6px" }}
                 >
-                  📞 Call Rider
+                  <Phone size={14} aria-hidden="true" /> Call Rider
                 </button>
                 <button
                   type="button"
@@ -377,7 +364,7 @@ function LiveMapTracker({ orderId, onClose }) {
                   onClick={() => alert(`Opening in-app encrypted chat with ${agentName}...`)}
                   style={{ width: "100%", fontSize: "0.78rem", padding: "8px 6px" }}
                 >
-                  💬 Message
+                  <MessageSquare size={14} aria-hidden="true" /> Message
                 </button>
               </div>
 

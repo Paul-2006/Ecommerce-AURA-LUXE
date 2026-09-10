@@ -44,7 +44,7 @@ export const createOrderAcknowledgement = ({
       name: "Ramesh Kumar",
       phone: "+91 98765 43210",
       vehicleNumber: "KA-01-EA-9988 (Hero Splendor Pro)",
-      rating: "4.9 ★ (1,420 Deliveries)",
+      rating: "4.9 / 5.0 (1,420 Deliveries)",
       status: "Dispatched with Security Box",
       avatar: "RK"
     },
@@ -52,7 +52,7 @@ export const createOrderAcknowledgement = ({
       name: "Suresh Vignesh",
       phone: "+91 98450 11223",
       vehicleNumber: "KA-04-MB-4512 (Honda Activa 6G)",
-      rating: "4.8 ★ (980 Deliveries)",
+      rating: "4.8 / 5.0 (980 Deliveries)",
       status: "Heading to Central Warehouse Hub",
       avatar: "SV"
     },
@@ -60,7 +60,7 @@ export const createOrderAcknowledgement = ({
       name: "Anand Natarajan",
       phone: "+91 97312 88776",
       vehicleNumber: "KA-05-ZX-3321 (TVS Raider 125)",
-      rating: "4.9 ★ (2,100 Deliveries)",
+      rating: "4.9 / 5.0 (2,100 Deliveries)",
       status: "Fast Express Route Active",
       avatar: "AN"
     }
@@ -72,7 +72,7 @@ export const createOrderAcknowledgement = ({
     : "Apple MacBook Pro 16\" (x1)";
 
   // Registered Phone SMS Message
-  const smsText = `📦 [AURA Luxe] Order Confirmed! Order #${orderId} of ₹${totalAmount?.toLocaleString("en-IN") || "2,49,999"} placed successfully.\n` +
+  const smsText = `[AURA Luxe] Order Confirmed! Order #${orderId} of ₹${totalAmount?.toLocaleString("en-IN") || "2,49,999"} placed successfully.\n` +
     `Items: ${itemNames}\n` +
     `Delivery Agent: ${agent.name} (Phone: ${agent.phone}, Motorbike: ${agent.vehicleNumber})\n` +
     `Delivery Verification OTP: ${otp}\n` +

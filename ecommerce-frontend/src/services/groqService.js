@@ -401,17 +401,17 @@ const localGroqFallback = (prompt, activeProducts, customerContext) => {
         `Here is my exact, side-by-side comparison for the products you requested:\n\n` +
         `1. ${itemA.productName} (${itemA.brand || "Brand"})\n` +
         `   • Price: ${formatINR(itemA.price)}\n` +
-        `   • Rating: ${itemA.rating || 4.8} ★ (${itemA.reviewsCount || 100}+ customer reviews)\n` +
+        `   • Rating: ${itemA.rating || 4.8} / 5.0 (${itemA.reviewsCount || 100}+ customer reviews)\n` +
         `   • Warranty: ${itemA.warranty || "1 Year Standard"}\n` +
         `   • Key Features: ${itemA.description}\n\n` +
         `2. ${itemB.productName} (${itemB.brand || "Brand"})\n` +
         `   • Price: ${formatINR(itemB.price)}\n` +
-        `   • Rating: ${itemB.rating || 4.7} ★ (${itemB.reviewsCount || 100}+ customer reviews)\n` +
+        `   • Rating: ${itemB.rating || 4.7} / 5.0 (${itemB.reviewsCount || 100}+ customer reviews)\n` +
         `   • Warranty: ${itemB.warranty || "1 Year Standard"}\n` +
         `   • Key Features: ${itemB.description}\n\n` +
         `My Personal Recommendation:\n` +
         `• Value: ${cheaper.productName} is more budget-friendly, saving you ${formatINR(priceDiff)}.\n` +
-        `• Customer Favorite: ${higherRated.productName} has the highest rating at ${higherRated.rating || 4.8} ★.\n` +
+        `• Customer Favorite: ${higherRated.productName} has the highest rating at ${higherRated.rating || 4.8} / 5.0.\n` +
         `• Which should you pick: If you want top-tier performance for pro workflows, go with ${itemA.productName}; otherwise, ${itemB.productName} is an outstanding choice.`;
 
       return {
@@ -426,7 +426,7 @@ const localGroqFallback = (prompt, activeProducts, customerContext) => {
   if (matched.length === 1) {
     const p = matched[0];
     return {
-      text: `I found ${p.productName} in our catalog! It is priced at ${formatINR(p.price)} with a ${p.rating || 4.8} ★ rating. Highlights: ${p.description}. Would you like me to add it to your cart or compare it with another model?`,
+      text: `I found ${p.productName} in our catalog! It is priced at ${formatINR(p.price)} with a ${p.rating || 4.8} / 5.0 rating. Highlights: ${p.description}. Would you like me to add it to your cart or compare it with another model?`,
       source: "local-groq-engine"
     };
   }

@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { loginWarehouse } from "../../services/authService";
+import { Zap } from "lucide-react";
 import "../../css/Auth.css";
 
 function WarehouseLogin() {
@@ -115,9 +116,9 @@ function WarehouseLogin() {
                 setEmail("warehouse@webkadai.com");
                 setPassword("Warehouse@123!");
               }}
-              style={{ background: "rgba(59, 130, 246, 0.12)", border: "1px solid rgba(59, 130, 246, 0.4)", color: "#60a5fa", width: "100%", padding: "10px", borderRadius: "8px", cursor: "pointer", fontWeight: "600" }}
+              style={{ background: "rgba(59, 130, 246, 0.12)", border: "1px solid rgba(59, 130, 246, 0.4)", color: "#60a5fa", width: "100%", padding: "10px", borderRadius: "8px", cursor: "pointer", fontWeight: "600", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
             >
-              ⚡ Fill Quick Demo Credentials (warehouse@webkadai.com)
+              <Zap className="w-4 h-4 mr-2" aria-hidden="true" /> Fill Quick Demo Credentials (warehouse@webkadai.com)
             </button>
           </div>
         </form>

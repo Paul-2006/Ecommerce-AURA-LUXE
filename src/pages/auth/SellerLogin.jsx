@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { loginSeller } from "../../services/authService";
+import { Zap } from "lucide-react";
 import "../../css/Auth.css";
 
 function SellerLogin() {
@@ -126,9 +127,9 @@ function SellerLogin() {
                 setPassword("Seller@123!");
                 setGstNumber("29AAAAA0000A1Z5");
               }}
-              style={{ background: "rgba(245, 158, 11, 0.12)", border: "1px solid rgba(245, 158, 11, 0.4)", color: "#f59e0b", width: "100%", padding: "10px", borderRadius: "8px", cursor: "pointer", fontWeight: "600" }}
+              style={{ background: "rgba(245, 158, 11, 0.12)", border: "1px solid rgba(245, 158, 11, 0.4)", color: "#f59e0b", width: "100%", padding: "10px", borderRadius: "8px", cursor: "pointer", fontWeight: "600", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
             >
-              ⚡ Fill Quick Demo Credentials (seller@webkadai.com)
+              <Zap className="w-4 h-4 mr-2" aria-hidden="true" /> Fill Quick Demo Credentials (seller@webkadai.com)
             </button>
           </div>
         </form>

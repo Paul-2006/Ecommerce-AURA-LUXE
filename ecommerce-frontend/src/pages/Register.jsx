@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { FileText, Truck, KeyRound, CheckCircle2, UserPlus, ArrowRight } from "lucide-react";
 import { registerUser } from "../services/authService";
 import "../css/Auth.css";
 
@@ -41,7 +42,6 @@ function Register() {
     e.preventDefault();
     setErrorMsg("");
 
-    // Email format validation
     const cleanEmail = email.trim();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(cleanEmail)) {
@@ -49,7 +49,6 @@ function Register() {
       return;
     }
 
-    // Phone number format validation
     const cleanPhone = phoneNumber.trim();
     const phoneDigits = cleanPhone.replace(/\D/g, "");
     if (phoneDigits.length < 10 || phoneDigits.length > 15) {
@@ -57,13 +56,11 @@ function Register() {
       return;
     }
 
-    // Password length validation
     if (!password || password.length < 6) {
       setErrorMsg("Password must be at least 6 characters long.");
       return;
     }
 
-    // Validation for Seller Business Documents
     if (roleId === 2) {
       if (!gstNumber.trim() || gstNumber.length < 15) {
         setErrorMsg("SELLER ONBOARDING: Valid 15-character GSTIN number is required (e.g. 29AAAAA0000A1Z5).");
@@ -79,7 +76,6 @@ function Register() {
       }
     }
 
-    // Validation for Delivery Agent Driver & Vehicle Documents
     if (roleId === 4) {
       if (!dlNumber.trim()) {
         setErrorMsg("DELIVERY AGENT ONBOARDING: Valid Driver's License (DL) Number is required.");
@@ -205,7 +201,7 @@ function Register() {
                 }}
                 style={{ marginTop: "4px", width: "100%" }}
               >
-                🔑 Log In & Retrieve Existing Account →
+                <KeyRound size={16} aria-hidden="true" /> Log In & Retrieve Existing Account <ArrowRight size={14} aria-hidden="true" />
               </button>
             )}
           </div>
@@ -260,13 +256,11 @@ function Register() {
             </div>
           </div>
 
-          {/* =========================================================================
-              SELLER MANDATORY BUSINESS DOCUMENTS SECTION
-              ========================================================================= */}
+          {/* SELLER MANDATORY BUSINESS DOCUMENTS SECTION */}
           {roleId === 2 && (
             <div className="role-specific-inputs glass-panel" style={{ marginTop: "16px", padding: "20px", borderRadius: "16px", border: "1.5px solid var(--border-medium)" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "14px" }}>
-                <span style={{ fontSize: "1.3rem" }}>📋</span>
+                <FileText size={20} aria-hidden="true" />
                 <div>
                   <strong style={{ fontSize: "1rem", color: "var(--text-main)", display: "block" }}>Seller Business Verification Documents</strong>
                   <span style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>Mandatory documents required for merchant GST & tax clearance</span>
@@ -274,7 +268,6 @@ function Register() {
               </div>
 
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-                {/* 1. GSTIN & Document */}
                 <div className="form-group">
                   <label className="form-label">1. GSTIN Number (15 Digits) *</label>
                   <input
@@ -287,10 +280,9 @@ function Register() {
                   />
                   <label className="form-label" style={{ marginTop: "6px", fontSize: "0.76rem" }}>Upload GST Certificate (.pdf/.png/.jpg) *</label>
                   <input type="file" accept=".pdf,.png,.jpg,.jpeg" onChange={(e) => setGstDocName(e.target.files[0]?.name || "")} required />
-                  {gstDocName && <small className="doc-ok" style={{ color: "var(--success)", display: "block", marginTop: "2px" }}>✓ {gstDocName}</small>}
+                  {gstDocName && <small className="doc-ok" style={{ color: "var(--success)", display: "flex", alignItems: "center", gap: "4px", marginTop: "2px" }}><CheckCircle2 size={12} aria-hidden="true" /> {gstDocName}</small>}
                 </div>
 
-                {/* 2. Business PAN & Document */}
                 <div className="form-group">
                   <label className="form-label">2. Company / Business PAN *</label>
                   <input
@@ -303,18 +295,16 @@ function Register() {
                   />
                   <label className="form-label" style={{ marginTop: "6px", fontSize: "0.76rem" }}>Upload PAN Card Scan (.pdf/.png/.jpg) *</label>
                   <input type="file" accept=".pdf,.png,.jpg,.jpeg" onChange={(e) => setPanDocName(e.target.files[0]?.name || "")} required />
-                  {panDocName && <small className="doc-ok" style={{ color: "var(--success)", display: "block", marginTop: "2px" }}>✓ {panDocName}</small>}
+                  {panDocName && <small className="doc-ok" style={{ color: "var(--success)", display: "flex", alignItems: "center", gap: "4px", marginTop: "2px" }}><CheckCircle2 size={12} aria-hidden="true" /> {panDocName}</small>}
                 </div>
 
-                {/* 3. Trade License / Establishment License */}
                 <div className="form-group">
                   <label className="form-label">3. Trade / Shop License *</label>
                   <label className="form-label" style={{ fontSize: "0.76rem" }}>Upload Business Trade License Document *</label>
                   <input type="file" accept=".pdf,.png,.jpg,.jpeg" onChange={(e) => setTradeLicenseDocName(e.target.files[0]?.name || "")} required />
-                  {tradeLicenseDocName && <small className="doc-ok" style={{ color: "var(--success)", display: "block", marginTop: "2px" }}>✓ {tradeLicenseDocName}</small>}
+                  {tradeLicenseDocName && <small className="doc-ok" style={{ color: "var(--success)", display: "flex", alignItems: "center", gap: "4px", marginTop: "2px" }}><CheckCircle2 size={12} aria-hidden="true" /> {tradeLicenseDocName}</small>}
                 </div>
 
-                {/* 4. Bank Account & Cancelled Cheque */}
                 <div className="form-group">
                   <label className="form-label">4. Bank Account & Payout Proof *</label>
                   <input
@@ -335,26 +325,23 @@ function Register() {
                   />
                   <label className="form-label" style={{ fontSize: "0.76rem" }}>Upload Cancelled Cheque / Bank Passbook *</label>
                   <input type="file" accept=".pdf,.png,.jpg,.jpeg" onChange={(e) => setBankDocName(e.target.files[0]?.name || "")} required />
-                  {bankDocName && <small className="doc-ok" style={{ color: "var(--success)", display: "block", marginTop: "2px" }}>✓ {bankDocName}</small>}
+                  {bankDocName && <small className="doc-ok" style={{ color: "var(--success)", display: "flex", alignItems: "center", gap: "4px", marginTop: "2px" }}><CheckCircle2 size={12} aria-hidden="true" /> {bankDocName}</small>}
                 </div>
 
-                {/* 5. Address Proof */}
                 <div className="form-group" style={{ gridColumn: "1 / -1" }}>
                   <label className="form-label">5. Registered Business Address Proof (Electricity Bill / Lease) *</label>
                   <input type="file" accept=".pdf,.png,.jpg,.jpeg" onChange={(e) => setAddressProofDocName(e.target.files[0]?.name || "")} required />
-                  {addressProofDocName && <small className="doc-ok" style={{ color: "var(--success)", display: "block", marginTop: "2px" }}>✓ {addressProofDocName}</small>}
+                  {addressProofDocName && <small className="doc-ok" style={{ color: "var(--success)", display: "flex", alignItems: "center", gap: "4px", marginTop: "2px" }}><CheckCircle2 size={12} aria-hidden="true" /> {addressProofDocName}</small>}
                 </div>
               </div>
             </div>
           )}
 
-          {/* =========================================================================
-              DELIVERY AGENT MANDATORY DRIVER & VEHICLE DOCUMENTS SECTION
-              ========================================================================= */}
+          {/* DELIVERY AGENT MANDATORY DOCUMENTS SECTION */}
           {roleId === 4 && (
             <div className="role-specific-inputs glass-panel" style={{ marginTop: "16px", padding: "20px", borderRadius: "16px", border: "1.5px solid var(--border-medium)" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "14px" }}>
-                <span style={{ fontSize: "1.3rem" }}>🏍️</span>
+                <Truck size={20} aria-hidden="true" />
                 <div>
                   <strong style={{ fontSize: "1rem", color: "var(--text-main)", display: "block" }}>Delivery Driver & Vehicle Verification Documents</strong>
                   <span style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>Mandatory documents required for rider clearance and delivery dispatch</span>
@@ -362,7 +349,6 @@ function Register() {
               </div>
 
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-                {/* 1. Driver's License */}
                 <div className="form-group">
                   <label className="form-label">1. Driver's License (DL) Number *</label>
                   <input
@@ -374,10 +360,9 @@ function Register() {
                   />
                   <label className="form-label" style={{ marginTop: "6px", fontSize: "0.76rem" }}>Upload Driver's License Document Scan *</label>
                   <input type="file" accept=".pdf,.png,.jpg,.jpeg" onChange={(e) => setDlDocName(e.target.files[0]?.name || "")} required />
-                  {dlDocName && <small className="doc-ok" style={{ color: "var(--success)", display: "block", marginTop: "2px" }}>✓ {dlDocName}</small>}
+                  {dlDocName && <small className="doc-ok" style={{ color: "var(--success)", display: "flex", alignItems: "center", gap: "4px", marginTop: "2px" }}><CheckCircle2 size={12} aria-hidden="true" /> {dlDocName}</small>}
                 </div>
 
-                {/* 2. Vehicle Registration Plate & RC Book */}
                 <div className="form-group">
                   <label className="form-label">2. Motorbike Registration Number *</label>
                   <input
@@ -389,10 +374,9 @@ function Register() {
                   />
                   <label className="form-label" style={{ marginTop: "6px", fontSize: "0.76rem" }}>Upload Vehicle RC Book Scan *</label>
                   <input type="file" accept=".pdf,.png,.jpg,.jpeg" onChange={(e) => setRcDocName(e.target.files[0]?.name || "")} required />
-                  {rcDocName && <small className="doc-ok" style={{ color: "var(--success)", display: "block", marginTop: "2px" }}>✓ {rcDocName}</small>}
+                  {rcDocName && <small className="doc-ok" style={{ color: "var(--success)", display: "flex", alignItems: "center", gap: "4px", marginTop: "2px" }}><CheckCircle2 size={12} aria-hidden="true" /> {rcDocName}</small>}
                 </div>
 
-                {/* 3. Vehicle Insurance */}
                 <div className="form-group">
                   <label className="form-label">3. Motorbike Insurance Policy Number *</label>
                   <input
@@ -404,10 +388,9 @@ function Register() {
                   />
                   <label className="form-label" style={{ marginTop: "6px", fontSize: "0.76rem" }}>Upload Valid Insurance Certificate Scan *</label>
                   <input type="file" accept=".pdf,.png,.jpg,.jpeg" onChange={(e) => setInsuranceDocName(e.target.files[0]?.name || "")} required />
-                  {insuranceDocName && <small className="doc-ok" style={{ color: "var(--success)", display: "block", marginTop: "2px" }}>✓ {insuranceDocName}</small>}
+                  {insuranceDocName && <small className="doc-ok" style={{ color: "var(--success)", display: "flex", alignItems: "center", gap: "4px", marginTop: "2px" }}><CheckCircle2 size={12} aria-hidden="true" /> {insuranceDocName}</small>}
                 </div>
 
-                {/* 4. Aadhaar Card Scan */}
                 <div className="form-group">
                   <label className="form-label">4. Aadhaar Card Number (12 Digits) *</label>
                   <input
@@ -420,14 +403,13 @@ function Register() {
                   />
                   <label className="form-label" style={{ marginTop: "6px", fontSize: "0.76rem" }}>Upload Aadhaar Card Scan *</label>
                   <input type="file" accept=".pdf,.png,.jpg,.jpeg" onChange={(e) => setAadhaarDocName(e.target.files[0]?.name || "")} required />
-                  {aadhaarDocName && <small className="doc-ok" style={{ color: "var(--success)", display: "block", marginTop: "2px" }}>✓ {aadhaarDocName}</small>}
+                  {aadhaarDocName && <small className="doc-ok" style={{ color: "var(--success)", display: "flex", alignItems: "center", gap: "4px", marginTop: "2px" }}><CheckCircle2 size={12} aria-hidden="true" /> {aadhaarDocName}</small>}
                 </div>
 
-                {/* 5. Payout Bank / UPI ID */}
                 <div className="form-group" style={{ gridColumn: "1 / -1" }}>
                   <label className="form-label">5. Payout Passbook / UPI QR Document Upload *</label>
                   <input type="file" accept=".pdf,.png,.jpg,.jpeg" onChange={(e) => setPayoutDocName(e.target.files[0]?.name || "")} required />
-                  {payoutDocName && <small className="doc-ok" style={{ color: "var(--success)", display: "block", marginTop: "2px" }}>✓ {payoutDocName}</small>}
+                  {payoutDocName && <small className="doc-ok" style={{ color: "var(--success)", display: "flex", alignItems: "center", gap: "4px", marginTop: "2px" }}><CheckCircle2 size={12} aria-hidden="true" /> {payoutDocName}</small>}
                 </div>
               </div>
             </div>

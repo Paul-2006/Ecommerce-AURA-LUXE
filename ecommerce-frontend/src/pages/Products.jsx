@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import { getProducts } from "../services/productService";
 import { getCategories } from "../services/categoryService";
+import { Search, X, Zap, Trophy, Tag, ShieldCheck, RefreshCw } from "lucide-react";
 import "../css/Products.css";
 
 function Products() {
@@ -141,7 +142,7 @@ function Products() {
         {/* Compact Search & Sort Toolbar */}
         <div className="catalog-controls-group">
           <div className="toolbar-search">
-            <span className="search-symbol">🔍</span>
+            <Search className="w-4 h-4 text-slate-400 search-symbol" aria-hidden="true" />
             <input
               type="text"
               placeholder="Search products, brands, specs..."
@@ -150,7 +151,9 @@ function Products() {
               className="toolbar-search-input"
             />
             {search && (
-              <button className="clear-search-btn" onClick={() => setSearch("")}>✕</button>
+              <button className="clear-search-btn" onClick={() => setSearch("")}>
+                <X className="w-4 h-4" aria-hidden="true" />
+              </button>
             )}
           </div>
 
@@ -158,7 +161,7 @@ function Products() {
             <label className="sort-label">Sort:</label>
             <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="sort-select">
               <option value="featured">Featured Order</option>
-              <option value="rating">Top Rated (4.8★+)</option>
+              <option value="rating">Top Rated (4.8+)</option>
               <option value="price-low">Price: Low to High</option>
               <option value="price-high">Price: High to Low</option>
               <option value="name">Product Name (A-Z)</option>
@@ -175,30 +178,39 @@ function Products() {
             type="button"
             className={`useful-toggle-btn ${inStockOnly ? "active" : ""}`}
             onClick={() => setInStockOnly(!inStockOnly)}
+            style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}
           >
-            ⚡ In Stock Only
+            <Zap className="w-4 h-4" aria-hidden="true" /> In Stock Only
           </button>
           <button
             type="button"
             className={`useful-toggle-btn ${highRatingOnly ? "active" : ""}`}
             onClick={() => setHighRatingOnly(!highRatingOnly)}
+            style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}
           >
-            🏆 Top Rated (4.7★+)
+            <Trophy className="w-4 h-4" aria-hidden="true" /> Top Rated (4.7+)
           </button>
           <button
             type="button"
             className={`useful-toggle-btn ${under50kOnly ? "active" : ""}`}
             onClick={() => setUnder50kOnly(!under50kOnly)}
+            style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}
           >
-            💰 Under ₹50,000
+            <Tag className="w-4 h-4" aria-hidden="true" /> Under ₹50,000
           </button>
         </div>
 
         {/* Marketplace Trust Features Strip */}
         <div className="useful-trust-strip">
-          <span>🛡️ GST Verified Sellers</span>
-          <span>⚡ Same-Day Express Dispatch</span>
-          <span>🔄 7-Day Easy Replacement</span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+            <ShieldCheck className="w-4 h-4" aria-hidden="true" /> GST Verified Sellers
+          </span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+            <Zap className="w-4 h-4" aria-hidden="true" /> Same-Day Express Dispatch
+          </span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+            <RefreshCw className="w-4 h-4" aria-hidden="true" /> 7-Day Easy Replacement
+          </span>
         </div>
       </div>
 

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { getAdminSummary, getRecentOrders } from "../../services/adminService";
 import api from "../../services/api";
+import { Bell, X, LayoutDashboard, Shield, RefreshCw } from "lucide-react";
 import "../../css/Dashboard.css";
 
 function AdminDashboard() {
@@ -109,16 +110,16 @@ function AdminDashboard() {
           }}
         >
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
-            <span className="badge-pill badge-primary" style={{ fontSize: "0.72rem" }}>
-              🔔 New Customer Login
+            <span className="badge-pill badge-primary" style={{ fontSize: "0.72rem", display: "inline-flex", alignItems: "center", gap: "4px" }}>
+              <Bell className="w-3.5 h-3.5" aria-hidden="true" /> New Customer Login
             </span>
             <button
               type="button"
               className="btn btn-ghost btn-sm"
               onClick={() => handleDismissNotification(activePopupNotification.logId)}
-              style={{ padding: "0 6px", fontSize: "1rem" }}
+              style={{ padding: "0 6px" }}
             >
-              ✕
+              <X className="w-4 h-4" aria-hidden="true" />
             </button>
           </div>
 
@@ -158,11 +159,11 @@ function AdminDashboard() {
         </div>
 
         <div className="admin-quick-actions" style={{ display: "flex", gap: "8px" }}>
-          <button className={`btn ${activeTab === "overview" ? "btn-primary" : "btn-secondary"} btn-sm`} onClick={() => setActiveTab("overview")}>
-            📊 Dashboard Overview
+          <button className={`btn ${activeTab === "overview" ? "btn-primary" : "btn-secondary"} btn-sm`} onClick={() => setActiveTab("overview")} style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+            <LayoutDashboard className="w-4 h-4" aria-hidden="true" /> Dashboard Overview
           </button>
-          <button className={`btn ${activeTab === "login_activity" ? "btn-primary" : "btn-secondary"} btn-sm`} onClick={() => { setActiveTab("login_activity"); fetchRecentLoginActivity(); }}>
-            🔐 User Login Activity ({loginActivity.length})
+          <button className={`btn ${activeTab === "login_activity" ? "btn-primary" : "btn-secondary"} btn-sm`} onClick={() => { setActiveTab("login_activity"); fetchRecentLoginActivity(); }} style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+            <Shield className="w-4 h-4" aria-hidden="true" /> User Login Activity ({loginActivity.length})
           </button>
         </div>
       </div>
@@ -263,8 +264,8 @@ function AdminDashboard() {
                 Restricted Admin View: Real-time authentication events across Customer, Seller, Warehouse, Delivery, and Admin accounts.
               </p>
             </div>
-            <button className="btn btn-secondary btn-sm" onClick={fetchRecentLoginActivity}>
-              🔄 Refresh Audit Log
+            <button className="btn btn-secondary btn-sm" onClick={fetchRecentLoginActivity} style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+              <RefreshCw className="w-4 h-4" aria-hidden="true" /> Refresh Audit Log
             </button>
           </div>
 

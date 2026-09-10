@@ -8,6 +8,7 @@ import { getLocalCart } from "../services/cartService";
 import { getLocalWishlist } from "../services/wishlistService";
 import LiveMapTracker from "../components/LiveMapTracker";
 import WebKadaiLogo from "../components/WebKadaiLogo";
+import { LogOut, Package, Heart, ShoppingCart, User, Settings, MapPin, FileText, Save, Sun, Moon, X } from "lucide-react";
 import "../css/Dashboard.css";
 import "../css/Orders.css";
 
@@ -184,8 +185,9 @@ function Profile() {
             logout();
             navigate("/login");
           }}
+          style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}
         >
-          🚪 Logout
+          <LogOut className="w-4 h-4" aria-hidden="true" /> Logout
         </button>
       </div>
 
@@ -196,7 +198,9 @@ function Profile() {
           className={`tab-btn ${activeTab === "orders" ? "active" : ""}`}
           onClick={() => setActiveTab("orders")}
         >
-          <span>📦 Orders ({orders.length})</span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+            <Package className="w-4 h-4" aria-hidden="true" /> Orders ({orders.length})
+          </span>
         </button>
 
         <button
@@ -204,7 +208,9 @@ function Profile() {
           className={`tab-btn ${activeTab === "wishlist" ? "active" : ""}`}
           onClick={() => setActiveTab("wishlist")}
         >
-          <span>💖 Wishlist ({wishlistItems.length})</span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+            <Heart className="w-4 h-4" aria-hidden="true" /> Wishlist ({wishlistItems.length})
+          </span>
         </button>
 
         <button
@@ -212,7 +218,9 @@ function Profile() {
           className={`tab-btn ${activeTab === "cart" ? "active" : ""}`}
           onClick={() => setActiveTab("cart")}
         >
-          <span>🛒 Cart ({cartItems.length})</span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+            <ShoppingCart className="w-4 h-4" aria-hidden="true" /> Cart ({cartItems.length})
+          </span>
         </button>
 
         <button
@@ -220,7 +228,9 @@ function Profile() {
           className={`tab-btn ${activeTab === "info" ? "active" : ""}`}
           onClick={() => setActiveTab("info")}
         >
-          <span>👤 Personal Info</span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+            <User className="w-4 h-4" aria-hidden="true" /> Personal Info
+          </span>
         </button>
 
         <button
@@ -228,7 +238,9 @@ function Profile() {
           className={`tab-btn ${activeTab === "settings" ? "active" : ""}`}
           onClick={() => setActiveTab("settings")}
         >
-          <span>⚙️ Settings</span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+            <Settings className="w-4 h-4" aria-hidden="true" /> Settings
+          </span>
         </button>
       </div>
 
@@ -275,15 +287,17 @@ function Profile() {
                         type="button"
                         className="btn btn-primary btn-sm"
                         onClick={() => setActiveTrackingOrderId(order.orderId)}
+                        style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}
                       >
-                        📍 Track Map
+                        <MapPin className="w-3.5 h-3.5" aria-hidden="true" /> Track Map
                       </button>
                       <button
                         type="button"
                         className="btn btn-secondary btn-sm"
                         onClick={() => setActiveInvoiceOrder(order)}
+                        style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}
                       >
-                        📄 Tax Invoice
+                        <FileText className="w-3.5 h-3.5" aria-hidden="true" /> Tax Invoice
                       </button>
                     </div>
                   </div>
@@ -340,7 +354,7 @@ function Profile() {
                 </div>
               ))}
               <button className="btn btn-primary btn-md" style={{ marginTop: "16px" }} onClick={() => navigate("/cart")}>
-                Proceed to Checkout →
+                Proceed to Checkout
               </button>
             </div>
           )}
@@ -397,8 +411,8 @@ function Profile() {
             </div>
 
             <div style={{ marginTop: "20px", textAlign: "right" }}>
-              <button type="submit" className="btn btn-save btn-md">
-                💾 Save Profile Changes
+              <button type="submit" className="btn btn-save btn-md" style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                <Save className="w-4 h-4" aria-hidden="true" /> Save Profile Changes
               </button>
             </div>
           </form>
@@ -418,11 +432,11 @@ function Profile() {
                 <p style={{ margin: 0, fontSize: "0.8rem", color: "var(--text-muted)" }}>Toggle between daytime crisp Light White theme and sleek obsidian Dark Mode.</p>
               </div>
               <div style={{ display: "flex", gap: "10px" }}>
-                <button type="button" className={`btn ${!isDark ? "btn-primary" : "btn-secondary"} btn-sm`} onClick={() => setSpecificTheme("light")}>
-                  ☀️ Light Mode
+                <button type="button" className={`btn ${!isDark ? "btn-primary" : "btn-secondary"} btn-sm`} onClick={() => setSpecificTheme("light")} style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                  <Sun className="w-4 h-4" aria-hidden="true" /> Light Mode
                 </button>
-                <button type="button" className={`btn ${isDark ? "btn-primary" : "btn-secondary"} btn-sm`} onClick={() => setSpecificTheme("dark")}>
-                  🌙 Dark Mode
+                <button type="button" className={`btn ${isDark ? "btn-primary" : "btn-secondary"} btn-sm`} onClick={() => setSpecificTheme("dark")} style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                  <Moon className="w-4 h-4" aria-hidden="true" /> Dark Mode
                 </button>
               </div>
             </div>
@@ -444,7 +458,9 @@ function Profile() {
                 <WebKadaiLogo size="small" />
                 <span className="invoice-tax-badge" style={{ marginLeft: "10px", fontSize: "0.75rem", background: "#701A75", color: "#fff", padding: "3px 8px", borderRadius: "4px" }}>OFFICIAL TAX INVOICE</span>
               </div>
-              <button className="close-modal-btn" onClick={() => setActiveInvoiceOrder(null)}>✕</button>
+              <button className="close-modal-btn" onClick={() => setActiveInvoiceOrder(null)}>
+                <X className="w-4 h-4" aria-hidden="true" />
+              </button>
             </div>
 
             <div style={{ padding: "14px", background: "var(--bg-surface)", borderRadius: "8px", marginBottom: "16px", fontSize: "0.88rem" }}>

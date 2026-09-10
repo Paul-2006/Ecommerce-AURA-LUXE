@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getSellers, updateSellerApproval } from "../../services/adminService";
+import { X } from "lucide-react";
 import "../../css/Dashboard.css";
 
 function ManageSellers() {
@@ -127,7 +128,9 @@ function ManageSellers() {
           <div className="live-tracking-content glass-panel center-content" style={{ maxWidth: "560px" }}>
             <div style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <h3>Business Document Verification</h3>
-              <button className="btn btn-ghost btn-sm" onClick={() => setInspectingDoc(null)}>✕</button>
+              <button className="btn btn-ghost btn-sm" onClick={() => setInspectingDoc(null)}>
+                <X className="w-4 h-4" aria-hidden="true" />
+              </button>
             </div>
 
             <p style={{ textAlign: "left", width: "100%" }}>

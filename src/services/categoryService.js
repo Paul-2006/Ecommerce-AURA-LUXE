@@ -1,11 +1,11 @@
 import api from "./api";
 
 const DEMO_CATEGORIES = [
-  { categoryId: 1, categoryName: "Mobiles", icon: "📱", description: "Smartphones, 5G devices and accessories" },
-  { categoryId: 2, categoryName: "Laptops", icon: "💻", description: "Gaming laptops, ultrabooks, MacBooks" },
-  { categoryId: 3, categoryName: "Electronics", icon: "🎧", description: "Audio, smart TV, gaming consoles" },
-  { categoryId: 4, categoryName: "Accessories", icon: "⌚", description: "Smartwatches, mice, keyboards, chargers" },
-  { categoryId: 5, categoryName: "Cameras", icon: "📷", description: "DSLR, Mirrorless, 4K action cameras" }
+  { categoryId: 1, categoryName: "Mobiles", iconKey: "Smartphone", description: "Smartphones, 5G devices and accessories" },
+  { categoryId: 2, categoryName: "Laptops", iconKey: "Laptop", description: "Gaming laptops, ultrabooks, MacBooks" },
+  { categoryId: 3, categoryName: "Electronics", iconKey: "Headphones", description: "Audio, smart TV, gaming consoles" },
+  { categoryId: 4, categoryName: "Accessories", iconKey: "Watch", description: "Smartwatches, mice, keyboards, chargers" },
+  { categoryId: 5, categoryName: "Cameras", iconKey: "Camera", description: "DSLR, Mirrorless, 4K action cameras" }
 ];
 
 export const getCategories = async () => {

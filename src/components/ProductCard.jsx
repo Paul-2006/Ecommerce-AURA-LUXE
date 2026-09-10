@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { Star, Heart, ShoppingCart, CheckCircle2 } from "lucide-react";
 import { AuthContext } from "../context/AuthContext";
 import { useLanguage } from "../context/LanguageContext";
 import { addCart } from "../services/cartService";
@@ -102,9 +103,7 @@ function ProductCard({ product }) {
           title={isWishlisted ? "Remove from Saved" : "Save Item"}
           aria-label="Wishlist"
         >
-          <svg viewBox="0 0 24 24" width="16" height="16" fill={isWishlisted ? "#ef4444" : "none"} stroke="currentColor" strokeWidth="2">
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-          </svg>
+          <Heart size={16} fill={isWishlisted ? "#dc2626" : "none"} stroke={isWishlisted ? "#dc2626" : "currentColor"} aria-hidden="true" />
         </button>
 
         {/* Brand Pill */}
@@ -116,7 +115,8 @@ function ProductCard({ product }) {
         {/* Rating & Assured Badge Row */}
         <div className="product-rating-row">
           <span className="rating-pill">
-            ★ {product.rating || 4.8}
+            <Star size={12} fill="currentColor" stroke="none" aria-hidden="true" />
+            {product.rating || 4.8}
           </span>
           <span className="rating-count">({product.reviewsCount || 342})</span>
           <span className="badge-pill badge-assured">Assured</span>
@@ -155,7 +155,15 @@ function ProductCard({ product }) {
             onClick={handleAddToCart}
             disabled={addingCart}
           >
-            {addingCart ? "Added" : t("add_to_cart")}
+            {addingCart ? (
+              <>
+                <CheckCircle2 size={16} aria-hidden="true" /> Added
+              </>
+            ) : (
+              <>
+                <ShoppingCart size={16} aria-hidden="true" /> {t("add_to_cart")}
+              </>
+            )}
           </button>
         </div>
       </div>

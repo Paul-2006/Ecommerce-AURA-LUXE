@@ -8,6 +8,7 @@ import {
   verifyForgotOtp,
   resetPasswordWithToken
 } from "../../services/authService";
+import { Zap, ArrowLeft, CheckCircle2 } from "lucide-react";
 import "../../css/Auth.css";
 
 function CustomerLogin() {
@@ -315,9 +316,9 @@ function CustomerLogin() {
                   setEmail("customer@webkadai.com");
                   setPassword("Customer@123!");
                 }}
-                style={{ background: "rgba(99, 102, 241, 0.12)", border: "1px solid rgba(99, 102, 241, 0.4)", color: "#818cf8", width: "100%", padding: "10px", borderRadius: "8px", cursor: "pointer", fontWeight: "600" }}
+                style={{ background: "rgba(99, 102, 241, 0.12)", border: "1px solid rgba(99, 102, 241, 0.4)", color: "#818cf8", width: "100%", padding: "10px", borderRadius: "8px", cursor: "pointer", fontWeight: "600", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
               >
-                ⚡ Fill Quick Demo Credentials (customer@webkadai.com)
+                <Zap className="w-4 h-4 mr-2" aria-hidden="true" /> Fill Quick Demo Credentials (customer@webkadai.com)
               </button>
             </div>
           </form>
@@ -347,10 +348,10 @@ function CustomerLogin() {
             <button
               type="button"
               className="btn btn-ghost btn-sm btn-block"
-              style={{ marginTop: "10px" }}
+              style={{ marginTop: "10px", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
               onClick={resetForgotState}
             >
-              ← Back to Sign In
+              <ArrowLeft className="w-4 h-4 mr-1.5" aria-hidden="true" /> Back to Sign In
             </button>
           </form>
         )}
@@ -429,10 +430,10 @@ function CustomerLogin() {
             <button
               type="button"
               className="btn btn-ghost btn-sm btn-block"
-              style={{ marginTop: "10px" }}
+              style={{ marginTop: "10px", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
               onClick={() => setMode("forgot_find")}
             >
-              ← Search Different Account
+              <ArrowLeft className="w-4 h-4 mr-1.5" aria-hidden="true" /> Search Different Account
             </button>
           </form>
         )}
@@ -464,10 +465,10 @@ function CustomerLogin() {
             <button
               type="button"
               className="btn btn-ghost btn-sm btn-block"
-              style={{ marginTop: "10px" }}
+              style={{ marginTop: "10px", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
               onClick={() => setMode("forgot_channel")}
             >
-              ← Resend / Change Channel
+              <ArrowLeft className="w-4 h-4 mr-1.5" aria-hidden="true" /> Resend / Change Channel
             </button>
           </form>
         )}
@@ -506,7 +507,7 @@ function CustomerLogin() {
         {/* MODE: FORGOT STEP 5 - DONE CONFIRMATION */}
         {mode === "forgot_done" && (
           <div style={{ textAlign: "center", padding: "10px 0" }}>
-            <div style={{ fontSize: "3rem", marginBottom: "10px" }}>✅</div>
+            <CheckCircle2 className="w-12 h-12 text-emerald-500 mx-auto mb-2" aria-hidden="true" />
             <p style={{ marginBottom: "20px", color: "var(--text-muted)" }}>
               Your password has been successfully reset. You can now log into your account using your email and new password.
             </p>
