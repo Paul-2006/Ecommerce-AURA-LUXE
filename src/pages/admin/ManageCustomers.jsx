@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getUsers } from "../../services/adminService";
 import { Users, UserCheck, ShieldAlert, Search, RefreshCw, Mail, Phone, MapPin } from "lucide-react";
-import "../../css/Dashboard.css";
+import "../../css/AdminPortal.css";
 
 function ManageCustomers() {
   const [customers, setCustomers] = useState([]);
@@ -17,10 +17,8 @@ function ManageCustomers() {
       setLoading(true);
       const res = await getUsers();
       const allUsers = res.data || [];
-      // Filter customer accounts or build customer dataset
       const custs = allUsers.filter((u) => u.role === "Customer" || !u.role || u.roleId === 5);
       
-      // Fallback sample customer data if API returns empty
       if (custs.length === 0) {
         setCustomers([
           { userId: 101, username: "Rahul Sharma", email: "customer@webkadai.com", phone: "+91 98765 43210", city: "Bengaluru", ordersCount: 5, totalSpent: 48999, status: "Active", createdDate: "2026-01-15" },
@@ -71,61 +69,61 @@ function ManageCustomers() {
     new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(amt || 0);
 
   return (
-    <div className="admin-page-container centered-container">
-      <div className="page-header" style={{ marginBottom: "24px" }}>
+    <div className="admin-page-container">
+      <div className="admin-page-header glass-panel" style={{ padding: "20px 24px", marginBottom: "20px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div>
-            <span className="badge-pill badge-primary">Customer Management Desk</span>
-            <h1 style={{ margin: "4px 0 0 0", fontFamily: "Playfair Display, Georgia, serif" }}>Customer Account Directory & Audits</h1>
-            <p style={{ margin: 0, color: "var(--text-muted)", fontSize: "0.88rem" }}>
+            <span className="badge-pill badge-secondary">Customer Management Desk</span>
+            <h1 style={{ margin: "6px 0 2px 0", fontSize: "1.35rem" }}>Customer Account Directory & Audits</h1>
+            <p style={{ margin: 0, fontSize: "0.86rem" }}>
               Monitor registered marketplace customers, order volumes, lifetime value, and account access permissions.
             </p>
           </div>
-          <button className="btn btn-secondary btn-sm" onClick={loadCustomers} style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+          <button className="btn btn-secondary btn-sm" onClick={loadCustomers}>
             <RefreshCw className="w-4 h-4" aria-hidden="true" /> Refresh Directory
           </button>
         </div>
       </div>
 
       {/* Metric Cards Grid */}
-      <div className="admin-metrics-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "16px", marginBottom: "24px" }}>
-        <div className="admin-metric-card glass-panel">
+      <div className="admin-metrics-grid" style={{ marginBottom: "24px" }}>
+        <div className="admin-metric-card">
           <div className="metric-details">
             <span className="metric-val">{customers.length} Accounts</span>
             <span className="metric-title">Total Registered Customers</span>
           </div>
-          <Users className="w-5 h-5 text-indigo-400" aria-hidden="true" />
+          <Users className="w-5 h-5" style={{ color: "var(--admin-secondary)" }} aria-hidden="true" />
         </div>
 
-        <div className="admin-metric-card glass-panel">
+        <div className="admin-metric-card">
           <div className="metric-details">
             <span className="metric-val">{customers.filter((c) => c.status === "Active").length} Active</span>
             <span className="metric-title">Verified Active Status</span>
           </div>
-          <UserCheck className="w-5 h-5 text-emerald-400" aria-hidden="true" />
+          <UserCheck className="w-5 h-5" style={{ color: "var(--admin-success)" }} aria-hidden="true" />
         </div>
 
-        <div className="admin-metric-card glass-panel">
+        <div className="admin-metric-card">
           <div className="metric-details">
             <span className="metric-val">{customers.filter((c) => c.status !== "Active").length} Flagged</span>
             <span className="metric-title">Suspended / Flagged</span>
           </div>
-          <ShieldAlert className="w-5 h-5 text-rose-400" aria-hidden="true" />
+          <ShieldAlert className="w-5 h-5" style={{ color: "var(--admin-danger)" }} aria-hidden="true" />
         </div>
       </div>
 
       {/* Main Customers Table Card */}
-      <div className="glass-panel" style={{ padding: "24px", borderRadius: "16px" }}>
+      <div className="glass-panel" style={{ padding: "24px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", flexWrap: "wrap", gap: "12px" }}>
-          <h3 style={{ margin: 0, fontFamily: "Playfair Display, Georgia, serif" }}>Customer Account Directory</h3>
+          <h3 style={{ margin: 0 }}>Customer Account Directory</h3>
           <div style={{ position: "relative", minWidth: "260px" }}>
-            <Search className="w-4 h-4 text-slate-400" style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)" }} aria-hidden="true" />
+            <Search className="w-4 h-4" style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "var(--admin-text-secondary)" }} aria-hidden="true" />
             <input
               type="text"
               placeholder="Search by name, email, city..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              style={{ width: "100%", padding: "8px 12px 8px 36px", borderRadius: "8px", border: "1px solid var(--border-medium)", background: "var(--bg-main)", color: "var(--text-main)", fontSize: "0.85rem" }}
+              style={{ width: "100%", paddingLeft: "36px" }}
             />
           </div>
         </div>
@@ -153,7 +151,7 @@ function ManageCustomers() {
                     <td>
                       <div>
                         <strong>{c.username}</strong>
-                        <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", display: "flex", gap: "8px" }}>
+                        <div style={{ fontSize: "0.78rem", color: "var(--admin-text-secondary)", display: "flex", gap: "8px", marginTop: "2px" }}>
                           <span><Mail className="w-3 h-3 inline" aria-hidden="true" /> {c.email}</span>
                           <span><Phone className="w-3 h-3 inline" aria-hidden="true" /> {c.phone}</span>
                         </div>
@@ -161,13 +159,13 @@ function ManageCustomers() {
                     </td>
                     <td>
                       <span style={{ fontSize: "0.85rem", display: "inline-flex", alignItems: "center", gap: "4px" }}>
-                        <MapPin className="w-3.5 h-3.5 text-indigo-400" aria-hidden="true" /> {c.city}
+                        <MapPin className="w-3.5 h-3.5" style={{ color: "var(--admin-secondary)" }} aria-hidden="true" /> {c.city}
                       </span>
                     </td>
                     <td>
                       <div>
                         <strong>{formatPrice(c.totalSpent)}</strong>
-                        <span style={{ fontSize: "0.78rem", color: "var(--text-muted)", display: "block" }}>{c.ordersCount} Orders Placed</span>
+                        <span style={{ fontSize: "0.78rem", color: "var(--admin-text-secondary)", display: "block" }}>{c.ordersCount} Orders Placed</span>
                       </div>
                     </td>
                     <td>{c.createdDate}</td>

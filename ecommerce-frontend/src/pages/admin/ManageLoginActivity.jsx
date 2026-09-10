@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../../services/api";
-import { ShieldCheck, Lock, RefreshCw, Search, Smartphone, Globe, ShieldAlert } from "lucide-react";
-import "../../css/Dashboard.css";
+import { ShieldCheck, Lock, RefreshCw, Search, ShieldAlert } from "lucide-react";
+import "../../css/AdminPortal.css";
 
 function ManageLoginActivity() {
   const [activity, setActivity] = useState([]);
@@ -55,12 +55,12 @@ function ManageLoginActivity() {
     if (role === "Admin") return "badge-danger";
     if (role === "Seller") return "badge-warning";
     if (role === "Delivery") return "badge-success";
-    if (role === "Warehouse") return "badge-primary";
-    return "badge-primary";
+    if (role === "Warehouse") return "badge-secondary";
+    return "badge-secondary";
   };
 
   const filteredActivity = activity.filter((a) => {
-    const matchesRole = roleFilter === "All" || a.userRole === roleFilter;
+    const matchesRole = roleFilter === "All" || a.userRole.toLowerCase() === roleFilter.toLowerCase();
     const matchesSearch =
       a.username.toLowerCase().includes(search.toLowerCase()) ||
       a.email.toLowerCase().includes(search.toLowerCase()) ||
@@ -69,65 +69,73 @@ function ManageLoginActivity() {
   });
 
   return (
-    <div className="admin-page-container centered-container">
-      <div className="page-header" style={{ marginBottom: "24px" }}>
+    <div className="admin-page-container">
+      <div className="admin-page-header glass-panel" style={{ padding: "20px 24px", marginBottom: "20px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div>
-            <span className="badge-pill badge-primary">Security Audit Trail</span>
-            <h1 style={{ margin: "4px 0 0 0", fontFamily: "Playfair Display, Georgia, serif" }}>User Authentication & Portal Login Audit Log</h1>
-            <p style={{ margin: 0, color: "var(--text-muted)", fontSize: "0.88rem" }}>
-              Restricted Audit View: Real-time authentication events across Customer, Seller, Warehouse, Delivery, and Admin portals.
+            <span className="badge-pill badge-secondary">Security Operations</span>
+            <h1 style={{ margin: "6px 0 2px 0", fontSize: "1.35rem" }}>User Login Activity Audit Log</h1>
+            <p style={{ margin: 0, fontSize: "0.86rem" }}>
+              Restricted Admin View: Audit authentication streams across Customer, Seller, Warehouse, Delivery, and Admin accounts. Zero plain-text credentials stored.
             </p>
           </div>
-          <button className="btn btn-secondary btn-sm" onClick={fetchLoginActivity} style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-            <RefreshCw className="w-4 h-4" aria-hidden="true" /> Refresh Audit Logs
+          <button className="btn btn-secondary btn-sm" onClick={fetchLoginActivity}>
+            <RefreshCw className="w-4 h-4" aria-hidden="true" /> Refresh Stream
           </button>
         </div>
       </div>
 
-      {/* Security Compliance Notice */}
-      <div
-        className="glass-panel"
-        style={{
-          padding: "16px 20px",
-          marginBottom: "24px",
-          borderRadius: "12px",
-          border: "1px solid rgba(16,185,129,0.3)",
-          background: "linear-gradient(135deg, rgba(16,185,129,0.08), rgba(99,102,241,0.08))"
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <Lock className="w-5 h-5 text-emerald-400" aria-hidden="true" />
-          <span style={{ fontSize: "0.88rem" }}>
-            <strong>Security Standard Compliant:</strong> Authentication logs monitor login timestamps, portal endpoints, and success flags. Passwords are strictly encrypted and never exposed anywhere in the Admin Portal.
-          </span>
+      {/* Metrics Row */}
+      <div className="admin-metrics-grid" style={{ marginBottom: "24px" }}>
+        <div className="admin-metric-card">
+          <div className="metric-details">
+            <span className="metric-val">{activity.length} Events</span>
+            <span className="metric-title">Authentication Audit Records</span>
+          </div>
+          <ShieldCheck className="w-5 h-5" style={{ color: "var(--admin-secondary)" }} aria-hidden="true" />
+        </div>
+
+        <div className="admin-metric-card">
+          <div className="metric-details">
+            <span className="metric-val">{activity.filter((a) => a.loginStatus === "Success").length} Verified</span>
+            <span className="metric-title">Successful Access Grants</span>
+          </div>
+          <Lock className="w-5 h-5" style={{ color: "var(--admin-success)" }} aria-hidden="true" />
+        </div>
+
+        <div className="admin-metric-card">
+          <div className="metric-details">
+            <span className="metric-val">0 Incidents</span>
+            <span className="metric-title">Failed Breach Attempts</span>
+          </div>
+          <ShieldAlert className="w-5 h-5" style={{ color: "var(--admin-secondary)" }} aria-hidden="true" />
         </div>
       </div>
 
-      {/* Main Audit Log Table */}
-      <div className="glass-panel" style={{ padding: "24px", borderRadius: "16px" }}>
+      {/* Main Table */}
+      <div className="glass-panel" style={{ padding: "24px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", flexWrap: "wrap", gap: "12px" }}>
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
             {["All", "Customer", "Seller", "Warehouse", "Delivery", "Admin"].map((r) => (
               <button
                 key={r}
                 type="button"
-                className={`btn ${roleFilter === r ? "btn-primary" : "btn-secondary"} btn-sm`}
+                className={`btn ${roleFilter === r ? "btn-primary" : "btn-outline"} btn-sm`}
                 onClick={() => setRoleFilter(r)}
               >
-                {r === "All" ? "All Portals" : `${r} Logins`}
+                {r}
               </button>
             ))}
           </div>
 
           <div style={{ position: "relative", minWidth: "260px" }}>
-            <Search className="w-4 h-4 text-slate-400" style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)" }} aria-hidden="true" />
+            <Search className="w-4 h-4" style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "var(--admin-text-secondary)" }} aria-hidden="true" />
             <input
               type="text"
               placeholder="Search user, email, portal..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              style={{ width: "100%", padding: "8px 12px 8px 36px", borderRadius: "8px", border: "1px solid var(--border-medium)", background: "var(--bg-main)", color: "var(--text-main)", fontSize: "0.85rem" }}
+              style={{ width: "100%", paddingLeft: "36px" }}
             />
           </div>
         </div>
@@ -140,36 +148,36 @@ function ManageLoginActivity() {
               <thead>
                 <tr>
                   <th>Audit ID</th>
-                  <th>User / Operator</th>
+                  <th>User & Email</th>
                   <th>Portal Target</th>
-                  <th>Assigned Role</th>
+                  <th>Role Clearance</th>
                   <th>Login Date & Time</th>
                   <th>Terminal IP</th>
-                  <th>Authentication Status</th>
+                  <th>Login Outcome</th>
                 </tr>
               </thead>
               <tbody>
-                {filteredActivity.map((l) => (
-                  <tr key={l.logId}>
-                    <td><strong>#LOG-00{l.logId}</strong></td>
+                {filteredActivity.map((a) => (
+                  <tr key={a.logId}>
+                    <td><strong>#LOG-{a.logId}</strong></td>
                     <td>
                       <div>
-                        <strong>{l.username}</strong>
-                        <div style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>{l.email}</div>
+                        <strong>{a.username}</strong>
+                        <div style={{ fontSize: "0.78rem", color: "var(--admin-text-secondary)", margin: "2px 0 0 0" }}>{a.email}</div>
                       </div>
                     </td>
-                    <td><strong>{l.portal}</strong></td>
+                    <td><strong>{a.portal}</strong></td>
                     <td>
-                      <span className={`badge-pill ${getRoleBadge(l.userRole)}`}>
-                        {l.userRole}
+                      <span className={`badge-pill ${getRoleBadge(a.userRole)}`}>
+                        {a.userRole}
                       </span>
                     </td>
-                    <td>{new Date(l.loginTime).toLocaleString("en-IN")}</td>
-                    <td><code>{l.terminalIp}</code></td>
+                    <td>{new Date(a.loginTime).toLocaleString("en-IN")}</td>
+                    <td><strong style={{ background: "var(--admin-surface-alt)", padding: "2px 8px", borderRadius: "6px", fontSize: "0.82rem" }}>{a.terminalIp}</strong></td>
                     <td>
-                      <strong style={{ color: l.loginStatus === "Success" ? "#10b981" : "#ef4444" }}>
-                        {l.loginStatus}
-                      </strong>
+                      <span className={`badge-pill ${a.loginStatus === "Success" ? "badge-success" : "badge-danger"}`}>
+                        {a.loginStatus}
+                      </span>
                     </td>
                   </tr>
                 ))}

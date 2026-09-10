@@ -4,7 +4,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { getAdminSummary, getRecentOrders } from "../../services/adminService";
 import api from "../../services/api";
 import { Bell, X, LayoutDashboard, Shield, RefreshCw } from "lucide-react";
-import "../../css/Dashboard.css";
+import "../../css/AdminPortal.css";
 
 function AdminDashboard() {
   const navigate = useNavigate();
@@ -90,27 +90,27 @@ function AdminDashboard() {
     }).format(amt || 0);
 
   return (
-    <div className="admin-dashboard-container centered-container" style={{ position: "relative" }}>
+    <div className="admin-dashboard-container" style={{ position: "relative" }}>
       {/* Real-time Customer Login Popup Notification */}
       {activePopupNotification && (
         <div
-          className="customer-login-popup-card glass-panel"
+          className="customer-login-popup-card"
           style={{
             position: "fixed",
             top: "84px",
             right: "24px",
             width: "340px",
             zIndex: 9999,
-            background: "var(--bg-main)",
-            border: "2px solid var(--primary)",
-            borderRadius: "16px",
+            background: "var(--admin-surface)",
+            border: "2px solid var(--admin-secondary)",
+            borderRadius: "14px",
             padding: "18px",
-            boxShadow: "0 12px 32px rgba(112, 26, 117, 0.3)",
+            boxShadow: "0 10px 25px rgba(23, 32, 51, 0.15)",
             animation: "slideInRight 0.4s ease-out"
           }}
         >
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
-            <span className="badge-pill badge-primary" style={{ fontSize: "0.72rem", display: "inline-flex", alignItems: "center", gap: "4px" }}>
+            <span className="badge-pill badge-warning" style={{ fontSize: "0.72rem", display: "inline-flex", alignItems: "center", gap: "4px" }}>
               <Bell className="w-3.5 h-3.5" aria-hidden="true" /> New Customer Login
             </span>
             <button
@@ -125,8 +125,8 @@ function AdminDashboard() {
 
           <div style={{ fontSize: "0.88rem", display: "flex", flexDirection: "column", gap: "4px" }}>
             <div>Customer: <strong>{activePopupNotification.username || "Customer"}</strong></div>
-            <div>Customer ID: <strong className="plate-badge" style={{ fontSize: "0.78rem" }}>#{activePopupNotification.customerId || activePopupNotification.userId || 1024}</strong></div>
-            <div>Login Time: <strong style={{ color: "var(--primary)" }}>{new Date(activePopupNotification.loginTime).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}</strong></div>
+            <div>Customer ID: <strong>#{activePopupNotification.customerId || activePopupNotification.userId || 1024}</strong></div>
+            <div>Login Time: <strong style={{ color: "var(--admin-primary)" }}>{new Date(activePopupNotification.loginTime).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}</strong></div>
             <div>Account Status: <span className="badge-pill badge-success" style={{ fontSize: "0.68rem" }}>{activePopupNotification.accountStatus || "Active"}</span></div>
             <div>Type: <strong>{activePopupNotification.userRole || "Customer"}</strong></div>
           </div>
@@ -147,22 +147,22 @@ function AdminDashboard() {
         </div>
       )}
 
-      {/* Header */}
-      <div className="admin-dashboard-header glass-panel" style={{ marginBottom: "20px" }}>
+      {/* Header Banner */}
+      <div className="admin-dashboard-header" style={{ padding: "20px 24px", marginBottom: "20px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "16px" }}>
         <div className="admin-header-left">
           <div>
-            <h1 style={{ fontFamily: "Playfair Display, Georgia, serif" }}>Master Admin Security Console</h1>
-            <p>
+            <h1 style={{ margin: 0, fontSize: "1.35rem" }}>Master Admin Control & Security Console</h1>
+            <p style={{ margin: "4px 0 0 0", fontSize: "0.86rem" }}>
               Operator: <strong>{user?.username || user?.name || "System Administrator"}</strong> • Email: <strong>{user?.email}</strong> • Clearance: <span className="badge-pill badge-danger">Level 1 - Admin</span>
             </p>
           </div>
         </div>
 
         <div className="admin-quick-actions" style={{ display: "flex", gap: "8px" }}>
-          <button className={`btn ${activeTab === "overview" ? "btn-primary" : "btn-secondary"} btn-sm`} onClick={() => setActiveTab("overview")} style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+          <button className={`btn ${activeTab === "overview" ? "btn-primary" : "btn-outline"} btn-sm`} onClick={() => setActiveTab("overview")} style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
             <LayoutDashboard className="w-4 h-4" aria-hidden="true" /> Dashboard Overview
           </button>
-          <button className={`btn ${activeTab === "login_activity" ? "btn-primary" : "btn-secondary"} btn-sm`} onClick={() => { setActiveTab("login_activity"); fetchRecentLoginActivity(); }} style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+          <button className={`btn ${activeTab === "login_activity" ? "btn-primary" : "btn-outline"} btn-sm`} onClick={() => { setActiveTab("login_activity"); fetchRecentLoginActivity(); }} style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
             <Shield className="w-4 h-4" aria-hidden="true" /> User Login Activity ({loginActivity.length})
           </button>
         </div>
@@ -172,7 +172,7 @@ function AdminDashboard() {
         <>
           {/* 10 Core Management Metric Cards Grid */}
           <div className="admin-metrics-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "16px", marginBottom: "24px" }}>
-            <div className="admin-metric-card glass-panel" onClick={() => navigate("/admin/customers")}>
+            <div className="admin-metric-card" onClick={() => navigate("/admin/customers")}>
               <div className="metric-details">
                 <span className="metric-val">{summary.totalCustomers ?? 412}</span>
                 <span className="metric-title">Total Customers</span>
@@ -180,7 +180,7 @@ function AdminDashboard() {
               <button className="btn btn-secondary btn-sm">Manage</button>
             </div>
 
-            <div className="admin-metric-card glass-panel" onClick={() => navigate("/admin/sellers")}>
+            <div className="admin-metric-card" onClick={() => navigate("/admin/sellers")}>
               <div className="metric-details">
                 <span className="metric-val">{summary.totalSellers ?? 28}</span>
                 <span className="metric-title">Total Sellers</span>
@@ -188,7 +188,7 @@ function AdminDashboard() {
               <button className="btn btn-secondary btn-sm">Inspect</button>
             </div>
 
-            <div className="admin-metric-card glass-panel" onClick={() => navigate("/admin/products")}>
+            <div className="admin-metric-card" onClick={() => navigate("/admin/products")}>
               <div className="metric-details">
                 <span className="metric-val">{summary.totalProducts ?? 84}</span>
                 <span className="metric-title">Total Products</span>
@@ -196,7 +196,7 @@ function AdminDashboard() {
               <button className="btn btn-secondary btn-sm">Catalog</button>
             </div>
 
-            <div className="admin-metric-card glass-panel" onClick={() => navigate("/admin/orders")}>
+            <div className="admin-metric-card" onClick={() => navigate("/admin/orders")}>
               <div className="metric-details">
                 <span className="metric-val">{summary.totalOrders ?? 148}</span>
                 <span className="metric-title">Total Orders</span>
@@ -204,7 +204,7 @@ function AdminDashboard() {
               <button className="btn btn-secondary btn-sm">Orders</button>
             </div>
 
-            <div className="admin-metric-card glass-panel" onClick={() => navigate("/admin/reports")}>
+            <div className="admin-metric-card" onClick={() => navigate("/admin/reports")}>
               <div className="metric-details">
                 <span className="metric-val">{formatPrice(summary.totalRevenue ?? 2450000)}</span>
                 <span className="metric-title">Total Revenue (GMV)</span>
@@ -212,31 +212,31 @@ function AdminDashboard() {
               <span className="badge-pill badge-success">89 Delivered</span>
             </div>
 
-            <div className="admin-metric-card glass-panel" onClick={() => navigate("/admin/products")}>
+            <div className="admin-metric-card" onClick={() => navigate("/admin/products")}>
               <div className="metric-details">
-                <span className="metric-val" style={{ color: "var(--warning, #f59e0b)" }}>{summary.pendingProducts ?? 6} Pending</span>
-                <span className="metric-title">Product Approvals</span>
+                <span className="metric-val" style={{ color: "var(--admin-warning)" }}>{summary.pendingProducts ?? 6} Pending</span>
+                <span className="metric-title">Pending Approvals</span>
               </div>
               <button className="btn btn-warning btn-sm">Review</button>
             </div>
 
-            <div className="admin-metric-card glass-panel" onClick={() => navigate("/admin/complaints")}>
+            <div className="admin-metric-card" onClick={() => navigate("/admin/complaints")}>
               <div className="metric-details">
-                <span className="metric-val" style={{ color: "var(--danger, #ef4444)" }}>{summary.pendingComplaints ?? 3} Pending</span>
+                <span className="metric-val" style={{ color: "var(--admin-danger)" }}>{summary.pendingComplaints ?? 3} Pending</span>
                 <span className="metric-title">Pending Complaints</span>
               </div>
               <button className="btn btn-danger btn-sm">Disputes</button>
             </div>
 
-            <div className="admin-metric-card glass-panel" onClick={() => navigate("/admin/warehouse")}>
+            <div className="admin-metric-card" onClick={() => navigate("/admin/warehouse")}>
               <div className="metric-details">
-                <span className="metric-val" style={{ color: "var(--warning, #f59e0b)" }}>{summary.lowStockCount ?? 4} SKUs</span>
-                <span className="metric-title">Low Stock Items</span>
+                <span className="metric-val" style={{ color: "var(--admin-warning)" }}>{summary.lowStockCount ?? 4} SKUs</span>
+                <span className="metric-title">Low Stock</span>
               </div>
               <button className="btn btn-secondary btn-sm">Inventory</button>
             </div>
 
-            <div className="admin-metric-card glass-panel" onClick={() => navigate("/admin/delivery")}>
+            <div className="admin-metric-card" onClick={() => navigate("/admin/delivery")}>
               <div className="metric-details">
                 <span className="metric-val">{summary.activeDeliveries ?? 12} Active</span>
                 <span className="metric-title">Active Deliveries</span>
@@ -244,47 +244,47 @@ function AdminDashboard() {
               <button className="btn btn-secondary btn-sm">Riders</button>
             </div>
 
-            <div className="admin-metric-card glass-panel" onClick={() => navigate("/admin/orders")}>
+            <div className="admin-metric-card" onClick={() => navigate("/admin/orders")}>
               <div className="metric-details">
                 <span className="metric-val">{summary.completedDeliveries ?? 124} Drops</span>
-                <span className="metric-title">Completed Deliveries</span>
+                <span className="metric-title">Completed Drops</span>
               </div>
               <span className="badge-pill badge-success">98.2% On-Time</span>
             </div>
           </div>
 
           {/* Management Shortcuts Grid */}
-          <div className="glass-panel" style={{ padding: "24px", borderRadius: "16px", marginBottom: "24px" }}>
-            <h3 style={{ margin: "0 0 16px 0", fontFamily: "Playfair Display, Georgia, serif" }}>Marketplace Portal Supervision Desks</h3>
+          <div className="glass-panel" style={{ padding: "24px", marginBottom: "24px" }}>
+            <h3 style={{ margin: "0 0 16px 0" }}>Marketplace Portal Supervision Desks</h3>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "16px" }}>
-              <div className="shortcut-item" onClick={() => navigate("/admin/customers")} style={{ padding: "16px", borderRadius: "12px", background: "rgba(255,255,255,0.03)", border: "1px solid var(--border-light)", cursor: "pointer" }}>
-                <strong>Customer Directory & Audits</strong>
-                <p style={{ margin: "4px 0 0 0", fontSize: "0.82rem", color: "var(--text-muted)" }}>View customer registered accounts, order history, addresses & status.</p>
+              <div className="shortcut-item" onClick={() => navigate("/admin/customers")} style={{ padding: "16px", borderRadius: "10px", background: "var(--admin-surface-alt)", border: "1px solid var(--admin-border)", cursor: "pointer" }}>
+                <strong style={{ color: "var(--admin-primary)" }}>Customer Directory & Audits</strong>
+                <p style={{ margin: "4px 0 0 0", fontSize: "0.82rem", color: "var(--admin-text-secondary)" }}>View customer registered accounts, order history, addresses & status.</p>
               </div>
 
-              <div className="shortcut-item" onClick={() => navigate("/admin/sellers")} style={{ padding: "16px", borderRadius: "12px", background: "rgba(255,255,255,0.03)", border: "1px solid var(--border-light)", cursor: "pointer" }}>
-                <strong>Seller Verifications & Risk</strong>
-                <p style={{ margin: "4px 0 0 0", fontSize: "0.82rem", color: "var(--text-muted)" }}>Inspect GST proofs, approve merchants, issue 5-complaint warnings.</p>
+              <div className="shortcut-item" onClick={() => navigate("/admin/sellers")} style={{ padding: "16px", borderRadius: "10px", background: "var(--admin-surface-alt)", border: "1px solid var(--admin-border)", cursor: "pointer" }}>
+                <strong style={{ color: "var(--admin-primary)" }}>Seller Verifications & Risk</strong>
+                <p style={{ margin: "4px 0 0 0", fontSize: "0.82rem", color: "var(--admin-text-secondary)" }}>Inspect GST proofs, approve merchants, issue 5-complaint warnings.</p>
               </div>
 
-              <div className="shortcut-item" onClick={() => navigate("/admin/products")} style={{ padding: "16px", borderRadius: "12px", background: "rgba(255,255,255,0.03)", border: "1px solid var(--border-light)", cursor: "pointer" }}>
-                <strong>Product Approvals Desk</strong>
-                <p style={{ margin: "4px 0 0 0", fontSize: "0.82rem", color: "var(--text-muted)" }}>Review product pricing, stock, images, and grant catalog clearance.</p>
+              <div className="shortcut-item" onClick={() => navigate("/admin/products")} style={{ padding: "16px", borderRadius: "10px", background: "var(--admin-surface-alt)", border: "1px solid var(--admin-border)", cursor: "pointer" }}>
+                <strong style={{ color: "var(--admin-primary)" }}>Product Approvals Desk</strong>
+                <p style={{ margin: "4px 0 0 0", fontSize: "0.82rem", color: "var(--admin-text-secondary)" }}>Review product pricing, stock, images, and grant catalog clearance.</p>
               </div>
 
-              <div className="shortcut-item" onClick={() => navigate("/admin/complaints")} style={{ padding: "16px", borderRadius: "12px", background: "rgba(255,255,255,0.03)", border: "1px solid var(--border-light)", cursor: "pointer" }}>
-                <strong>Dispute & Complaint Center</strong>
-                <p style={{ margin: "4px 0 0 0", fontSize: "0.82rem", color: "var(--text-muted)" }}>Investigate customer & seller complaints and flag bad sellers.</p>
+              <div className="shortcut-item" onClick={() => navigate("/admin/complaints")} style={{ padding: "16px", borderRadius: "10px", background: "var(--admin-surface-alt)", border: "1px solid var(--admin-border)", cursor: "pointer" }}>
+                <strong style={{ color: "var(--admin-primary)" }}>Dispute & Complaint Center</strong>
+                <p style={{ margin: "4px 0 0 0", fontSize: "0.82rem", color: "var(--admin-text-secondary)" }}>Investigate customer & seller complaints and flag bad sellers.</p>
               </div>
             </div>
           </div>
 
           {/* Recent Orders Table */}
-          <div className="admin-table-section glass-panel">
-            <div className="table-header-bar">
+          <div className="admin-table-section glass-panel" style={{ padding: "24px" }}>
+            <div className="table-header-bar" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
               <div>
-                <h3>Recent Marketplace Transactions</h3>
-                <p>Real-time customer order processing and routing audit</p>
+                <h3 style={{ margin: 0 }}>Recent Marketplace Transactions</h3>
+                <p style={{ margin: "4px 0 0 0", fontSize: "0.84rem", color: "var(--admin-text-secondary)" }}>Real-time customer order processing and routing audit</p>
               </div>
               <button className="btn btn-secondary btn-sm" onClick={loadDashboard}>
                 Refresh Feeds
@@ -308,7 +308,7 @@ function AdminDashboard() {
                       <td><strong>#{ord.orderId}</strong></td>
                       <td>{ord.customer}</td>
                       <td>
-                        <span className={`badge-pill ${ord.status?.toLowerCase().includes("delivered") ? "badge-success" : "badge-primary"}`}>
+                        <span className={`badge-pill ${ord.status?.toLowerCase().includes("delivered") ? "badge-success" : "badge-secondary"}`}>
                           {ord.status}
                         </span>
                       </td>
@@ -330,11 +330,11 @@ function AdminDashboard() {
         </>
       ) : (
         /* Tab 2: User Login Activity (Admin Only) */
-        <div className="admin-table-section glass-panel" style={{ padding: "24px", borderRadius: "16px" }}>
+        <div className="admin-table-section glass-panel" style={{ padding: "24px" }}>
           <div className="table-header-bar" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
             <div>
-              <h3 style={{ margin: 0, fontFamily: "Playfair Display, Georgia, serif" }}>User Login Activity Audit Log</h3>
-              <p style={{ margin: "2px 0 0 0", fontSize: "0.84rem", color: "var(--text-muted)" }}>
+              <h3 style={{ margin: 0 }}>User Login Activity Audit Log</h3>
+              <p style={{ margin: "2px 0 0 0", fontSize: "0.84rem", color: "var(--admin-text-secondary)" }}>
                 Restricted Admin View: Real-time authentication events across Customer, Seller, Warehouse, Delivery, and Admin accounts.
               </p>
             </div>
@@ -370,7 +370,7 @@ function AdminDashboard() {
                       <td>{log.username}</td>
                       <td>{log.email}</td>
                       <td>
-                        <span className={`badge-pill ${log.userRole === "Admin" ? "badge-danger" : log.userRole === "Seller" ? "badge-warning" : "badge-primary"}`}>
+                        <span className={`badge-pill ${log.userRole === "Admin" ? "badge-danger" : log.userRole === "Seller" ? "badge-warning" : "badge-secondary"}`}>
                           {log.userRole}
                         </span>
                       </td>
@@ -379,7 +379,7 @@ function AdminDashboard() {
                         <span className="badge-pill badge-success">{log.accountStatus || "Active"}</span>
                       </td>
                       <td>
-                        <strong style={{ color: log.loginStatus === "Success" ? "#10b981" : "#ef4444" }}>
+                        <strong style={{ color: log.loginStatus === "Success" ? "var(--admin-success)" : "var(--admin-danger)" }}>
                           {log.loginStatus || "Success"}
                         </strong>
                       </td>

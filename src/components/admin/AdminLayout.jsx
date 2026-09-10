@@ -1,11 +1,14 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import AdminNavbar from "./AdminNavbar";
+import AdminSidebar from "./AdminSidebar";
+import AdminTopbar from "./AdminTopbar";
+import "../../css/AdminPortal.css";
 
 function AdminLayout({ children }) {
   const { user } = useContext(AuthContext);
   const token = localStorage.getItem("token");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Authentication check
   if (!token || !user) {
@@ -18,11 +21,16 @@ function AdminLayout({ children }) {
   }
 
   return (
-    <div className="admin-portal-wrapper" style={{ minHeight: "100vh", background: "var(--bg-main, #0b0f17)", color: "var(--text-main, #f8fafc)" }}>
-      <AdminNavbar />
-      <main className="admin-portal-main-content" style={{ padding: "24px 0 48px 0" }}>
-        {children ? children : <Outlet />}
-      </main>
+    <div className="admin-portal-wrapper">
+      <AdminSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      
+      <div className="admin-main-container">
+        <AdminTopbar onToggleSidebar={() => setSidebarOpen((prev) => !prev)} />
+        
+        <main className="admin-portal-content">
+          {children ? children : <Outlet />}
+        </main>
+      </div>
     </div>
   );
 }
