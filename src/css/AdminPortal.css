@@ -18,14 +18,68 @@
     --admin-danger: #A54A4A;
 }
 
+/* Global Body Override when on Admin Portal */
+body:has(.admin-portal-wrapper),
+html:has(.admin-portal-wrapper) {
+    background-color: #F6F3ED !important;
+    background: #F6F3ED !important;
+}
+
 /* Base Scope & Layout */
 .admin-portal-wrapper {
+    --admin-primary: #172033;
+    --admin-primary-dark: #0E1524;
+    --admin-secondary: #B08D57;
+    --admin-accent: #D4B483;
+    --admin-background: #F6F3ED;
+    --admin-surface: #FFFFFF;
+    --admin-surface-alt: #ECE7DD;
+    --admin-text: #1C2431;
+    --admin-text-secondary: #667085;
+    --admin-border: #D9D3C7;
+    --admin-success: #3F7652;
+    --admin-warning: #A8752A;
+    --admin-danger: #A54A4A;
+
+    /* Override global theme variable names within admin portal subtree */
+    --bg-main: #F6F3ED !important;
+    --bg-surface: #FFFFFF !important;
+    --bg-card: #FFFFFF !important;
+    --text-main: #1C2431 !important;
+    --text-sub: #1C2431 !important;
+    --text-muted: #667085 !important;
+    --border-light: #D9D3C7 !important;
+    --border-medium: #D9D3C7 !important;
+    --primary: #172033 !important;
+    --accent: #B08D57 !important;
+    --radius-btn: 10px !important;
+    --radius-card: 14px !important;
+    --radius-input: 10px !important;
+
     min-height: 100vh;
-    background-color: var(--admin-background) !important;
-    color: var(--admin-text) !important;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #F6F3ED !important;
+    color: #1C2431 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
     display: flex;
     position: relative;
+    z-index: 10;
+}
+
+/* Dark Mode Theme Enforcement Override for Admin */
+[data-theme="dark"] .admin-portal-wrapper,
+[data-theme="dark"] body:has(.admin-portal-wrapper) {
+    background-color: #F6F3ED !important;
+    background: #F6F3ED !important;
+    color: #1C2431 !important;
+    --bg-main: #F6F3ED !important;
+    --bg-surface: #FFFFFF !important;
+    --bg-card: #FFFFFF !important;
+    --text-main: #1C2431 !important;
+    --text-sub: #1C2431 !important;
+    --text-muted: #667085 !important;
+    --border-light: #D9D3C7 !important;
+    --border-medium: #D9D3C7 !important;
+    --primary: #172033 !important;
 }
 
 /* Main Container Area */
@@ -35,7 +89,7 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: var(--admin-background);
+    background-color: var(--admin-background) !important;
     transition: margin-left 0.3s ease;
     width: calc(100% - 260px);
 }
@@ -56,12 +110,12 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: var(--admin-primary) !important;
+    background-color: #172033 !important;
     color: #F6F3ED !important;
     display: flex;
     flex-direction: column;
     z-index: 1000;
-    border-right: 1px solid var(--admin-primary-dark);
+    border-right: 1px solid #0E1524 !important;
     box-shadow: 4px 0 20px rgba(14, 21, 36, 0.15);
     transition: transform 0.3s ease;
     overflow-y: auto;
@@ -69,7 +123,7 @@
 
 .admin-sidebar-header {
     padding: 20px 20px 16px 20px;
-    border-bottom: 1px solid rgba(217, 211, 199, 0.12);
+    border-bottom: 1px solid rgba(217, 211, 199, 0.15) !important;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -86,8 +140,8 @@
     width: 36px;
     height: 36px;
     border-radius: 10px;
-    background: var(--admin-secondary);
-    color: #FFFFFF;
+    background: #B08D57 !important;
+    color: #FFFFFF !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -104,13 +158,13 @@
     font-size: 0.95rem;
     font-weight: 800;
     letter-spacing: 0.05em;
-    color: #FFFFFF;
+    color: #FFFFFF !important;
     line-height: 1.2;
 }
 
 .admin-brand-subtitle {
     font-size: 0.72rem;
-    color: var(--admin-accent);
+    color: #D4B483 !important;
     letter-spacing: 0.03em;
     font-weight: 600;
 }
@@ -144,13 +198,13 @@
 }
 
 .admin-nav-item:hover {
-    background-color: rgba(212, 180, 131, 0.12) !important;
-    color: var(--admin-accent) !important;
+    background-color: rgba(212, 180, 131, 0.15) !important;
+    color: #D4B483 !important;
     transform: translateX(3px);
 }
 
 .admin-nav-item.active {
-    background-color: var(--admin-secondary) !important;
+    background-color: #B08D57 !important;
     color: #FFFFFF !important;
     font-weight: 700;
     box-shadow: 0 4px 12px rgba(176, 141, 87, 0.3);
@@ -164,17 +218,17 @@
     width: 18px;
     height: 18px;
     flex-shrink: 0;
-    color: var(--admin-accent);
+    color: #D4B483 !important;
     transition: color 0.2s ease;
 }
 
 .admin-sidebar-footer {
     padding: 16px;
-    border-top: 1px solid rgba(217, 211, 199, 0.12);
+    border-top: 1px solid rgba(217, 211, 199, 0.15) !important;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    background-color: var(--admin-primary-dark);
+    background-color: #0E1524 !important;
 }
 
 .admin-operator-card {
@@ -182,8 +236,8 @@
     align-items: center;
     gap: 10px;
     padding: 10px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(217, 211, 199, 0.1);
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(217, 211, 199, 0.15) !important;
     border-radius: 10px;
 }
 
@@ -191,8 +245,8 @@
     width: 34px;
     height: 34px;
     border-radius: 8px;
-    background: var(--admin-secondary);
-    color: #FFFFFF;
+    background: #B08D57 !important;
+    color: #FFFFFF !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -208,7 +262,7 @@
 .admin-operator-name {
     font-size: 0.82rem;
     font-weight: 700;
-    color: #FFFFFF;
+    color: #FFFFFF !important;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -216,7 +270,7 @@
 
 .admin-operator-role {
     font-size: 0.72rem;
-    color: var(--admin-accent);
+    color: #D4B483 !important;
 }
 
 /* Sidebar Responsive Overlay */
@@ -240,8 +294,8 @@
    2. CLEAN ADMIN TOP BAR
    -------------------------------------------------------------------------- */
 .admin-topbar {
-    background-color: var(--admin-surface) !important;
-    border-bottom: 1px solid var(--admin-border) !important;
+    background-color: #FFFFFF !important;
+    border-bottom: 1px solid #D9D3C7 !important;
     padding: 14px 28px;
     display: flex;
     align-items: center;
@@ -261,11 +315,11 @@
 .admin-mobile-toggle {
     display: none;
     background: transparent;
-    border: 1px solid var(--admin-border);
+    border: 1px solid #D9D3C7 !important;
     border-radius: 8px;
     padding: 6px;
     cursor: pointer;
-    color: var(--admin-text);
+    color: #1C2431 !important;
 }
 
 @media (max-width: 1024px) {
@@ -280,7 +334,7 @@
     margin: 0;
     font-size: 1.15rem;
     font-weight: 700;
-    color: var(--admin-primary);
+    color: #172033 !important;
     letter-spacing: -0.01em;
 }
 
@@ -293,18 +347,18 @@
     width: 100%;
     padding: 8px 12px 8px 36px;
     border-radius: 10px !important;
-    border: 1px solid var(--admin-border);
-    background: var(--admin-background);
-    color: var(--admin-text);
+    border: 1px solid #D9D3C7 !important;
+    background: #F6F3ED !important;
+    color: #1C2431 !important;
     font-size: 0.85rem;
     outline: none;
     transition: all 0.2s ease;
 }
 
 .admin-topbar-search input:focus {
-    border-color: var(--admin-secondary);
-    box-shadow: 0 0 0 3px rgba(176, 141, 87, 0.18);
-    background: #FFFFFF;
+    border-color: #B08D57 !important;
+    box-shadow: 0 0 0 3px rgba(176, 141, 87, 0.18) !important;
+    background: #FFFFFF !important;
 }
 
 .admin-topbar-search svg {
@@ -314,7 +368,7 @@
     transform: translateY(-50%);
     width: 16px;
     height: 16px;
-    color: var(--admin-text-secondary);
+    color: #667085 !important;
 }
 
 .admin-topbar-right {
@@ -326,11 +380,11 @@
 .admin-topbar-badge {
     padding: 4px 10px;
     border-radius: 20px;
-    background: var(--admin-surface-alt);
-    border: 1px solid var(--admin-border);
+    background: #ECE7DD !important;
+    border: 1px solid #D9D3C7 !important;
     font-size: 0.75rem;
     font-weight: 600;
-    color: var(--admin-primary);
+    color: #172033 !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -347,28 +401,28 @@
 /* Header Banners inside pages */
 .admin-dashboard-header,
 .admin-page-header,
-.glass-panel {
-    background: var(--admin-surface) !important;
-    border: 1px solid var(--admin-border) !important;
+.admin-portal-wrapper .glass-panel {
+    background: #FFFFFF !important;
+    border: 1px solid #D9D3C7 !important;
     border-radius: 14px !important;
     box-shadow: 0 2px 8px rgba(23, 32, 51, 0.04) !important;
-    color: var(--admin-text) !important;
+    color: #1C2431 !important;
 }
 
 .admin-dashboard-header h1,
 .admin-page-header h1,
-.glass-panel h1,
-.glass-panel h2,
-.glass-panel h3 {
-    color: var(--admin-primary) !important;
+.admin-portal-wrapper .glass-panel h1,
+.admin-portal-wrapper .glass-panel h2,
+.admin-portal-wrapper .glass-panel h3 {
+    color: #172033 !important;
     font-family: inherit !important;
     font-weight: 700 !important;
 }
 
 .admin-dashboard-header p,
 .admin-page-header p,
-.glass-panel p {
-    color: var(--admin-text-secondary) !important;
+.admin-portal-wrapper .glass-panel p {
+    color: #667085 !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -383,9 +437,9 @@
 }
 
 .admin-metric-card,
-.metric-card {
-    background: var(--admin-surface) !important;
-    border: 1px solid var(--admin-border) !important;
+.admin-portal-wrapper .metric-card {
+    background: #FFFFFF !important;
+    border: 1px solid #D9D3C7 !important;
     border-radius: 14px !important;
     padding: 20px 18px !important;
     box-shadow: 0 2px 8px rgba(23, 32, 51, 0.04) !important;
@@ -398,57 +452,57 @@
 }
 
 .admin-metric-card:hover,
-.metric-card:hover {
+.admin-portal-wrapper .metric-card:hover {
     transform: translateY(-2px) !important;
-    border-color: var(--admin-secondary) !important;
+    border-color: #B08D57 !important;
     box-shadow: 0 4px 14px rgba(176, 141, 87, 0.15) !important;
 }
 
 .admin-metric-card .metric-val,
-.metric-card .metric-val,
-.metric-info strong {
+.admin-portal-wrapper .metric-card .metric-val,
+.admin-portal-wrapper .metric-info strong {
     font-size: 1.65rem !important;
     font-weight: 800 !important;
-    color: var(--admin-primary) !important;
+    color: #172033 !important;
     line-height: 1.2;
 }
 
 .admin-metric-card .metric-title,
-.metric-card .metric-title,
-.metric-info span {
+.admin-portal-wrapper .metric-card .metric-title,
+.admin-portal-wrapper .metric-info span {
     font-size: 0.78rem !important;
     font-weight: 700 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.05em !important;
-    color: var(--admin-text-secondary) !important;
+    color: #667085 !important;
 }
 
 /* --------------------------------------------------------------------------
    5. REUSABLE ENTERPRISE TABLE STYLE
    -------------------------------------------------------------------------- */
-.table-responsive,
+.admin-portal-wrapper .table-responsive,
 .admin-table-container {
-    background: var(--admin-surface) !important;
-    border: 1px solid var(--admin-border) !important;
+    background: #FFFFFF !important;
+    border: 1px solid #D9D3C7 !important;
     border-radius: 14px !important;
     overflow-x: auto;
     box-shadow: 0 2px 8px rgba(23, 32, 51, 0.04) !important;
 }
 
-.table-modern,
+.admin-portal-wrapper .table-modern,
 table.admin-table,
-.table-responsive table {
+.admin-portal-wrapper .table-responsive table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    color: var(--admin-text) !important;
-    background: var(--admin-surface) !important;
+    color: #1C2431 !important;
+    background: #FFFFFF !important;
 }
 
-.table-modern th,
+.admin-portal-wrapper .table-modern th,
 table.admin-table th,
-.table-responsive th {
-    background: var(--admin-primary) !important;
+.admin-portal-wrapper .table-responsive th {
+    background: #172033 !important;
     color: #FFFFFF !important;
     font-weight: 700 !important;
     font-size: 0.8rem !important;
@@ -456,43 +510,43 @@ table.admin-table th,
     letter-spacing: 0.05em !important;
     padding: 14px 16px !important;
     text-align: left !important;
-    border-bottom: 2px solid var(--admin-primary-dark) !important;
+    border-bottom: 2px solid #0E1524 !important;
 }
 
-.table-modern th:first-child,
-.table-responsive th:first-child {
+.admin-portal-wrapper .table-modern th:first-child,
+.admin-portal-wrapper .table-responsive th:first-child {
     border-top-left-radius: 12px;
 }
 
-.table-modern th:last-child,
-.table-responsive th:last-child {
+.admin-portal-wrapper .table-modern th:last-child,
+.admin-portal-wrapper .table-responsive th:last-child {
     border-top-right-radius: 12px;
 }
 
-.table-modern td,
+.admin-portal-wrapper .table-modern td,
 table.admin-table td,
-.table-responsive td {
+.admin-portal-wrapper .table-responsive td {
     padding: 14px 16px !important;
-    border-bottom: 1px solid var(--admin-border) !important;
-    color: var(--admin-text) !important;
+    border-bottom: 1px solid #D9D3C7 !important;
+    color: #1C2431 !important;
     font-size: 0.86rem !important;
     vertical-align: middle;
 }
 
-.table-modern tr:last-child td,
-.table-responsive tr:last-child td {
+.admin-portal-wrapper .table-modern tr:last-child td,
+.admin-portal-wrapper .table-responsive tr:last-child td {
     border-bottom: none !important;
 }
 
-.table-modern tr:hover td,
-.table-responsive tr:hover td {
-    background-color: var(--admin-surface-alt) !important;
+.admin-portal-wrapper .table-modern tr:hover td,
+.admin-portal-wrapper .table-responsive tr:hover td {
+    background-color: #ECE7DD !important;
 }
 
 /* --------------------------------------------------------------------------
    6. ROUNDED STATUS BADGES
    -------------------------------------------------------------------------- */
-.badge-pill,
+.admin-portal-wrapper .badge-pill,
 .status-badge {
     border-radius: 20px !important;
     font-size: 0.74rem !important;
@@ -505,38 +559,38 @@ table.admin-table td,
 }
 
 /* Success / Active / Approved */
-.badge-success,
+.admin-portal-wrapper .badge-success,
 .badge-approved,
 .badge-active {
     background-color: #EBF3ED !important;
-    color: var(--admin-success) !important;
+    color: #3F7652 !important;
     border: 1px solid rgba(63, 118, 82, 0.3) !important;
 }
 
 /* Warning / Pending */
-.badge-warning,
+.admin-portal-wrapper .badge-warning,
 .badge-pending {
     background-color: #FDF7EC !important;
-    color: var(--admin-warning) !important;
+    color: #A8752A !important;
     border: 1px solid rgba(168, 117, 42, 0.3) !important;
 }
 
 /* Danger / Rejected / Suspended */
-.badge-danger,
+.admin-portal-wrapper .badge-danger,
 .badge-rejected,
 .badge-suspended {
     background-color: #FDF0F0 !important;
-    color: var(--admin-danger) !important;
+    color: #A54A4A !important;
     border: 1px solid rgba(165, 74, 74, 0.3) !important;
 }
 
 /* Slate / Inactive / Secondary */
-.badge-secondary,
-.badge-primary,
+.admin-portal-wrapper .badge-secondary,
+.admin-portal-wrapper .badge-primary,
 .badge-inactive {
     background-color: #F1F3F5 !important;
-    color: var(--admin-text-secondary) !important;
-    border: 1px solid var(--admin-border) !important;
+    color: #667085 !important;
+    border: 1px solid #D9D3C7 !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -557,20 +611,20 @@ table.admin-table td,
 }
 
 .admin-portal-wrapper .btn-primary {
-    background-color: var(--admin-primary) !important;
+    background-color: #172033 !important;
     color: #FFFFFF !important;
-    border: 1px solid var(--admin-primary-dark) !important;
+    border: 1px solid #0E1524 !important;
 }
 
 .admin-portal-wrapper .btn-primary:hover {
-    background-color: var(--admin-primary-dark) !important;
+    background-color: #0E1524 !important;
     box-shadow: 0 4px 10px rgba(14, 21, 36, 0.2) !important;
 }
 
 .admin-portal-wrapper .btn-secondary {
-    background-color: var(--admin-secondary) !important;
+    background-color: #B08D57 !important;
     color: #FFFFFF !important;
-    border: 1px solid var(--admin-secondary) !important;
+    border: 1px solid #B08D57 !important;
 }
 
 .admin-portal-wrapper .btn-secondary:hover {
@@ -579,9 +633,9 @@ table.admin-table td,
 }
 
 .admin-portal-wrapper .btn-danger {
-    background-color: var(--admin-danger) !important;
+    background-color: #A54A4A !important;
     color: #FFFFFF !important;
-    border: 1px solid var(--admin-danger) !important;
+    border: 1px solid #A54A4A !important;
 }
 
 .admin-portal-wrapper .btn-danger:hover {
@@ -590,9 +644,9 @@ table.admin-table td,
 }
 
 .admin-portal-wrapper .btn-warning {
-    background-color: var(--admin-warning) !important;
+    background-color: #A8752A !important;
     color: #FFFFFF !important;
-    border: 1px solid var(--admin-warning) !important;
+    border: 1px solid #A8752A !important;
 }
 
 .admin-portal-wrapper .btn-warning:hover {
@@ -602,14 +656,14 @@ table.admin-table td,
 .admin-portal-wrapper .btn-outline,
 .admin-portal-wrapper .btn-ghost {
     background-color: transparent !important;
-    color: var(--admin-primary) !important;
-    border: 1px solid var(--admin-border) !important;
+    color: #172033 !important;
+    border: 1px solid #D9D3C7 !important;
 }
 
 .admin-portal-wrapper .btn-outline:hover,
 .admin-portal-wrapper .btn-ghost:hover {
-    background-color: var(--admin-surface-alt) !important;
-    border-color: var(--admin-border) !important;
+    background-color: #ECE7DD !important;
+    border-color: #D9D3C7 !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -623,9 +677,9 @@ table.admin-table td,
 .admin-portal-wrapper textarea,
 .admin-form-input {
     border-radius: 10px !important;
-    border: 1px solid var(--admin-border) !important;
-    background-color: var(--admin-surface) !important;
-    color: var(--admin-text) !important;
+    border: 1px solid #D9D3C7 !important;
+    background-color: #FFFFFF !important;
+    color: #1C2431 !important;
     padding: 10px 14px !important;
     font-size: 0.88rem !important;
     outline: none !important;
@@ -635,14 +689,14 @@ table.admin-table td,
 .admin-portal-wrapper input:focus,
 .admin-portal-wrapper select:focus,
 .admin-portal-wrapper textarea:focus {
-    border-color: var(--admin-secondary) !important;
+    border-color: #B08D57 !important;
     box-shadow: 0 0 0 3px rgba(176, 141, 87, 0.2) !important;
 }
 
 .admin-portal-wrapper label {
     font-size: 0.82rem !important;
     font-weight: 700 !important;
-    color: var(--admin-primary) !important;
+    color: #172033 !important;
     margin-bottom: 6px !important;
     display: block !important;
 }
@@ -663,18 +717,18 @@ table.admin-table td,
 
 .admin-alert-warning {
     background: #FDF7EC;
-    color: var(--admin-warning);
+    color: #A8752A;
     border: 1px solid rgba(168, 117, 42, 0.3);
 }
 
 .admin-alert-danger {
     background: #FDF0F0;
-    color: var(--admin-danger);
+    color: #A54A4A;
     border: 1px solid rgba(165, 74, 74, 0.3);
 }
 
 .admin-alert-success {
     background: #EBF3ED;
-    color: var(--admin-success);
+    color: #3F7652;
     border: 1px solid rgba(63, 118, 82, 0.3);
 }

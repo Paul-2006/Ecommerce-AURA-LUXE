@@ -1,4 +1,13 @@
+import { useLocation } from "react-router-dom";
+
 function DynamicEcommerceBackground() {
+  const location = useLocation();
+
+  // Hide e-commerce background mesh blobs & shopping icons on all Admin routes
+  if (location.pathname.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <div className="app-dynamic-background" aria-hidden="true">
       {/* Animated Mesh Gradients */}
@@ -50,22 +59,6 @@ function DynamicEcommerceBackground() {
         {/* 6. Security Shield / Verification */}
         <svg className="float-icon icon-shield-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-        </svg>
-
-        {/* 7. Barcode Scanner Symbol */}
-        <svg className="float-icon icon-barcode-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <line x1="3" y1="5" x2="3" y2="19"></line>
-          <line x1="7" y1="5" x2="7" y2="19"></line>
-          <line x1="11" y1="5" x2="11" y2="19"></line>
-          <line x1="15" y1="5" x2="15" y2="19"></line>
-          <line x1="18" y1="5" x2="18" y2="19"></line>
-          <line x1="21" y1="5" x2="21" y2="19"></line>
-        </svg>
-
-        {/* 8. Storefront Market */}
-        <svg className="float-icon icon-store-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-          <polyline points="9 22 9 12 15 12 15 22"></polyline>
         </svg>
       </div>
     </div>

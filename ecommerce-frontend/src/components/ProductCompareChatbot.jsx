@@ -13,6 +13,11 @@ import "../css/ProductCompareChatbot.css";
 function ProductCompareChatbot() {
   const location = useLocation();
   const navigate = useNavigate();
+
+  // Hide shopping chatbot on all Admin management routes
+  if (location.pathname.startsWith("/admin")) {
+    return null;
+  }
   const { isCustomer } = useContext(AuthContext);
   const { language } = useLanguage();
 
