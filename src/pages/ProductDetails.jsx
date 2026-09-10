@@ -5,6 +5,7 @@ import { addCart } from "../services/cartService";
 import { addWishlist, removeWishlist, getLocalWishlist } from "../services/wishlistService";
 import { compareProducts } from "../services/comparisonService";
 import { AuthContext } from "../context/AuthContext";
+import { getMediaUrl } from "../services/api";
 import "../css/ProductDetails.css";
 
 function ProductDetails() {
@@ -40,8 +41,7 @@ function ProductDetails() {
   const getProductImage = () => {
     if (!product) return "";
     if (product.image) {
-      if (product.image.startsWith("http")) return product.image;
-      return `http://localhost:5151${product.image}`;
+      return getMediaUrl(product.image);
     }
     return "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80";
   };

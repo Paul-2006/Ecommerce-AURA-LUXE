@@ -8,7 +8,7 @@ function DeliveryLogin() {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(() => localStorage.getItem("user_registered_email") || "");
   const [password, setPassword] = useState("");
   const [vehicleNumber, setVehicleNumber] = useState("");
   const [licenseScanned, setLicenseScanned] = useState(false);
@@ -115,6 +115,21 @@ function DeliveryLogin() {
           <button type="submit" className="btn btn-success btn-lg btn-block" disabled={loading}>
             {loading ? "Verifying Credentials..." : "Authenticate & Go Online"}
           </button>
+
+          <div style={{ marginTop: "12px", textAlign: "center" }}>
+            <button
+              type="button"
+              className="btn btn-secondary btn-sm btn-block"
+              onClick={() => {
+                setEmail("delivery@webkadai.com");
+                setPassword("Delivery@123!");
+                setVehicleNumber("KA-05-MB-4421");
+              }}
+              style={{ background: "rgba(16, 185, 129, 0.12)", border: "1px solid rgba(16, 185, 129, 0.4)", color: "#34d399", width: "100%", padding: "10px", borderRadius: "8px", cursor: "pointer", fontWeight: "600" }}
+            >
+              ⚡ Fill Quick Demo Credentials (delivery@webkadai.com)
+            </button>
+          </div>
         </form>
 
         <div className="auth-footer-links">

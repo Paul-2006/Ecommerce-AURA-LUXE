@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { getWishlist, removeWishlist } from "../services/wishlistService";
 import { addCart } from "../services/cartService";
+import { getMediaUrl } from "../services/api";
 import "../css/Wishlist.css";
 
 function Wishlist() {
@@ -84,9 +85,7 @@ function Wishlist() {
               <img
                 src={
                   item.image
-                    ? item.image.startsWith("http")
-                      ? item.image
-                      : `http://localhost:5151${item.image}`
+                    ? getMediaUrl(item.image)
                     : "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80"
                 }
                 alt={item.productName}

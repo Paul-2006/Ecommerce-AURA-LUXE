@@ -8,15 +8,6 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     try {
       const saved = JSON.parse(localStorage.getItem("user") || "null");
-      if (saved) {
-        const isAdminUser = saved.role === "Admin" || saved.roleId === 1 || saved.roleId === "1";
-        if (!isAdminUser) {
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
-          localStorage.removeItem("cartId");
-          return null;
-        }
-      }
       return saved;
     } catch {
       localStorage.removeItem("token");

@@ -8,7 +8,7 @@ function WarehouseLogin() {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(() => localStorage.getItem("user_registered_email") || "");
   const [password, setPassword] = useState("");
   const [warehouseId, setWarehouseId] = useState("Hub #01 - Bengaluru Central");
   const [loading, setLoading] = useState(false);
@@ -106,6 +106,20 @@ function WarehouseLogin() {
           <button type="submit" className="btn btn-primary btn-lg btn-block" disabled={loading}>
             {loading ? "Connecting to Terminal..." : "Access Barcode Scanner & Hub"}
           </button>
+
+          <div style={{ marginTop: "12px", textAlign: "center" }}>
+            <button
+              type="button"
+              className="btn btn-secondary btn-sm btn-block"
+              onClick={() => {
+                setEmail("warehouse@webkadai.com");
+                setPassword("Warehouse@123!");
+              }}
+              style={{ background: "rgba(59, 130, 246, 0.12)", border: "1px solid rgba(59, 130, 246, 0.4)", color: "#60a5fa", width: "100%", padding: "10px", borderRadius: "8px", cursor: "pointer", fontWeight: "600" }}
+            >
+              ⚡ Fill Quick Demo Credentials (warehouse@webkadai.com)
+            </button>
+          </div>
         </form>
 
         <div className="auth-footer-links">

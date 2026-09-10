@@ -1,93 +1,116 @@
-.seller-dashboard{
+/* ==========================================================================
+   CLASSICAL LUXURY SELLER DASHBOARD STYLES
+   ========================================================================== */
 
-padding:40px;
-
-background:#f8fafc;
-
-min-height:90vh;
-
+.seller-dashboard-container,
+.my-products-container,
+.seller-orders-container {
+  padding-top: 28px;
+  padding-bottom: 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 }
 
-
-
-.seller-dashboard h1{
-
-text-align:center;
-
-font-size:38px;
-
+.seller-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  width: 100%;
 }
 
-
-
-.seller-dashboard p{
-
-text-align:center;
-
-color:#64748b;
-
+.seller-metric-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px 22px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--transition-fast);
+  gap: 14px;
 }
 
-
-
-.seller-grid{
-
-display:grid;
-
-grid-template-columns:
-repeat(auto-fit,minmax(250px,1fr));
-
-gap:30px;
-
-margin-top:40px;
-
+.seller-metric-card:hover {
+  transform: translateY(-2px);
+  border-color: #c5a059;
+  box-shadow: var(--shadow-md);
 }
 
-
-
-.seller-card{
-
-background:white;
-
-padding:30px;
-
-border-radius:18px;
-
-box-shadow:
-0 5px 15px rgba(0,0,0,0.12);
-
+.seller-metric-card .metric-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-
-
-.seller-card h2{
-
-color:#2563eb;
-
+.seller-metric-card .metric-value {
+  font-family: var(--font-sans);
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
 }
 
-
-
-.seller-card button{
-
-padding:12px 25px;
-
-border:none;
-
-border-radius:10px;
-
-background:#2563eb;
-
-color:white;
-
-cursor:pointer;
-
+[data-theme="dark"] .seller-metric-card .metric-value {
+  color: #c5a059;
 }
 
+.seller-metric-card .metric-name {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
 
+/* Seller Action Cards */
+.seller-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+  width: 100%;
+}
 
-.seller-card button:hover{
+.seller-action-card {
+  padding: 28px 24px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-xs);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
 
-background:#1d4ed8;
+.seller-action-card:hover {
+  transform: translateY(-2px);
+  border-color: #0f172a;
+  box-shadow: var(--shadow-md);
+}
 
+.seller-action-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+[data-theme="dark"] .seller-action-card h3 {
+  color: #f8f6f0;
+}
+
+.seller-action-card p {
+  font-size: 0.88rem;
+  color: var(--text-sub);
+  line-height: 1.7;
+  margin-bottom: 6px;
+}
+
+.seller-action-card button {
+  margin-top: auto;
 }

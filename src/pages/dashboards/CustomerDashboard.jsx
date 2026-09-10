@@ -7,48 +7,34 @@ function CustomerDashboard() {
   const navigate = useNavigate();
   const { user, cartCount, wishlistCount } = useContext(AuthContext);
 
-  const portals = [
-    {
-      id: "seller",
-      title: "Seller Merchant Portal",
-      desc: "Manage product listings, inventory stock & sales",
-      path: "/seller/login",
-      btnClass: "btn-primary",
-      btnText: "Go to Seller Portal"
-    },
-    {
-      id: "admin",
-      title: "Master Admin Security Portal",
-      desc: "2-Admin clearance, user approvals & platform audit",
-      path: "/admin/login",
-      btnClass: "btn-luxury",
-      btnText: "Go to Admin Portal"
-    },
-    {
-      id: "warehouse",
-      title: "Warehouse Stock & Scanner Portal",
-      desc: "Optical barcode/QR scanner & order packing",
-      path: "/warehouse/login",
-      btnClass: "btn-primary",
-      btnText: "Go to Warehouse Portal"
-    },
-    {
-      id: "delivery",
-      title: "Delivery Partner Dispatch Portal",
-      desc: "Motorbike dispatch, real-time live GPS & customer OTP",
-      path: "/delivery/login",
-      btnClass: "btn-success",
-      btnText: "Go to Delivery Portal"
-    }
-  ];
-
   return (
     <div className="dashboard-page-container centered-container">
-      {/* Header */}
+      {/* Welcome Banner */}
       <div className="dashboard-welcome-banner glass-panel">
         <div className="welcome-text">
-          <h1>Welcome to AURA Luxe, {user?.username || user?.name || "Shopper"}</h1>
-          <p>Switch to any operational portal or manage your customer shopping activities.</p>
+          <h1>Welcome back, {user?.username || user?.name || "Customer"}!</h1>
+          <p>Here is your personalized account dashboard and order management center.</p>
+        </div>
+        <span className="badge-pill badge-primary">Verified Customer Account</span>
+      </div>
+
+      {/* Account Profile Summary Card */}
+      <div className="user-details-card glass-panel" style={{ padding: "20px", borderRadius: "16px", marginBottom: "24px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "16px" }}>
+        <div>
+          <span style={{ fontSize: "0.8rem", color: "var(--text-muted)", display: "block" }}>Account Name</span>
+          <strong style={{ fontSize: "1.05rem", color: "var(--text-main)" }}>{user?.username || user?.name || "Customer"}</strong>
+        </div>
+        <div>
+          <span style={{ fontSize: "0.8rem", color: "var(--text-muted)", display: "block" }}>Email Address</span>
+          <strong style={{ fontSize: "1.05rem", color: "var(--text-main)" }}>{user?.email || "customer@example.com"}</strong>
+        </div>
+        <div>
+          <span style={{ fontSize: "0.8rem", color: "var(--text-muted)", display: "block" }}>Account Role</span>
+          <span className="badge-pill badge-success" style={{ display: "inline-block", marginTop: "4px" }}>Customer</span>
+        </div>
+        <div>
+          <span style={{ fontSize: "0.8rem", color: "var(--text-muted)", display: "block" }}>Status</span>
+          <strong style={{ color: "var(--success, #10b981)" }}>Active</strong>
         </div>
       </div>
 
@@ -72,10 +58,10 @@ function CustomerDashboard() {
 
         <div className="metric-card glass-panel" onClick={() => navigate("/orders")}>
           <div className="metric-info">
-            <span className="metric-number">Live Orders</span>
+            <span className="metric-number">My Orders</span>
             <span className="metric-title">Live GPS Rider Tracking</span>
           </div>
-          <button className="btn btn-luxury btn-sm">Track Live GPS</button>
+          <button className="btn btn-luxury btn-sm">Track Orders</button>
         </div>
 
         <div className="metric-card glass-panel" onClick={() => navigate("/products")}>
@@ -83,38 +69,53 @@ function CustomerDashboard() {
             <span className="metric-number">Catalog</span>
             <span className="metric-title">Browse & AI Compare</span>
           </div>
-          <button className="btn btn-compare btn-sm">Compare Specs</button>
+          <button className="btn btn-compare btn-sm">Explore Hardware</button>
         </div>
       </div>
 
-      {/* Move to Next Portal Button Section */}
+      {/* Customer Quick Actions Section */}
       <div className="dashboard-quick-links glass-panel">
-        <div className="section-title-row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div className="section-title-row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
           <div>
-            <h2>Operational Portals</h2>
+            <h2>Customer Account Actions</h2>
             <p style={{ color: "var(--text-muted)", fontSize: "0.88rem" }}>
-              Direct access buttons to move to Seller, Admin, Warehouse, or Delivery Partner portals:
+              Quick shortcuts to manage your shopping cart, orders, wishlist, and account settings:
             </p>
           </div>
-          <button className="btn btn-ghost btn-sm" onClick={() => navigate("/login")}>
-            View All Portals
-          </button>
         </div>
 
         <div className="shortcuts-grid">
-          {portals.map((portal) => (
-            <div key={portal.id} className="shortcut-item">
-              <strong>{portal.title}</strong>
-              <p>{portal.desc}</p>
-              <button
-                className={`btn ${portal.btnClass} btn-sm`}
-                style={{ marginTop: "12px", width: "100%" }}
-                onClick={() => navigate(portal.path)}
-              >
-                {portal.btnText}
-              </button>
-            </div>
-          ))}
+          <div className="shortcut-item" onClick={() => navigate("/orders")}>
+            <strong>📦 My Orders & Live Tracking</strong>
+            <p>View order history, invoices, and live delivery rider coordinates</p>
+            <button className="btn btn-primary btn-sm" style={{ marginTop: "12px", width: "100%" }}>
+              View Orders
+            </button>
+          </div>
+
+          <div className="shortcut-item" onClick={() => navigate("/wishlist")}>
+            <strong>💖 Saved Wishlist</strong>
+            <p>Manage your saved hardware items and get instant deal notifications</p>
+            <button className="btn btn-secondary btn-sm" style={{ marginTop: "12px", width: "100%" }}>
+              View Wishlist ({wishlistCount})
+            </button>
+          </div>
+
+          <div className="shortcut-item" onClick={() => navigate("/cart")}>
+            <strong>🛒 Active Shopping Cart</strong>
+            <p>Review selected hardware, apply discount coupons, and checkout</p>
+            <button className="btn btn-secondary btn-sm" style={{ marginTop: "12px", width: "100%" }}>
+              View Cart ({cartCount})
+            </button>
+          </div>
+
+          <div className="shortcut-item" onClick={() => navigate("/profile")}>
+            <strong>⚙️ Profile & Account Settings</strong>
+            <p>Update your delivery address, phone number, and security preferences</p>
+            <button className="btn btn-secondary btn-sm" style={{ marginTop: "12px", width: "100%" }}>
+              Manage Account
+            </button>
+          </div>
         </div>
       </div>
     </div>

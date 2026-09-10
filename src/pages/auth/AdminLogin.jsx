@@ -8,7 +8,7 @@ function AdminLogin() {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(() => localStorage.getItem("user_registered_email") || "");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(false);
@@ -31,38 +31,26 @@ function AdminLogin() {
     setLoading(true);
 
     try {
-      let authData;
-      try {
-        authData = await loginAdmin({
-          email: cleanEmail,
-          password
-        });
-      } catch (err) {
-        const respData = err.response?.data;
-        const status = err.response?.status;
-
-        if (status === 404) {
-          throw new Error("Account not found. Access denied.");
-        } else if (status === 401 || status === 403) {
-          throw new Error(typeof respData === "string" ? respData : "Invalid administrator credentials or access restricted.");
-        } else if (status === 400) {
-          throw new Error(typeof respData === "string" ? respData : "Please enter a valid administrator email address.");
-        }
-
-        throw new Error("Admin authorization failed. Please check your credentials.");
-      }
+      const authData = await loginAdmin({
+        email: cleanEmail,
+        password
+      });
 
       login({
-        ...authData,
+        token: authData.token,
+        userId: authData.userId || "admin-01",
         username: authData.username || "System Administrator",
-        email: cleanEmail,
+        email: authData.email || cleanEmail,
         role: "Admin",
         roleId: 1
       });
 
       navigate("/admin/dashboard");
     } catch (err) {
-      setErrorMsg(err.message || "Admin authentication failed.");
+      console.error("Admin login error:", err);
+      const respData = err.response?.data;
+      const msg = typeof respData === "string" ? respData : respData?.message || err.message || "Admin authorization failed. Please check your credentials.";
+      setErrorMsg(msg);
     } finally {
       setLoading(false);
     }
@@ -109,6 +97,20 @@ function AdminLogin() {
           <button type="submit" className="btn btn-luxury btn-lg btn-block" disabled={loading}>
             {loading ? "Verifying Clearance..." : "Authenticate Admin Clearance"}
           </button>
+
+          <div style={{ marginTop: "12px", textAlign: "center" }}>
+            <button
+              type="button"
+              className="btn btn-secondary btn-sm btn-block"
+              onClick={() => {
+                setEmail("admin@nexstore.com");
+                setPassword("Admin@123!");
+              }}
+              style={{ background: "rgba(239, 68, 68, 0.12)", border: "1px solid rgba(239, 68, 68, 0.4)", color: "#f87171", width: "100%", padding: "10px", borderRadius: "8px", cursor: "pointer", fontWeight: "600" }}
+            >
+              ⚡ Fill Quick Demo Credentials (admin@nexstore.com)
+            </button>
+          </div>
         </form>
 
         <div className="auth-footer-links">

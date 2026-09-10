@@ -1,40 +1,4 @@
-import axios from "axios";
+import api, { API_BASE_URL, MEDIA_BASE_URL, getMediaUrl } from "../services/api";
 
-
-const api = axios.create({
-
-    baseURL:"http://localhost:5151/api"
-
-});
-
-
-
-api.interceptors.request.use(
-
-(config)=>{
-
-    const token = localStorage.getItem("token");
-
-
-    if(token)
-    {
-        config.headers.Authorization =
-        `Bearer ${token}`;
-    }
-
-
-    return config;
-
-},
-
-(error)=>{
-
-    return Promise.reject(error);
-
-}
-
-);
-
-
-
+export { API_BASE_URL, MEDIA_BASE_URL, getMediaUrl };
 export default api;

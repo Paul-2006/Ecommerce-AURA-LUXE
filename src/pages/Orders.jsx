@@ -5,6 +5,7 @@ import { getOrders } from "../services/orderService";
 import { getNotifications } from "../services/notificationService";
 import LiveMapTracker from "../components/LiveMapTracker";
 import WebKadaiLogo from "../components/WebKadaiLogo";
+import { getMediaUrl } from "../services/api";
 import "../css/Orders.css";
 
 function Orders() {
@@ -192,9 +193,7 @@ function Orders() {
                         <img
                           src={
                             prod.image
-                              ? prod.image.startsWith("http")
-                                ? prod.image
-                                : `http://localhost:5151${prod.image}`
+                              ? getMediaUrl(prod.image)
                               : "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&auto=format&fit=crop&q=80"
                           }
                           alt={prod.productName || "Product"}

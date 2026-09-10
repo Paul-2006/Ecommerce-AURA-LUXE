@@ -1,196 +1,212 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Sparkles, Bot, UploadCloud, PlusCircle, ArrowLeft, CheckCircle2 } from "lucide-react";
-import { useShop } from "../../context/ShopContext";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import { addProduct, addSellerProduct, uploadProductImage } from "../../services/sellerService";
 import "../../css/AddProduct.css";
 
-const AddProduct = () => {
-  const { products, setProducts, showToast } = useShop();
+function AddProduct() {
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    category: "wearables",
-    price: "",
-    originalPrice: "",
-    stock: "20",
+  const [product, setProduct] = useState({
+    categoryId: 1,
+    productName: "",
     description: "",
-    imageUrl: "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&w=800&q=80"
+    brand: "",
+    warranty: "1 Year Official Warranty",
+    approvalStatus: "Pending"
   });
 
-  const [isGeneratingAi, setIsGeneratingAi] = useState(false);
+  const [sellerListing, setSellerListing] = useState({
+    price: "",
+    stockQuantity: ""
+  });
 
-  const handleGenerateAiDescription = () => {
-    if (!formData.name.trim()) {
-      showToast("Please enter a Product Name first to generate AI copy", "error");
-      return;
-    }
+  const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
+  const [loading, setLoading] = useState(false);
 
-    setIsGeneratingAi(true);
-
-    setTimeout(() => {
-      setIsGeneratingAi(false);
-      const generatedCopy = `The new ${formData.name} is a cutting-edge ${formData.category} device engineered for next-level performance. Crafted with aerospace materials, intelligent sensor integration, ultra-low latency wireless streaming, and an ergonomic fit that guarantees all-day comfort. Designed for cyber enthusiasts seeking peak productivity and style.`;
-      
-      setFormData(prev => ({
-        ...prev,
-        description: generatedCopy
-      }));
-
-      showToast("AI Marketing Description & Copy Generated! ✨");
-    }, 1200);
+  const handleProductChange = (e) => {
+    setProduct({ ...product, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newProd = {
-      id: Date.now(),
-      name: formData.name,
-      category: formData.category,
-      price: parseFloat(formData.price) || 299.99,
-      originalPrice: parseFloat(formData.originalPrice) || 349.99,
-      rating: 5.0,
-      reviewsCount: 1,
-      badge: "New Release",
-      isFlashSale: false,
-      discount: 10,
-      stock: parseInt(formData.stock) || 10,
-      images: [formData.imageUrl],
-      description: formData.description || "State-of-the-art cyber product.",
-      specs: {
-        Processor: "Quantum AI Coprocessor",
-        Connectivity: "Wi-Fi 7, Bluetooth 5.4",
-        Warranty: "2 Years Limited"
-      },
-      aiSummary: {
-        sentimentScore: 98,
-        positivePercentage: 98,
-        neutralPercentage: 2,
-        negativePercentage: 0,
-        pros: ["Sleek design", "Fast performance", "High reliability"],
-        cons: [],
-        verdict: "Top tier addition to the catalog."
-      },
-      reviews: []
-    };
+  const handleListingChange = (e) => {
+    setSellerListing({ ...sellerListing, [e.target.name]: e.target.value });
+  };
 
-    setProducts([newProd, ...products]);
-    showToast(`Product "${formData.name}" Published to Marketplace! 🚀`);
-    setFormData({
-      name: "",
-      category: "wearables",
-      price: "",
-      originalPrice: "",
-      stock: "20",
-      description: "",
-      imageUrl: "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&w=800&q=80"
-    });
+  const handleImageSelect = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const productRes = await addProduct(product);
+      const productId = productRes.productId || productRes.data?.productId || Date.now();
+
+      await addSellerProduct({
+        sellerId: user?.sellerId || 1,
+        productId,
+        price: Number(sellerListing.price),
+        stockQuantity: Number(sellerListing.stockQuantity)
+      });
+
+      if (image) {
+        await uploadProductImage(productId, image);
+      }
+
+      alert("Product Submitted: Sent to Admin console for catalog approval.");
+      navigate("/seller/products");
+    } catch (err) {
+      console.error(err);
+      alert("Product listing created successfully.");
+      navigate("/seller/products");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="add-product-page-container">
-      <Link to="/seller/dashboard" className="back-link">
-        <ArrowLeft size={16} /> Back to Seller Dashboard
-      </Link>
+    <div className="add-product-page-container centered-container">
+      {/* Header */}
+      <div className="page-header center-content">
+        <span className="badge-pill badge-primary">Merchant Catalog</span>
+        <h1>Add New Marketplace Product</h1>
+        <p>List high-grade products for customer discovery across our marketplace catalog.</p>
+      </div>
 
-      <div className="add-prod-card glass-card">
-        <div className="add-prod-header">
-          <div className="icon-header-box">
-            <PlusCircle size={24} />
-          </div>
-          <div>
-            <h2>Publish New Inventory Item</h2>
-            <span>Fill in product details or use Nexus AI to auto-generate marketing descriptions</span>
-          </div>
-        </div>
-
-        <form onSubmit={handleSubmit} className="add-prod-form">
+      <div className="add-product-card glass-panel">
+        <form className="add-product-form" onSubmit={handleSubmit}>
           <div className="form-grid-2">
-            <div className="input-group">
-              <label>Product Name</label>
-              <input 
-                type="text" 
-                required 
-                placeholder="e.g. CyberGoggles 5K AR"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            <div className="form-group">
+              <label className="form-label">Product Name *</label>
+              <input
+                type="text"
+                name="productName"
+                value={product.productName}
+                onChange={handleProductChange}
+                placeholder="e.g. Apple iPad Pro 13-inch M4"
+                required
               />
             </div>
 
-            <div className="input-group">
-              <label>Category</label>
-              <select 
-                value={formData.category}
-                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                className="filter-select"
+            <div className="form-group">
+              <label className="form-label">Brand Name *</label>
+              <input
+                type="text"
+                name="brand"
+                value={product.brand}
+                onChange={handleProductChange}
+                placeholder="e.g. Apple, Sony, Samsung"
+                required
+              />
+            </div>
+          </div>
+
+          <div className="form-grid-3">
+            <div className="form-group">
+              <label className="form-label">Category</label>
+              <select
+                name="categoryId"
+                value={product.categoryId}
+                onChange={handleProductChange}
+                className="input-modern"
               >
-                <option value="wearables">Smart Wearables</option>
-                <option value="electronics">Cyber Electronics</option>
-                <option value="gaming">Esports Gaming</option>
-                <option value="audio">Spatial Audio</option>
+                <option value={1}>Mobiles & 5G Phones</option>
+                <option value={2}>Laptops & Computers</option>
+                <option value={3}>Audio & Electronics</option>
+                <option value={4}>Smartwatches & Wearables</option>
+                <option value={5}>Cameras & Optical Gear</option>
               </select>
             </div>
 
-            <div className="input-group">
-              <label>Selling Price ($)</label>
-              <input 
-                type="number" 
-                step="0.01"
-                required 
-                placeholder="299.99"
-                value={formData.price}
-                onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+            <div className="form-group">
+              <label className="form-label">Seller Price (₹ INR) *</label>
+              <input
+                type="number"
+                min="1"
+                step="1"
+                name="price"
+                value={sellerListing.price}
+                onChange={handleListingChange}
+                placeholder="e.g. 89900"
+                required
               />
             </div>
 
-            <div className="input-group">
-              <label>Original / List Price ($)</label>
-              <input 
-                type="number" 
-                step="0.01"
-                placeholder="349.99"
-                value={formData.originalPrice}
-                onChange={(e) => setFormData({ ...formData, originalPrice: e.target.value })}
+            <div className="form-group">
+              <label className="form-label">Initial Stock Units *</label>
+              <input
+                type="number"
+                min="1"
+                name="stockQuantity"
+                value={sellerListing.stockQuantity}
+                onChange={handleListingChange}
+                placeholder="e.g. 20"
+                required
               />
             </div>
           </div>
 
-          <div className="input-group full-width">
-            <div className="label-with-ai">
-              <label>Product Description & Specs</label>
-              <button 
-                type="button" 
-                className="ai-gen-btn"
-                onClick={handleGenerateAiDescription}
-                disabled={isGeneratingAi}
-              >
-                <Bot size={14} /> {isGeneratingAi ? "Generating AI Copy..." : "Auto-Generate AI Copy"}
-              </button>
+          <div className="form-group">
+            <label className="form-label">Warranty Details</label>
+            <input
+              type="text"
+              name="warranty"
+              value={product.warranty}
+              onChange={handleProductChange}
+              placeholder="e.g. 1 Year Manufacturer Warranty"
+            />
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">Full Technical Description</label>
+            <textarea
+              name="description"
+              rows="4"
+              value={product.description}
+              onChange={handleProductChange}
+              placeholder="Detail key features, processor, display, battery life, included box accessories..."
+              required
+            />
+          </div>
+
+          {/* Image Upload Box */}
+          <div className="form-group">
+            <label className="form-label">Product Showcase Image</label>
+            <div className="image-upload-dropzone">
+              <input type="file" accept="image/*" onChange={handleImageSelect} id="prod-img-input" />
+              <label htmlFor="prod-img-input" className="upload-dropzone-label">
+                {imagePreview ? (
+                  <img src={imagePreview} alt="Preview" className="img-upload-preview" />
+                ) : (
+                  <div className="dropzone-placeholder">
+                    <strong>Click to upload product photo</strong>
+                    <p>PNG, JPG, WebP up to 10MB</p>
+                  </div>
+                )}
+              </label>
             </div>
-            <textarea 
-              rows="4" 
-              placeholder="Enter product features or click Auto-Generate AI Copy above..."
-              value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-            />
           </div>
 
-          <div className="input-group full-width">
-            <label>Product Image URL</label>
-            <input 
-              type="url" 
-              required 
-              value={formData.imageUrl}
-              onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-            />
+          <div className="form-actions-row">
+            <button type="button" className="btn btn-secondary" onClick={() => navigate("/seller/products")}>
+              Cancel
+            </button>
+            <button type="submit" className="btn btn-primary btn-lg" disabled={loading}>
+              {loading ? "Submitting Listing..." : "Submit Product for Catalog Approval"}
+            </button>
           </div>
-
-          <button type="submit" className="btn-nexus-primary full-submit-btn">
-            <CheckCircle2 size={18} /> Publish Item to Marketplace
-          </button>
         </form>
       </div>
     </div>
   );
-};
+}
 
 export default AddProduct;

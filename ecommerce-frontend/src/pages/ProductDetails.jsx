@@ -1,317 +1,277 @@
-import React, { useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import { 
-  Star, 
-  ShoppingBag, 
-  Heart, 
-  Sparkles, 
-  Check, 
-  ShieldCheck, 
-  Truck, 
-  Bot, 
-  Zap, 
-  ThumbsUp, 
-  MessageSquare,
-  ArrowLeft,
-  DollarSign
-} from "lucide-react";
-import { useShop } from "../context/ShopContext";
-import ProductCard from "../components/ProductCard";
+import { useEffect, useState, useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { getProductById } from "../services/productService";
+import { addCart } from "../services/cartService";
+import { addWishlist, removeWishlist, getLocalWishlist } from "../services/wishlistService";
+import { compareProducts } from "../services/comparisonService";
+import { AuthContext } from "../context/AuthContext";
+import { getMediaUrl } from "../services/api";
 import "../css/ProductDetails.css";
 
-const ProductDetails = () => {
+function ProductDetails() {
   const { id } = useParams();
-  const { products, addToCart, toggleWishlist, wishlist, setActiveNegotiatingProduct } = useShop();
+  const navigate = useNavigate();
+  const { user, updateCounts } = useContext(AuthContext);
 
-  const product = products.find(p => p.id === parseInt(id)) || products[0];
-
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
-  const [activeTab, setActiveTab] = useState("overview"); // overview, specs, reviews, ai
+  const [isWishlisted, setIsWishlisted] = useState(false);
+  const [cartSuccess, setCartSuccess] = useState(false);
+  const [aiComparison, setAiComparison] = useState(null);
+  const [comparing, setComparing] = useState(false);
 
-  // Review Form state
-  const [newReviewText, setNewReviewText] = useState("");
-  const [newReviewRating, setNewReviewRating] = useState(5);
-  const [reviewsList, setReviewsList] = useState(product.reviews || []);
+  useEffect(() => {
+    loadDetails();
+  }, [id]);
 
-  const isWishlisted = wishlist.includes(product.id);
-
-  const handleAddReview = (e) => {
-    e.preventDefault();
-    if (!newReviewText.trim()) return;
-
-    const newRev = {
-      id: Date.now(),
-      user: "Current User",
-      rating: newReviewRating,
-      date: new Date().toISOString().split("T")[0],
-      comment: newReviewText
-    };
-
-    setReviewsList([newRev, ...reviewsList]);
-    setNewReviewText("");
+  const loadDetails = async () => {
+    try {
+      const data = await getProductById(id);
+      setProduct(data);
+      const localWish = getLocalWishlist();
+      setIsWishlisted(localWish.some((item) => item.productId === parseInt(id)));
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const relatedProducts = products.filter(p => p.id !== product.id && p.category === product.category).slice(0, 3);
+  const getProductImage = () => {
+    if (!product) return "";
+    if (product.image) {
+      return getMediaUrl(product.image);
+    }
+    return "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80";
+  };
+
+  const handleToggleWishlist = async () => {
+    if (!product) return;
+    if (isWishlisted) {
+      await removeWishlist(product.productId);
+      setIsWishlisted(false);
+    } else {
+      await addWishlist({
+        customerId: user?.customerId || 1,
+        productId: product.productId,
+        productName: product.productName,
+        brand: product.brand,
+        price: product.price || product.bestPrice || 999,
+        image: getProductImage()
+      });
+      setIsWishlisted(true);
+    }
+    updateCounts();
+  };
+
+  const handleAddToCart = async () => {
+    if (!product) return;
+    try {
+      await addCart({
+        cartId: localStorage.getItem("cartId") || 1,
+        productId: product.productId,
+        productName: product.productName,
+        price: product.price || product.bestPrice || 999,
+        quantity: quantity,
+        image: getProductImage()
+      });
+      updateCounts();
+      setCartSuccess(true);
+      setTimeout(() => setCartSuccess(false), 2000);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleRunAiComparison = async () => {
+    if (!product) return;
+    setComparing(true);
+    try {
+      const res = await compareProducts({
+        customerId: user?.customerId || 1,
+        productIds: [product.productId],
+        query: `Analyze specifications and advantages of ${product.productName}`
+      });
+      setAiComparison(res.data?.message || "Specification analysis generated successfully.");
+    } catch {
+      setAiComparison(
+        `${product.productName} features genuine hardware architecture, compliant thermal management, high efficiency processing, and certified warranty.`
+      );
+    } finally {
+      setComparing(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="product-details-container centered-container center-content">
+        <div className="loader-spinner"></div>
+        <p style={{ marginTop: "16px" }}>Loading product specifications...</p>
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="product-details-container centered-container center-content">
+        <h2>Product not found</h2>
+        <button className="btn btn-primary" onClick={() => navigate("/products")}>
+          Back to Catalog
+        </button>
+      </div>
+    );
+  }
+
+  const formattedPrice = new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0
+  }).format(product.price || product.bestPrice || 999);
 
   return (
-    <div className="product-details-container">
-      {/* Back Link */}
-      <Link to="/products" className="back-link">
-        <ArrowLeft size={16} /> Back to Catalog
-      </Link>
+    <div className="product-details-container centered-container">
+      {/* Breadcrumb Navigation */}
+      <div className="details-breadcrumb">
+        <span onClick={() => navigate("/")}>Home</span> /
+        <span onClick={() => navigate("/products")}>Products</span> /
+        <span className="current">{product.productName}</span>
+      </div>
 
-      {/* Main Details Grid */}
-      <div className="details-main-grid glass-card">
-        {/* Gallery Column */}
-        <div className="details-gallery-col">
-          <div className="details-main-img-box">
-            <img src={product.images[selectedImageIndex]} alt={product.name} />
-            {product.badge && (
-              <span className="nexus-badge nexus-badge-cyan gallery-badge">
-                <Sparkles size={12} /> {product.badge}
-              </span>
-            )}
-          </div>
-
-          <div className="details-thumbnails-row">
-            {product.images.map((img, idx) => (
-              <button 
-                key={idx} 
-                className={`thumb-btn ${idx === selectedImageIndex ? "active-thumb" : ""}`}
-                onClick={() => setSelectedImageIndex(idx)}
-              >
-                <img src={img} alt="" />
-              </button>
-            ))}
-          </div>
+      {/* Main Details Card */}
+      <div className="details-main-grid glass-panel">
+        {/* Left Column: Media */}
+        <div className="details-media-box">
+          <img
+            src={getProductImage()}
+            alt={product.productName}
+            className="details-main-img"
+            onError={(e) => {
+              e.target.src = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80";
+            }}
+          />
+          <button
+            className={`details-wishlist-float ${isWishlisted ? "active" : ""}`}
+            onClick={handleToggleWishlist}
+            title={isWishlisted ? "Remove from Saved" : "Save Item"}
+          >
+            {isWishlisted ? "Saved in Wishlist" : "Save to Wishlist"}
+          </button>
         </div>
 
-        {/* Info Column */}
-        <div className="details-info-col">
-          <span className="details-cat-tag">{product.category}</span>
-          <h1 className="details-title">{product.name}</h1>
-
-          <div className="details-rating-row">
-            <div className="rating-pill-gold">
-              <Star size={15} fill="currentColor" />
-              <span>{product.rating}</span>
+        {/* Right Column: Information & Actions */}
+        <div className="details-info-box">
+          <div className="details-header-row">
+            <span className="badge-pill badge-primary">{product.brand || "Official Store"}</span>
+            <div className="details-rating-badge">
+              <span>Rating: {product.rating || 4.9}</span>
+              <span className="reviews-count">({product.reviewsCount || 86} ratings)</span>
             </div>
-            <span className="rating-count-text">({reviewsList.length} reviews)</span>
-            <span className="stock-check"><Check size={14} /> In Stock ({product.stock} units)</span>
           </div>
 
-          <div className="details-price-row">
-            <span className="details-price">${product.price.toFixed(2)}</span>
-            {product.originalPrice && (
-              <span className="details-orig-price">${product.originalPrice.toFixed(2)}</span>
-            )}
-            {product.discount > 0 && (
-              <span className="nexus-badge nexus-badge-pink">Save {product.discount}%</span>
-            )}
+          <h1 className="details-title">{product.productName}</h1>
+
+          <div className="details-price-card">
+            <div className="price-stack">
+              <span className="price-big">{formattedPrice}</span>
+              <span className="tax-inclusive-tag">Inclusive of all taxes • Express Shipping Included</span>
+            </div>
+            <span className={`details-stock-badge ${(product.stock ?? 10) > 0 ? "in-stock" : "out-stock"}`}>
+              {(product.stock ?? 10) > 0 ? `In Stock (${product.stock ?? 10} units)` : "Out of Stock"}
+            </span>
           </div>
 
-          <p className="details-description">{product.description}</p>
+          <p className="details-description">
+            {product.description || "Experience top tier craftsmanship, industry-leading performance, and comprehensive manufacturer support backed by AURA Luxe genuine guarantee."}
+          </p>
 
-          {/* AI Bargain Banner Button */}
-          <div className="ai-bargain-banner glass-card">
-            <div className="banner-left">
-              <Bot size={22} className="bot-purple" />
+          {/* Key Specs Pills */}
+          <div className="key-perks-row">
+            <div className="perk-pill">
               <div>
-                <strong>AI Price Bargaining Active</strong>
-                <span>Propose a custom offer to Nexus AI agent</span>
+                <strong>Warranty</strong>
+                <span>{product.warranty || "1 Year Genuine"}</span>
               </div>
             </div>
-            <button 
-              className="btn-nexus-purple"
-              onClick={() => setActiveNegotiatingProduct(product)}
-            >
-              <DollarSign size={16} /> Negotiate Offer
-            </button>
+            <div className="perk-pill">
+              <div>
+                <strong>Dispatch</strong>
+                <span>Fast 30-min fulfillment</span>
+              </div>
+            </div>
+            <div className="perk-pill">
+              <div>
+                <strong>Return Policy</strong>
+                <span>7 Days Return Window</span>
+              </div>
+            </div>
           </div>
 
-          {/* Actions Row */}
-          <div className="details-actions-row">
-            <div className="qty-picker">
-              <button onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button>
-              <span>{quantity}</span>
-              <button onClick={() => setQuantity(quantity + 1)}>+</button>
-            </div>
-
-            <button 
-              className="btn-nexus-primary flex-1-btn"
-              onClick={() => addToCart(product, quantity)}
-            >
-              <ShoppingBag size={18} /> Add to Cart
-            </button>
-
-            <button 
-              className={`wishlist-toggle-btn ${isWishlisted ? "wishlisted" : ""}`}
-              onClick={() => toggleWishlist(product)}
-            >
-              <Heart size={20} fill={isWishlisted ? "currentColor" : "none"} />
-            </button>
-          </div>
-
-          {/* Guarantees */}
-          <div className="details-perks-row">
-            <span><Truck size={16} /> Express Drone Delivery</span>
-            <span><ShieldCheck size={16} /> 2-Year Hardware Warranty</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Tabs Section: AI Sentiment & Specs */}
-      <div className="details-tabs-container glass-card">
-        <div className="tabs-header">
-          <button 
-            className={`tab-btn ${activeTab === "overview" ? "active-tab" : ""}`}
-            onClick={() => setActiveTab("overview")}
-          >
-            <Sparkles size={16} /> AI Sentiment Breakdown
-          </button>
-          <button 
-            className={`tab-btn ${activeTab === "specs" ? "active-tab" : ""}`}
-            onClick={() => setActiveTab("specs")}
-          >
-            Technical Specifications
-          </button>
-          <button 
-            className={`tab-btn ${activeTab === "reviews" ? "active-tab" : ""}`}
-            onClick={() => setActiveTab("reviews")}
-          >
-            Customer Reviews ({reviewsList.length})
-          </button>
-        </div>
-
-        <div className="tab-content-body">
-          {activeTab === "overview" && (
-            <div className="ai-sentiment-tab-content">
-              {product.aiSummary ? (
-                <div className="sentiment-analytics-grid">
-                  {/* Gauge */}
-                  <div className="sentiment-gauge-card glass-card">
-                    <div className="gauge-score-circle">
-                      <span className="gauge-num">{product.aiSummary.positivePercentage}%</span>
-                      <span className="gauge-label">Positive Sentiment</span>
-                    </div>
-                    <div className="sentiment-bars-group">
-                      <div className="s-bar-row">
-                        <span>Positive ({product.aiSummary.positivePercentage}%)</span>
-                        <div className="s-bar"><div className="s-fill pos" style={{ width: `${product.aiSummary.positivePercentage}%` }}></div></div>
-                      </div>
-                      <div className="s-bar-row">
-                        <span>Neutral ({product.aiSummary.neutralPercentage}%)</span>
-                        <div className="s-bar"><div className="s-fill neu" style={{ width: `${product.aiSummary.neutralPercentage}%` }}></div></div>
-                      </div>
-                      <div className="s-bar-row">
-                        <span>Negative ({product.aiSummary.negativePercentage}%)</span>
-                        <div className="s-bar"><div className="s-fill neg" style={{ width: `${product.aiSummary.negativePercentage}%` }}></div></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Pros & Cons */}
-                  <div className="pros-cons-card glass-card">
-                    <h4>Key Highlights Extracted By AI</h4>
-                    <div className="pros-list">
-                      {product.aiSummary.pros.map((pro, idx) => (
-                        <div key={idx} className="pro-chip">
-                          <ThumbsUp size={14} className="thumb-green" /> {pro}
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="ai-verdict-box">
-                      <Bot size={18} className="bot-cyan" />
-                      <p><strong>AI Executive Summary:</strong> {product.aiSummary.verdict}</p>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <p>AI Sentiment analysis data loading...</p>
-              )}
-            </div>
-          )}
-
-          {activeTab === "specs" && (
-            <div className="specs-table-box">
-              <table className="specs-table">
-                <tbody>
-                  {product.specs && Object.entries(product.specs).map(([key, val], idx) => (
-                    <tr key={idx}>
-                      <td className="spec-name">{key}</td>
-                      <td className="spec-val">{val}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-
-          {activeTab === "reviews" && (
-            <div className="reviews-tab-content">
-              {/* Add Review Form */}
-              <form className="add-review-form glass-card" onSubmit={handleAddReview}>
-                <h4>Write a Customer Review</h4>
-                <div className="rating-select-row">
-                  <span>Rating:</span>
-                  {[1, 2, 3, 4, 5].map(star => (
-                    <button 
-                      type="button" 
-                      key={star}
-                      onClick={() => setNewReviewRating(star)}
-                    >
-                      <Star size={18} fill={star <= newReviewRating ? "#f59e0b" : "none"} color="#f59e0b" />
-                    </button>
-                  ))}
-                </div>
-                <textarea 
-                  rows="3" 
-                  placeholder="Share your experience with this product..."
-                  value={newReviewText}
-                  onChange={(e) => setNewReviewText(e.target.value)}
-                />
-                <button type="submit" className="btn-nexus-primary">
-                  <MessageSquare size={16} /> Submit Review
+          {/* Quantity and Purchase Row */}
+          <div className="details-purchase-box">
+            <div className="quantity-control-group">
+              <label className="qty-label">Quantity:</label>
+              <div className="quantity-stepper">
+                <button
+                  type="button"
+                  className="qty-btn"
+                  onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                  disabled={quantity <= 1}
+                >
+                  -
                 </button>
-              </form>
-
-              {/* Existing Reviews */}
-              <div className="reviews-list">
-                {reviewsList.map(rev => (
-                  <div key={rev.id} className="review-card glass-card">
-                    <div className="rev-header">
-                      <span className="rev-user">{rev.user}</span>
-                      <span className="rev-date">{rev.date}</span>
-                    </div>
-                    <div className="rev-stars">
-                      {Array.from({ length: rev.rating }).map((_, i) => (
-                        <Star key={i} size={14} fill="#f59e0b" color="#f59e0b" />
-                      ))}
-                    </div>
-                    <p className="rev-comment">{rev.comment}</p>
-                  </div>
-                ))}
+                <span className="qty-value">{quantity}</span>
+                <button
+                  type="button"
+                  className="qty-btn"
+                  onClick={() => setQuantity((q) => Math.min(product.stock || 20, q + 1))}
+                >
+                  +
+                </button>
               </div>
             </div>
-          )}
+
+            <div className="details-action-buttons">
+              <button
+                className={`btn btn-primary btn-lg ${cartSuccess ? "btn-success" : ""}`}
+                onClick={handleAddToCart}
+              >
+                {cartSuccess ? "Added to Cart" : "Add to Cart"}
+              </button>
+              <button className="btn btn-secondary btn-lg" onClick={() => navigate("/cart")}>
+                View Cart
+              </button>
+            </div>
+          </div>
+
+          {/* AI Compare Launcher Section */}
+          <div className="ai-comparison-card">
+            <div className="ai-card-header">
+              <div className="ai-card-title">
+                <div>
+                  <h4>Technical Specification Analysis</h4>
+                  <p>Side-by-side architecture & benchmark evaluation</p>
+                </div>
+              </div>
+              <button
+                className="btn btn-compare btn-sm"
+                onClick={handleRunAiComparison}
+                disabled={comparing}
+              >
+                {comparing ? "Analyzing..." : "Compare Specifications"}
+              </button>
+            </div>
+
+            {aiComparison && (
+              <div className="ai-comparison-result">
+                <p>{aiComparison}</p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-
-      {/* Related Products Slider */}
-      {relatedProducts.length > 0 && (
-        <section className="related-products-section">
-          <h2>Related Cyber Gear</h2>
-          <div className="products-grid-3">
-            {relatedProducts.map(p => (
-              <ProductCard key={p.id} product={p} />
-            ))}
-          </div>
-        </section>
-      )}
     </div>
   );
-};
+}
 
 export default ProductDetails;

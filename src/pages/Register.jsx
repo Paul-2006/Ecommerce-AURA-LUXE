@@ -101,7 +101,7 @@ function Register() {
 
     setLoading(true);
     try {
-      await registerUser({
+      const regRes = await registerUser({
         username: username.trim(),
         email: cleanEmail,
         password,
@@ -123,20 +123,29 @@ function Register() {
         }
       });
 
+      if (cleanEmail) {
+        localStorage.setItem("user_registered_email", cleanEmail);
+      }
       if (cleanPhone) {
         localStorage.setItem("user_registered_phone", cleanPhone);
       }
 
-      alert(`Account Created Successfully! Your ${roleId === 2 ? "Seller Business" : roleId === 4 ? "Delivery Driver" : "Customer"} credentials have been registered.`);
-      navigate(roleId === 2 ? "/seller/login" : roleId === 4 ? "/delivery/login" : "/customer/login");
+      const roleTitle = roleId === 2 ? "Seller Business" : roleId === 4 ? "Delivery Driver" : roleId === 3 ? "Warehouse Staff" : "Customer";
+      const offlineNote = regRes?.isOfflineMode ? " (Saved locally in Offline Mode)" : "";
+      alert(`Account Created Successfully!${offlineNote}\n\nYour ${roleTitle} credentials (${cleanEmail}) are registered. Please log in to continue.`);
+      
+      const targetLoginPath = roleId === 2 ? "/seller/login" : roleId === 4 ? "/delivery/login" : roleId === 3 ? "/warehouse/login" : "/customer/login";
+      navigate(targetLoginPath);
     } catch (err) {
       console.error("Registration error:", err);
-      const respMsg = err.response?.data?.message || (typeof err.response?.data === "string" ? err.response.data : null);
-      if (err.message === "Network Error" || !err.response) {
-        setErrorMsg("Network Connection Error: Unable to reach the backend API server. Please ensure your ASP.NET Core API server (http://localhost:5151) is running.");
-      } else {
-        setErrorMsg(respMsg || err.message || "Registration failed. Please check your details and try again.");
-      }
+      const respData = err.response?.data;
+      const respMsg =
+        respData?.message ||
+        (typeof respData === "string" ? respData : null) ||
+        (respData?.errors ? Object.values(respData.errors).flat().join(" ") : null) ||
+        respData?.title;
+
+      setErrorMsg(respMsg || err.message || "Registration failed. Please check your details and try again.");
     } finally {
       setLoading(false);
     }
@@ -183,7 +192,24 @@ function Register() {
           </button>
         </div>
 
-        {errorMsg && <div className="auth-error-alert">{errorMsg}</div>}
+        {errorMsg && (
+          <div className="auth-error-alert" style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+            <span>{errorMsg}</span>
+            {(errorMsg.toLowerCase().includes("already registered") || errorMsg.toLowerCase().includes("already exists") || errorMsg.toLowerCase().includes("already")) && (
+              <button
+                type="button"
+                className="btn btn-luxury btn-sm"
+                onClick={() => {
+                  localStorage.setItem("user_registered_email", email.trim());
+                  navigate(roleId === 2 ? "/seller/login" : roleId === 4 ? "/delivery/login" : roleId === 3 ? "/warehouse/login" : "/customer/login");
+                }}
+                style={{ marginTop: "4px", width: "100%" }}
+              >
+                🔑 Log In & Retrieve Existing Account →
+              </button>
+            )}
+          </div>
+        )}
 
         <form className="auth-form" onSubmit={handleRegister}>
           {/* Basic Account Info Grid */}

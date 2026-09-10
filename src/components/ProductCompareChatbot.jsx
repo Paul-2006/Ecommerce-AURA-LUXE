@@ -38,26 +38,12 @@ function ProductCompareChatbot() {
   const recognitionRef = useRef(null);
 
   const initialGreeting =
-    "Hello and a very warm welcome to AURA Luxe! I'm Aura AI, your personal luxury shopping concierge powered by Google Gemini and ASP.NET Core backend.\n\n" +
-    "💬 Ask me anything like:\n" +
-    "• 'Show me phones under 30000'\n" +
-    "• 'I need a laptop for programming'\n" +
-    "• 'Which product has the best rating?'\n" +
-    "• 'Compare these two products'\n" +
-    "• 'Suggest a product for a college student'\n\n" +
-    "How can I assist your shopping today?";
+    "Hello! I'm Kiva, your AI assistant. How can I help you today?";
 
   const [messages, setMessages] = useState([
     {
       from: "bot",
-      text: initialGreeting,
-      voiceTag: "Priya (Girl Voice)",
-      actions: [
-        { label: "📱 Phones under 30000", prompt: "Show me phones under 30000" },
-        { label: "💻 Laptop for programming", prompt: "I need a laptop for programming" },
-        { label: "⭐ Best rated products", prompt: "Which product has the best rating?" },
-        { label: "🛍️ View Products", prompt: "Go to products" }
-      ]
+      text: initialGreeting
     }
   ]);
 
@@ -339,10 +325,10 @@ function ProductCompareChatbot() {
           {/* Header */}
           <div className="compare-header aura-header">
             <div className="compare-header-title">
-              <span className="annachi-symbol-badge">A</span>
+              <span className="annachi-symbol-badge">K</span>
               <div>
-                <strong>Aura AI Concierge</strong>
-                <span className="online-indicator">● Gemini Powered (.NET Backend)</span>
+                <strong>Kiva AI Concierge</strong>
+                <span className="online-indicator">● Online</span>
               </div>
             </div>
 
@@ -367,25 +353,6 @@ function ProductCompareChatbot() {
 
               <button type="button" className="compare-close-btn" onClick={() => setOpen(false)} title="Close Assistant">
                 ✕
-              </button>
-            </div>
-          </div>
-
-          {/* Voice Hints Bar */}
-          <div className="voice-hints-bar aura-bar">
-            <span>Try asking:</span>
-            <div className="voice-hints-scroll">
-              <button type="button" className="hint-chip" onClick={() => handleAiAssistantQuery("Show me phones under 30000")}>
-                📱 Phones under 30k
-              </button>
-              <button type="button" className="hint-chip" onClick={() => handleAiAssistantQuery("I need a laptop for programming")}>
-                💻 Programming Laptop
-              </button>
-              <button type="button" className="hint-chip" onClick={() => handleAiAssistantQuery("Which product has the best rating?")}>
-                ⭐ Best Rating
-              </button>
-              <button type="button" className="hint-chip cancel-chip" onClick={() => handleAiAssistantQuery("cancel")}>
-                🛑 Quiet
               </button>
             </div>
           </div>
@@ -425,13 +392,6 @@ function ProductCompareChatbot() {
             {messages.map((msg, idx) => (
               <div key={idx} className={`chat-bubble-row ${msg.from}`}>
                 <div className={`chat-bubble ${msg.from} aura-bubble`}>
-                  {/* Voice Speaker Badge */}
-                  {msg.from === "bot" && msg.voiceTag && (
-                    <div className="voice-speaker-badge">
-                      <span>{msg.voiceTag.includes("Girl") ? "👧" : "👦"} {msg.voiceTag}</span>
-                    </div>
-                  )}
-
                   <p className="chat-bubble-text">{msg.text}</p>
 
                   {/* Grounded Recommended Product Cards */}
@@ -478,57 +438,17 @@ function ProductCompareChatbot() {
                       ))}
                     </div>
                   )}
-
-                  {/* Interactive Action Buttons */}
-                  {msg.actions && msg.actions.length > 0 && (
-                    <div className="bubble-actions-row">
-                      {msg.actions.map((act, aIdx) => (
-                        <button
-                          key={aIdx}
-                          type="button"
-                          className="btn btn-secondary btn-sm bubble-action-btn"
-                          onClick={() => {
-                            if (act.action) act.action();
-                            else if (act.prompt) handleAiAssistantQuery(act.prompt);
-                          }}
-                        >
-                          {act.label}
-                        </button>
-                      ))}
-                    </div>
-                  )}
                 </div>
               </div>
             ))}
             {loading && (
               <div className="chat-bubble-row bot">
                 <div className="chat-bubble bot typing aura-typing">
-                  <span>Aura AI is processing your request via Gemini API...</span>
+                  <span>Kiva AI is typing...</span>
                 </div>
               </div>
             )}
             <div ref={messagesEndRef} />
-          </div>
-
-          {/* Quick Select Product Chips */}
-          <div className="compare-chips-section aura-chips">
-            <span className="chips-title">Select catalog products to compare ({selectedIds.length}/4):</span>
-            <div className="chips-scroll">
-              {products.slice(0, 8).map((prod) => {
-                const isSelected = selectedIds.includes(prod.productId);
-                return (
-                  <button
-                    key={prod.productId}
-                    type="button"
-                    className={`product-chip ${isSelected ? "selected" : ""}`}
-                    onClick={() => toggleProduct(prod.productId)}
-                  >
-                    {isSelected ? "Selected: " : "+ "}
-                    {prod.productName?.split(" ").slice(0, 3).join(" ")}
-                  </button>
-                );
-              })}
-            </div>
           </div>
 
           {/* Input Form */}
@@ -544,7 +464,7 @@ function ProductCompareChatbot() {
             <input
               type="text"
               className="compare-input-field aura-field"
-              placeholder="e.g. 'Show phones under 30000', 'Laptop for programming'..."
+              placeholder="Ask anything..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
@@ -559,18 +479,18 @@ function ProductCompareChatbot() {
             type="button"
             className="compare-launcher-btn annachi-launcher"
             onClick={() => setOpen(true)}
-            aria-label="Open Aura AI Shopping Assistant"
+            aria-label="Open Kiva AI Shopping Assistant"
           >
-            <span className="annachi-symbol-badge">A</span>
-            <span className="launcher-text">Aura AI Assistant</span>
+            <span className="annachi-symbol-badge">K</span>
+            <span className="launcher-text">Kiva AI Assistant</span>
           </button>
 
           <button
             type="button"
             className={`quick-floating-mic annachi-quick-mic ${isListening ? "listening" : ""}`}
             onClick={toggleListening}
-            title="Speak in English with Aura AI (Alternating Voice & Navigation)"
-            aria-label="Aura Voice Command"
+            title="Speak in English with Kiva AI (Alternating Voice & Navigation)"
+            aria-label="Kiva Voice Command"
           >
             🎙️
           </button>

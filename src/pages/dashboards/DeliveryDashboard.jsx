@@ -101,9 +101,9 @@ function DeliveryDashboard() {
             <p>Broadcast bike coordinates along delivery route</p>
           </div>
 
-          <div className="shortcut-item" onClick={() => navigate("/login")}>
-            <strong>Switch Portal</strong>
-            <p>Customer, Seller, Admin portals</p>
+          <div className="shortcut-item" onClick={() => navigate("/delivery/history")}>
+            <strong>Delivery Performance History</strong>
+            <p>Review past completed drops, earnings breakdown, and ratings</p>
           </div>
         </div>
       </div>

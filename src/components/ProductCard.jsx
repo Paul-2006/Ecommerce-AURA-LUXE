@@ -4,6 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 import { useLanguage } from "../context/LanguageContext";
 import { addCart } from "../services/cartService";
 import { addWishlist, removeWishlist, getLocalWishlist } from "../services/wishlistService";
+import { getMediaUrl } from "../services/api";
 import "../css/ProductCard.css";
 
 function ProductCard({ product }) {
@@ -35,8 +36,7 @@ function ProductCard({ product }) {
 
   const getProductImage = () => {
     if (product.image) {
-      if (product.image.startsWith("http")) return product.image;
-      return `http://localhost:5151${product.image}`;
+      return getMediaUrl(product.image);
     }
     return "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80";
   };

@@ -73,9 +73,9 @@ function WarehouseDashboard() {
             <p>View public product listings and prices</p>
           </div>
 
-          <div className="shortcut-item" onClick={() => navigate("/login")}>
-            <strong>Switch Portal</strong>
-            <p>Admin, Seller, Delivery portals</p>
+          <div className="shortcut-item" onClick={() => navigate("/warehouse/inventory")}>
+            <strong>Warehouse Stock Reports</strong>
+            <p>Export SKU inventory counts and low-stock alerts</p>
           </div>
         </div>
       </div>

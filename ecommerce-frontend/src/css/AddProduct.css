@@ -1,94 +1,94 @@
+/* ==========================================================================
+   CLASSICAL LUXURY ADD PRODUCT STYLES
+   ========================================================================== */
+
 .add-product-page-container {
-  max-width: 900px;
+  padding-top: 28px;
+  padding-bottom: 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.add-product-card {
+  width: 100%;
+  max-width: 820px;
   margin: 0 auto;
-  padding: 30px 24px 80px 24px;
+  padding: clamp(28px, 4.5vw, 44px);
+  background: var(--bg-surface);
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  text-align: left;
+}
+
+.add-product-form {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.add-prod-card {
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+.image-upload-dropzone {
+  width: 100%;
+  border: 1px dashed var(--border-medium);
+  border-radius: var(--radius-xs);
+  background: var(--bg-main);
+  overflow: hidden;
+  position: relative;
+  transition: all var(--transition-fast);
 }
 
-.add-prod-header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  border-bottom: 1px solid var(--border-light);
-  padding-bottom: 16px;
+.image-upload-dropzone:hover {
+  border-color: #0f172a;
+  background: var(--bg-surface);
 }
 
-.icon-header-box {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: var(--accent-cyan);
-  color: #000;
+.image-upload-dropzone input {
+  display: none;
+}
+
+.upload-dropzone-label {
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 180px;
+  cursor: pointer;
+  padding: 24px;
 }
 
-.add-prod-header h2 {
-  font-size: 1.4rem;
-  color: #fff;
-}
-
-.add-prod-header span {
-  font-size: 0.82rem;
-  color: var(--text-muted);
-}
-
-.add-prod-form {
+.dropzone-placeholder {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
 }
 
-.form-grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+.dropzone-placeholder strong {
+  font-family: var(--font-sans);
+  font-size: 0.96rem;
+  color: var(--text-main);
+  line-height: 1.4;
 }
 
-.label-with-ai {
+.dropzone-placeholder p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.img-upload-preview {
+  max-height: 220px;
+  object-fit: contain;
+  border-radius: var(--radius-xs);
+}
+
+.form-actions-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 14px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
 }
-
-.ai-gen-btn {
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--accent-purple);
-  background: rgba(139, 92, 246, 0.15);
-  border: 1px solid rgba(139, 92, 246, 0.3);
-  padding: 4px 10px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: var(--transition-fast);
-}
-
-.ai-gen-btn:hover {
-  background: var(--accent-purple);
-  color: #fff;
-}
-
-.add-prod-form textarea {
-  width: 100%;
-  padding: 12px;
-  border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-light);
-  color: #fff;
-  font-size: 0.9rem;
-  outline: none;
-}
-
-.full-submit-btn { width: 100%; margin-top: 10px; }

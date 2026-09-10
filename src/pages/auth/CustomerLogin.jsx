@@ -15,7 +15,7 @@ function CustomerLogin() {
   const { login } = useContext(AuthContext);
 
   // Form states for normal login
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(() => localStorage.getItem("user_registered_email") || "");
   const [password, setPassword] = useState("");
 
   // Mode state: 'login' | 'forgot_find' | 'forgot_channel' | 'forgot_otp' | 'forgot_reset' | 'forgot_done'
@@ -73,6 +73,7 @@ function CustomerLogin() {
         customerId: authData.customerId || authData.userId,
         username: authData.username || "Customer",
         email: authData.email || cleanEmail,
+        phoneNumber: authData.phoneNumber || localStorage.getItem("user_registered_phone") || "",
         role: "Customer",
         roleId: 5
       });
@@ -305,6 +306,20 @@ function CustomerLogin() {
             <button type="submit" className="btn btn-primary btn-lg btn-block" disabled={loading}>
               {loading ? "Authenticating..." : "Sign In"}
             </button>
+
+            <div style={{ marginTop: "12px", textAlign: "center" }}>
+              <button
+                type="button"
+                className="btn btn-secondary btn-sm btn-block"
+                onClick={() => {
+                  setEmail("customer@webkadai.com");
+                  setPassword("Customer@123!");
+                }}
+                style={{ background: "rgba(99, 102, 241, 0.12)", border: "1px solid rgba(99, 102, 241, 0.4)", color: "#818cf8", width: "100%", padding: "10px", borderRadius: "8px", cursor: "pointer", fontWeight: "600" }}
+              >
+                ⚡ Fill Quick Demo Credentials (customer@webkadai.com)
+              </button>
+            </div>
           </form>
         )}
 

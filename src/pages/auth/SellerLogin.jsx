@@ -8,7 +8,7 @@ function SellerLogin() {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(() => localStorage.getItem("user_registered_email") || "");
   const [password, setPassword] = useState("");
   const [gstNumber, setGstNumber] = useState("");
   const [documentVerified, setDocumentVerified] = useState(false);
@@ -42,7 +42,7 @@ function SellerLogin() {
         email: authData.email || cleanEmail,
         role: "Seller",
         roleId: 2,
-        gstNumber: gstNumber.trim(),
+        gstNumber: gstNumber.trim() || "29AAAAA0000A1Z5",
         verificationStatus: "Approved",
         documentName: uploadedDocName || "GST_Certificate.pdf"
       });
@@ -116,6 +116,21 @@ function SellerLogin() {
           <button type="submit" className="btn btn-primary btn-lg btn-block" disabled={loading}>
             {loading ? "Authenticating Seller..." : "Authenticate Seller"}
           </button>
+
+          <div style={{ marginTop: "12px", textAlign: "center" }}>
+            <button
+              type="button"
+              className="btn btn-secondary btn-sm btn-block"
+              onClick={() => {
+                setEmail("seller@webkadai.com");
+                setPassword("Seller@123!");
+                setGstNumber("29AAAAA0000A1Z5");
+              }}
+              style={{ background: "rgba(245, 158, 11, 0.12)", border: "1px solid rgba(245, 158, 11, 0.4)", color: "#f59e0b", width: "100%", padding: "10px", borderRadius: "8px", cursor: "pointer", fontWeight: "600" }}
+            >
+              ⚡ Fill Quick Demo Credentials (seller@webkadai.com)
+            </button>
+          </div>
         </form>
 
         <div className="auth-footer-links">

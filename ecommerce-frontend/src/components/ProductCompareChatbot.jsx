@@ -1,131 +1,503 @@
-import React from "react";
-import { Layers, X, Sparkles, ShoppingBag, Check, AlertCircle } from "lucide-react";
-import { useShop } from "../context/ShopContext";
+import { useEffect, useState, useRef, useContext } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import { useLanguage } from "../context/LanguageContext";
+import { useTheme } from "../context/ThemeContext";
+import { getProducts, DEMO_PRODUCTS } from "../services/productService";
+import { addCart } from "../services/cartService";
+import { queryBackendAiAssistant, compareProductsBackend } from "../services/aiBackendService";
+import { queryGroqAuraAI, getGroqApiKey, setGroqApiKey } from "../services/groqService";
 import "../css/ProductCompareChatbot.css";
 
-const ProductCompareChatbot = () => {
-  const { compareList, toggleCompare, isCompareOpen, setIsCompareOpen, addToCart } = useShop();
+function ProductCompareChatbot() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { isCustomer, isAdmin, isSeller, isWarehouse, isDelivery } = useContext(AuthContext);
+  const { language } = useLanguage();
+  const { isDark, toggleTheme, setTheme } = useTheme();
 
-  if (!isCompareOpen) return null;
+  const [open, setOpen] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [selectedIds, setSelectedIds] = useState([]);
+  const [query, setQuery] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  // API Key Config Modal State
+  const [showKeyModal, setShowKeyModal] = useState(false);
+  const [apiKeyInput, setApiKeyInput] = useState(getGroqApiKey() || "");
+
+  // Alternating Girl / Boy Voice State
+  const voiceTurnCounter = useRef(0);
+  const [activeVoiceTag, setActiveVoiceTag] = useState("Priya (Girl Voice)");
+
+  // Voice Interaction & Cancel State
+  const [isListening, setIsListening] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [voiceEnabled, setVoiceEnabled] = useState(true);
+  const [voiceStatusText, setVoiceStatusText] = useState("");
+  const recognitionRef = useRef(null);
+
+  const initialGreeting =
+    "Hello! I'm Kiva, your AI assistant. How can I help you today?";
+
+  const [messages, setMessages] = useState([
+    {
+      from: "bot",
+      text: initialGreeting
+    }
+  ]);
+
+  const messagesEndRef = useRef(null);
+
+  // Restrict to customer routes
+  const isOperatorRoute =
+    location.pathname.startsWith("/admin") ||
+    location.pathname.startsWith("/seller") ||
+    location.pathname.startsWith("/warehouse") ||
+    location.pathname.startsWith("/delivery");
+
+  const showCustomerAI = isCustomer && !isOperatorRoute;
+
+  // Initialize Speech Recognition
+  useEffect(() => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = "en-IN";
+
+      recognition.onstart = () => {
+        setIsListening(true);
+        setVoiceStatusText("Listening in English... Speak your shopping command");
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        setIsListening(false);
+        setVoiceStatusText("");
+        handleAiAssistantQuery(transcript);
+      };
+
+      recognition.onerror = (event) => {
+        console.warn("Speech recognition error:", event.error);
+        setIsListening(false);
+        setVoiceStatusText("");
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+        setVoiceStatusText("");
+      };
+
+      recognitionRef.current = recognition;
+    }
+  }, [language]);
+
+  useEffect(() => {
+    if (open && products.length === 0) {
+      loadProducts();
+    }
+  }, [open]);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, loading]);
+
+  const loadProducts = async () => {
+    try {
+      const data = await getProducts();
+      if (data && data.length > 0) {
+        setProducts(data);
+      } else {
+        setProducts(DEMO_PRODUCTS);
+      }
+    } catch {
+      setProducts(DEMO_PRODUCTS);
+    }
+  };
+
+  // Text-to-Speech TalkBack with Voice Cancellation
+  const speakTextAlternatingGender = (textToSpeak) => {
+    if (!voiceEnabled || !window.speechSynthesis) return;
+
+    window.speechSynthesis.cancel();
+
+    const cleanText = textToSpeak
+      .replace(/[#*`_~]/g, "")
+      .replace(/https?:\/\/\S+/g, "")
+      .replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, "")
+      .trim();
+
+    if (!cleanText) return;
+
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.rate = 1.0;
+    utterance.pitch = voiceTurnCounter.current % 2 === 0 ? 1.25 : 0.95; // Girl vs Boy Pitch
+
+    const voices = window.speechSynthesis.getVoices();
+    if (voices.length > 0) {
+      const englishVoices = voices.filter((v) => v.lang.includes("en"));
+      if (englishVoices.length > 0) {
+        const selectedVoice = englishVoices[voiceTurnCounter.current % englishVoices.length];
+        utterance.voice = selectedVoice;
+      }
+    }
+
+    voiceTurnCounter.current += 1;
+    const currentTag = voiceTurnCounter.current % 2 === 0 ? "Priya (Girl Voice)" : "Rahul (Boy Voice)";
+    setActiveVoiceTag(currentTag);
+
+    utterance.onstart = () => setIsSpeaking(true);
+    utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = () => setIsSpeaking(false);
+
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const stopSpeechTalkBack = () => {
+    if (window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+    }
+    setIsSpeaking(false);
+  };
+
+  const toggleListening = () => {
+    if (!recognitionRef.current) {
+      alert("Speech recognition is not supported in this browser. Please use Chrome, Edge, or Safari.");
+      return;
+    }
+
+    if (isListening) {
+      recognitionRef.current.stop();
+      setIsListening(false);
+    } else {
+      if (!open) setOpen(true);
+      stopSpeechTalkBack();
+      try {
+        recognitionRef.current.start();
+      } catch {
+        recognitionRef.current.stop();
+        setTimeout(() => recognitionRef.current.start(), 200);
+      }
+    }
+  };
+
+  // -------------------------------------------------------------
+  // AI ASSISTANT QUERY ENGINE (ASP.NET CORE BACKEND + GEMINI AI)
+  // -------------------------------------------------------------
+  const handleAiAssistantQuery = async (userInput) => {
+    if (!userInput || !userInput.trim()) return;
+
+    const raw = userInput.toLowerCase().trim();
+
+    // 1. Instant Cancel / Quiet Command
+    if (
+      raw === "cancel" ||
+      raw === "stop" ||
+      raw === "quiet" ||
+      raw === "mute" ||
+      raw.includes("stop talking") ||
+      raw.includes("silence")
+    ) {
+      stopSpeechTalkBack();
+      const reply = "Understood! I've silenced audio playback. How else can I assist your shopping today?";
+      addBotMessage(userInput, reply, null, activeVoiceTag);
+      return;
+    }
+
+    // 2. Direct Navigation Commands
+    if (raw.includes("take me to products") || raw.includes("go to products") || raw.includes("open shop")) {
+      navigate("/products");
+      addBotMessage(userInput, "Opening the products catalog for you now!", null, activeVoiceTag);
+      return;
+    }
+    if (raw.includes("go to cart") || raw.includes("open cart")) {
+      navigate("/cart");
+      addBotMessage(userInput, "Taking you to your shopping cart!", null, activeVoiceTag);
+      return;
+    }
+    if (raw.includes("track my orders") || raw.includes("go to orders")) {
+      navigate("/orders");
+      addBotMessage(userInput, "Navigating to your live orders and GPS tracking!", null, activeVoiceTag);
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // Query ASP.NET Core Backend Gemini AI Endpoint
+      const aiResponse = await queryBackendAiAssistant({
+        query: userInput,
+        history: messages.slice(-4).map(m => ({ sender: m.from, text: m.text }))
+      });
+
+      const isGirl = voiceTurnCounter.current % 2 === 0;
+      const currentSpeaker = isGirl ? "Priya (Girl Voice)" : "Rahul (Boy Voice)";
+
+      const recommendedCards = aiResponse.recommendedProducts || [];
+
+      addBotMessage(
+        userInput,
+        aiResponse.answer,
+        [
+          { label: "🛍️ Browse Products", prompt: "Go to products" },
+          { label: "🛒 Open Cart", prompt: "Go to cart" },
+          { label: "📍 Track Orders", prompt: "Track my orders" }
+        ],
+        currentSpeaker,
+        recommendedCards
+      );
+
+      speakTextAlternatingGender(aiResponse.answer);
+    } catch (err) {
+      console.error("Aura AI Assistant Backend error:", err);
+      const fallbackReply = "I am truly sorry, but I couldn't connect to our backend AI service right now. Would you like to explore our products catalog or cart directly?";
+      addBotMessage(userInput, fallbackReply, null, activeVoiceTag);
+      speakTextAlternatingGender(fallbackReply);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const addBotMessage = (userText, botText, actionButtons = null, speakerTag = null, recommendedProducts = []) => {
+    setMessages((prev) => [
+      ...prev,
+      { from: "user", text: userText },
+      {
+        from: "bot",
+        text: botText,
+        actions: actionButtons,
+        voiceTag: speakerTag || activeVoiceTag,
+        recommendedProducts
+      }
+    ]);
+  };
+
+  const toggleProduct = (productId) => {
+    if (selectedIds.includes(productId)) {
+      setSelectedIds(selectedIds.filter((id) => id !== productId));
+    } else {
+      if (selectedIds.length < 4) {
+        const updated = [...selectedIds, productId];
+        setSelectedIds(updated);
+        if (updated.length >= 2) {
+          const prods = (products.length > 0 ? products : DEMO_PRODUCTS).filter((p) => updated.includes(p.productId));
+          const pNames = prods.map((p) => p.productName).join(" vs ");
+          handleAiAssistantQuery(`Compare these products: ${pNames}`);
+        }
+      }
+    }
+  };
+
+  const handleAddToCartFromAi = async (product) => {
+    await addCart({
+      productId: product.productId,
+      quantity: 1,
+      productName: product.productName,
+      price: product.price,
+      image: product.imageUrl || product.image
+    });
+    alert(`Added ${product.productName} to your cart!`);
+  };
+
+  const handleSend = (e) => {
+    e?.preventDefault();
+    if (query.trim() === "" && selectedIds.length === 0) return;
+    handleAiAssistantQuery(query);
+    setQuery("");
+  };
+
+  const handleSaveGroqKey = () => {
+    setGroqApiKey(apiKeyInput);
+    setShowKeyModal(false);
+    alert("Groq API Key saved successfully!");
+  };
+
+  if (!showCustomerAI) {
+    return null;
+  }
 
   return (
-    <div className="modal-overlay">
-      <div className="compare-modal-card glass-card">
-        {/* Header */}
-        <div className="compare-header">
-          <div className="compare-header-title">
-            <Layers size={22} className="compare-icon-glow" />
-            <span>AI Multi-Product Comparison Matrix ({compareList.length}/4)</span>
-          </div>
-          <button className="modal-close-btn" onClick={() => setIsCompareOpen(false)}>
-            <X size={20} />
-          </button>
-        </div>
+    <div className="compare-chatbot-root">
+      {open ? (
+        <div className="compare-panel aura-theme glass-panel">
+          {/* Header */}
+          <div className="compare-header aura-header">
+            <div className="compare-header-title">
+              <span className="annachi-symbol-badge">K</span>
+              <div>
+                <strong>Kiva AI Concierge</strong>
+                <span className="online-indicator">● Online</span>
+              </div>
+            </div>
 
-        {/* Content */}
-        {compareList.length === 0 ? (
-          <div className="compare-empty-box">
-            <AlertCircle size={40} className="empty-icon" />
-            <h3>No products selected for comparison</h3>
-            <p>Click the compare icon (<Layers size={14} />) on any product card to add up to 4 items into this AI spec matrix.</p>
-          </div>
-        ) : (
-          <div className="compare-content">
-            {/* Spec Matrix Table */}
-            <div className="compare-matrix-scroll">
-              <table className="compare-table">
-                <thead>
-                  <tr>
-                    <th className="spec-label-col">Specification</th>
-                    {compareList.map(p => (
-                      <th key={p.id} className="prod-col">
-                        <div className="table-prod-header">
-                          <button 
-                            className="remove-compare-btn"
-                            onClick={() => toggleCompare(p)}
-                            title="Remove item"
-                          >
-                            <X size={14} />
-                          </button>
-                          <img src={p.images[0]} alt={p.name} />
-                          <span className="matrix-prod-name">{p.name}</span>
-                          <span className="matrix-prod-price">${p.price}</span>
-                          <button 
-                            className="btn-nexus-primary matrix-add-btn"
-                            onClick={() => addToCart(p)}
-                          >
-                            <ShoppingBag size={14} /> Add
-                          </button>
-                        </div>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="spec-label-col">Rating & Satisfaction</td>
-                    {compareList.map(p => (
-                      <td key={p.id}>
-                        <span className="matrix-stat-highlight">⭐ {p.rating} / 5</span>
-                        <div className="matrix-stat-sub">({p.reviewsCount} reviews)</div>
-                      </td>
-                    ))}
-                  </tr>
+            <div className="header-controls">
+              {isSpeaking && (
+                <button type="button" className="cancel-speaking-btn" onClick={stopSpeechTalkBack} title="Stop Speech">
+                  <span className="stop-square">■</span> Stop
+                </button>
+              )}
 
-                  <tr>
-                    <td className="spec-label-col">AI Sentiment Score</td>
-                    {compareList.map(p => (
-                      <td key={p.id}>
-                        {p.aiSummary ? (
-                          <span className="badge-cyan-score">{p.aiSummary.positivePercentage}% Positive</span>
-                        ) : "N/A"}
-                      </td>
-                    ))}
-                  </tr>
+              <button
+                type="button"
+                className={`voice-toggle-btn ${voiceEnabled ? "active" : ""}`}
+                onClick={() => {
+                  stopSpeechTalkBack();
+                  setVoiceEnabled(!voiceEnabled);
+                }}
+                title={voiceEnabled ? "Mute Voice Speech" : "Enable Voice Speech"}
+              >
+                {voiceEnabled ? "🔊" : "🔇"}
+              </button>
 
-                  <tr>
-                    <td className="spec-label-col">Key Highlights</td>
-                    {compareList.map(p => (
-                      <td key={p.id}>
-                        {p.aiSummary ? (
-                          <ul className="matrix-bullets">
-                            {p.aiSummary.pros.map((pro, idx) => (
-                              <li key={idx}><Check size={12} className="check-green" /> {pro}</li>
-                            ))}
-                          </ul>
-                        ) : "Standard Warranty & Support"}
-                      </td>
-                    ))}
-                  </tr>
-
-                  <tr>
-                    <td className="spec-label-col">Battery / Power</td>
-                    {compareList.map(p => (
-                      <td key={p.id}>
-                        {p.specs?.Battery || p.specs?.Playtime || "High-Capacity Power Pack"}
-                      </td>
-                    ))}
-                  </tr>
-
-                  <tr>
-                    <td className="spec-label-col">AI Verdict Summary</td>
-                    {compareList.map(p => (
-                      <td key={p.id} className="verdict-cell">
-                        <div className="verdict-card">
-                          <Sparkles size={14} className="sparkle-purple" />
-                          <p>{p.aiSummary?.verdict || "Excellent performer in its class."}</p>
-                        </div>
-                      </td>
-                    ))}
-                  </tr>
-                </tbody>
-              </table>
+              <button type="button" className="compare-close-btn" onClick={() => setOpen(false)} title="Close Assistant">
+                ✕
+              </button>
             </div>
           </div>
-        )}
-      </div>
+
+          {/* Listening State Banner */}
+          {isListening && (
+            <div className="voice-listening-banner aura-listening">
+              <div className="sound-wave">
+                <span className="wave-bar"></span>
+                <span className="wave-bar"></span>
+                <span className="wave-bar"></span>
+                <span className="wave-bar"></span>
+                <span className="wave-bar"></span>
+              </div>
+              <span>{voiceStatusText || "Listening in English..."}</span>
+              <button type="button" className="btn btn-ghost btn-sm" onClick={toggleListening}>
+                Stop
+              </button>
+            </div>
+          )}
+
+          {/* Active Speaking Indicator Bar */}
+          {isSpeaking && (
+            <div className="voice-speaking-indicator-bar" onClick={stopSpeechTalkBack}>
+              <span className="speaking-pulse-dot"></span>
+              <span>
+                {voiceTurnCounter.current % 2 === 0 ? "👧 Priya (Girl Voice)" : "👦 Rahul (Boy Voice)"} is speaking...
+              </span>
+              <button type="button" className="btn btn-danger btn-sm stop-btn" onClick={(e) => { e.stopPropagation(); stopSpeechTalkBack(); }}>
+                Cancel Audio
+              </button>
+            </div>
+          )}
+
+          {/* Chat Messages Body */}
+          <div className="compare-messages-body aura-messages">
+            {messages.map((msg, idx) => (
+              <div key={idx} className={`chat-bubble-row ${msg.from}`}>
+                <div className={`chat-bubble ${msg.from} aura-bubble`}>
+                  <p className="chat-bubble-text">{msg.text}</p>
+
+                  {/* Grounded Recommended Product Cards */}
+                  {msg.recommendedProducts && msg.recommendedProducts.length > 0 && (
+                    <div className="ai-recommended-cards-grid">
+                      {msg.recommendedProducts.map((prod) => (
+                        <div key={prod.productId} className="ai-product-card-item">
+                          <img
+                            src={prod.imageUrl || prod.image || "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80"}
+                            alt={prod.productName}
+                            className="ai-card-img"
+                          />
+                          <div className="ai-card-info">
+                            <span className="ai-card-brand">{prod.brand || "AURA Luxe"}</span>
+                            <h5 className="ai-card-title">{prod.productName}</h5>
+                            <div className="ai-card-price-row">
+                              <strong className="ai-card-price">₹{prod.price?.toLocaleString("en-IN")}</strong>
+                              {prod.originalPrice > prod.price && (
+                                <span className="ai-card-mrp">₹{prod.originalPrice?.toLocaleString("en-IN")}</span>
+                              )}
+                            </div>
+                            <div className="ai-card-meta">
+                              <span className="rating-pill">★ {prod.rating || 4.7}</span>
+                              <span className="badge-pill badge-success">In Stock</span>
+                            </div>
+                            <div className="ai-card-actions">
+                              <button
+                                type="button"
+                                className="btn btn-outline btn-sm"
+                                onClick={() => { setOpen(false); navigate(`/product/${prod.productId}`); }}
+                              >
+                                View
+                              </button>
+                              <button
+                                type="button"
+                                className="btn btn-primary btn-sm"
+                                onClick={() => handleAddToCartFromAi(prod)}
+                              >
+                                Add to Cart
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+            {loading && (
+              <div className="chat-bubble-row bot">
+                <div className="chat-bubble bot typing aura-typing">
+                  <span>Kiva AI is typing...</span>
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Input Form */}
+          <form onSubmit={handleSend} className="compare-input-form aura-input">
+            <button
+              type="button"
+              className={`voice-mic-btn aura-mic ${isListening ? "listening" : ""}`}
+              onClick={toggleListening}
+              title="Speak voice command in English"
+            >
+              🎙️
+            </button>
+            <input
+              type="text"
+              className="compare-input-field aura-field"
+              placeholder="Ask anything..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            <button type="submit" className="btn btn-gold btn-sm send-btn aura-send" disabled={loading}>
+              Send
+            </button>
+          </form>
+        </div>
+      ) : (
+        <div className="compare-launcher-group">
+          <button
+            type="button"
+            className="compare-launcher-btn annachi-launcher"
+            onClick={() => setOpen(true)}
+            aria-label="Open Kiva AI Shopping Assistant"
+          >
+            <span className="annachi-symbol-badge">K</span>
+            <span className="launcher-text">Kiva AI Assistant</span>
+          </button>
+
+          <button
+            type="button"
+            className={`quick-floating-mic annachi-quick-mic ${isListening ? "listening" : ""}`}
+            onClick={toggleListening}
+            title="Speak in English with Kiva AI (Alternating Voice & Navigation)"
+            aria-label="Kiva Voice Command"
+          >
+            🎙️
+          </button>
+        </div>
+      )}
     </div>
   );
-};
+}
 
 export default ProductCompareChatbot;

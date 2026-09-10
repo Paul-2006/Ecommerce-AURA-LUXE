@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import { getProducts } from "../services/productService";
 import { getCategories } from "../services/categoryService";
 import { useLanguage } from "../context/LanguageContext";
+import { AuthContext } from "../context/AuthContext";
 import "../css/Home.css";
 
 function Home() {
   const navigate = useNavigate();
   const { t } = useLanguage();
+  const { user } = useContext(AuthContext);
 
   const [categories, setCategories] = useState([]);
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -67,24 +69,26 @@ function Home() {
             </button>
           </div>
 
-          {/* Direct Portal Switcher Buttons */}
-          <div className="home-portal-buttons-bar">
-            <span className="portal-bar-label">Operational Portal Access:</span>
-            <div className="portal-buttons-group">
-              <button className="btn btn-secondary btn-sm" onClick={() => navigate("/seller/login")}>
-                Seller Portal
-              </button>
-              <button className="btn btn-luxury btn-sm" onClick={() => navigate("/admin/login")}>
-                Admin Security
-              </button>
-              <button className="btn btn-secondary btn-sm" onClick={() => navigate("/warehouse/login")}>
-                Warehouse Scanner
-              </button>
-              <button className="btn btn-success btn-sm" onClick={() => navigate("/delivery/login")}>
-                Delivery Dispatch
-              </button>
+          {/* Direct Portal Switcher Buttons (Only shown for unauthenticated visitors) */}
+          {!user && (
+            <div className="home-portal-buttons-bar">
+              <span className="portal-bar-label">Operational Portal Access:</span>
+              <div className="portal-buttons-group">
+                <button className="btn btn-secondary btn-sm" onClick={() => navigate("/seller/login")}>
+                  Seller Portal
+                </button>
+                <button className="btn btn-luxury btn-sm" onClick={() => navigate("/admin/login")}>
+                  Admin Security
+                </button>
+                <button className="btn btn-secondary btn-sm" onClick={() => navigate("/warehouse/login")}>
+                  Warehouse Scanner
+                </button>
+                <button className="btn btn-success btn-sm" onClick={() => navigate("/delivery/login")}>
+                  Delivery Dispatch
+                </button>
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Trust Metrics */}
           <div className="hero-stats-row">
