@@ -40,10 +40,20 @@ import MyProducts from "./pages/seller/MyProducts";
 import EditProduct from "./pages/seller/EditProduct";
 import SellerOrders from "./pages/seller/SellerOrders";
 
-// Admin Actions
+import AdminLayout from "./components/admin/AdminLayout";
+
+// Admin Management Pages
 import ManageProducts from "./pages/admin/ManageProducts";
 import ManageSellers from "./pages/admin/ManageSellers";
 import ManageUsers from "./pages/admin/ManageUsers";
+import ManageCustomers from "./pages/admin/ManageCustomers";
+import ManageOrders from "./pages/admin/ManageOrders";
+import AdminWarehouseMonitoring from "./pages/admin/AdminWarehouseMonitoring";
+import AdminDeliveryMonitoring from "./pages/admin/AdminDeliveryMonitoring";
+import ManageComplaints from "./pages/admin/ManageComplaints";
+import AdminReports from "./pages/admin/AdminReports";
+import ManageLoginActivity from "./pages/admin/ManageLoginActivity";
+import AdminProfile from "./pages/admin/AdminProfile";
 
 // Warehouse Actions
 import Inventory from "./pages/warehouse/Inventory";
@@ -195,39 +205,29 @@ function App() {
           }
         />
 
-        {/* Protected Admin Routes */}
+        {/* Isolated Protected Admin Control Center Routes */}
         <Route
-          path="/admin/dashboard"
+          path="/admin"
           element={
             <ProtectedRoute allowedRoles={["Admin", 1]}>
-              <AdminDashboard />
+              <AdminLayout />
             </ProtectedRoute>
           }
-        />
-        <Route
-          path="/admin/products"
-          element={
-            <ProtectedRoute allowedRoles={["Admin", 1]}>
-              <ManageProducts />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/sellers"
-          element={
-            <ProtectedRoute allowedRoles={["Admin", 1]}>
-              <ManageSellers />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/users"
-          element={
-            <ProtectedRoute allowedRoles={["Admin", 1]}>
-              <ManageUsers />
-            </ProtectedRoute>
-          }
-        />
+        >
+          <Route index element={<Navigate to="/admin/dashboard" replace />} />
+          <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="customers" element={<ManageCustomers />} />
+          <Route path="sellers" element={<ManageSellers />} />
+          <Route path="products" element={<ManageProducts />} />
+          <Route path="orders" element={<ManageOrders />} />
+          <Route path="warehouse" element={<AdminWarehouseMonitoring />} />
+          <Route path="delivery" element={<AdminDeliveryMonitoring />} />
+          <Route path="complaints" element={<ManageComplaints />} />
+          <Route path="reports" element={<AdminReports />} />
+          <Route path="login-activity" element={<ManageLoginActivity />} />
+          <Route path="profile" element={<AdminProfile />} />
+          <Route path="users" element={<ManageUsers />} />
+        </Route>
 
         {/* Protected Warehouse Routes */}
         <Route

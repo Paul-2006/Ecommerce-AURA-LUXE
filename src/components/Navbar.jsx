@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import {
   Bell,
   Globe,
@@ -29,6 +29,12 @@ function Navbar() {
   const { user, logout, isAdmin, isSeller, isWarehouse, isDelivery, cartCount, wishlistCount } = useContext(AuthContext);
   const { t, language, changeLanguage, availableLanguages } = useLanguage();
   const { theme, toggleTheme, isDark } = useTheme();
+  const location = useLocation();
+
+  // If Admin or on Admin routes, do not render customer navigation bar
+  if (isAdmin || user?.role === "Admin" || location.pathname.startsWith("/admin")) {
+    return null;
+  }
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);

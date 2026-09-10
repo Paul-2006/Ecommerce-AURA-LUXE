@@ -170,38 +170,112 @@ function AdminDashboard() {
 
       {activeTab === "overview" ? (
         <>
-          {/* Metric Cards Grid */}
-          <div className="admin-metrics-grid">
-            <div className="admin-metric-card glass-panel" onClick={() => navigate("/admin/products")}>
+          {/* 10 Core Management Metric Cards Grid */}
+          <div className="admin-metrics-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "16px", marginBottom: "24px" }}>
+            <div className="admin-metric-card glass-panel" onClick={() => navigate("/admin/customers")}>
               <div className="metric-details">
-                <span className="metric-val">{summary.pendingProducts ?? 3} Pending</span>
-                <span className="metric-title">Product Approvals</span>
+                <span className="metric-val">{summary.totalCustomers ?? 412}</span>
+                <span className="metric-title">Total Customers</span>
               </div>
-              <button className="btn btn-secondary btn-sm">Review Catalog</button>
+              <button className="btn btn-secondary btn-sm">Manage</button>
             </div>
 
             <div className="admin-metric-card glass-panel" onClick={() => navigate("/admin/sellers")}>
               <div className="metric-details">
-                <span className="metric-val">{summary.pendingSellers ?? 2} Pending</span>
-                <span className="metric-title">Seller Verifications</span>
+                <span className="metric-val">{summary.totalSellers ?? 28}</span>
+                <span className="metric-title">Total Sellers</span>
               </div>
-              <button className="btn btn-secondary btn-sm">Inspect Documents</button>
+              <button className="btn btn-secondary btn-sm">Inspect</button>
             </div>
 
-            <div className="admin-metric-card glass-panel" onClick={() => setActiveTab("login_activity")}>
+            <div className="admin-metric-card glass-panel" onClick={() => navigate("/admin/products")}>
               <div className="metric-details">
-                <span className="metric-val">{loginActivity.length > 0 ? loginActivity.length : (summary.totalUsers ?? 154)} Logins</span>
-                <span className="metric-title">Recorded Login Events</span>
+                <span className="metric-val">{summary.totalProducts ?? 84}</span>
+                <span className="metric-title">Total Products</span>
               </div>
-              <button className="btn btn-secondary btn-sm">Inspect Audit Log</button>
+              <button className="btn btn-secondary btn-sm">Catalog</button>
             </div>
 
-            <div className="admin-metric-card glass-panel">
+            <div className="admin-metric-card glass-panel" onClick={() => navigate("/admin/orders")}>
+              <div className="metric-details">
+                <span className="metric-val">{summary.totalOrders ?? 148}</span>
+                <span className="metric-title">Total Orders</span>
+              </div>
+              <button className="btn btn-secondary btn-sm">Orders</button>
+            </div>
+
+            <div className="admin-metric-card glass-panel" onClick={() => navigate("/admin/reports")}>
               <div className="metric-details">
                 <span className="metric-val">{formatPrice(summary.totalRevenue ?? 2450000)}</span>
-                <span className="metric-title">Platform Gross GMV</span>
+                <span className="metric-title">Total Revenue (GMV)</span>
               </div>
               <span className="badge-pill badge-success">89 Delivered</span>
+            </div>
+
+            <div className="admin-metric-card glass-panel" onClick={() => navigate("/admin/products")}>
+              <div className="metric-details">
+                <span className="metric-val" style={{ color: "var(--warning, #f59e0b)" }}>{summary.pendingProducts ?? 6} Pending</span>
+                <span className="metric-title">Product Approvals</span>
+              </div>
+              <button className="btn btn-warning btn-sm">Review</button>
+            </div>
+
+            <div className="admin-metric-card glass-panel" onClick={() => navigate("/admin/complaints")}>
+              <div className="metric-details">
+                <span className="metric-val" style={{ color: "var(--danger, #ef4444)" }}>{summary.pendingComplaints ?? 3} Pending</span>
+                <span className="metric-title">Pending Complaints</span>
+              </div>
+              <button className="btn btn-danger btn-sm">Disputes</button>
+            </div>
+
+            <div className="admin-metric-card glass-panel" onClick={() => navigate("/admin/warehouse")}>
+              <div className="metric-details">
+                <span className="metric-val" style={{ color: "var(--warning, #f59e0b)" }}>{summary.lowStockCount ?? 4} SKUs</span>
+                <span className="metric-title">Low Stock Items</span>
+              </div>
+              <button className="btn btn-secondary btn-sm">Inventory</button>
+            </div>
+
+            <div className="admin-metric-card glass-panel" onClick={() => navigate("/admin/delivery")}>
+              <div className="metric-details">
+                <span className="metric-val">{summary.activeDeliveries ?? 12} Active</span>
+                <span className="metric-title">Active Deliveries</span>
+              </div>
+              <button className="btn btn-secondary btn-sm">Riders</button>
+            </div>
+
+            <div className="admin-metric-card glass-panel" onClick={() => navigate("/admin/orders")}>
+              <div className="metric-details">
+                <span className="metric-val">{summary.completedDeliveries ?? 124} Drops</span>
+                <span className="metric-title">Completed Deliveries</span>
+              </div>
+              <span className="badge-pill badge-success">98.2% On-Time</span>
+            </div>
+          </div>
+
+          {/* Management Shortcuts Grid */}
+          <div className="glass-panel" style={{ padding: "24px", borderRadius: "16px", marginBottom: "24px" }}>
+            <h3 style={{ margin: "0 0 16px 0", fontFamily: "Playfair Display, Georgia, serif" }}>Marketplace Portal Supervision Desks</h3>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "16px" }}>
+              <div className="shortcut-item" onClick={() => navigate("/admin/customers")} style={{ padding: "16px", borderRadius: "12px", background: "rgba(255,255,255,0.03)", border: "1px solid var(--border-light)", cursor: "pointer" }}>
+                <strong>Customer Directory & Audits</strong>
+                <p style={{ margin: "4px 0 0 0", fontSize: "0.82rem", color: "var(--text-muted)" }}>View customer registered accounts, order history, addresses & status.</p>
+              </div>
+
+              <div className="shortcut-item" onClick={() => navigate("/admin/sellers")} style={{ padding: "16px", borderRadius: "12px", background: "rgba(255,255,255,0.03)", border: "1px solid var(--border-light)", cursor: "pointer" }}>
+                <strong>Seller Verifications & Risk</strong>
+                <p style={{ margin: "4px 0 0 0", fontSize: "0.82rem", color: "var(--text-muted)" }}>Inspect GST proofs, approve merchants, issue 5-complaint warnings.</p>
+              </div>
+
+              <div className="shortcut-item" onClick={() => navigate("/admin/products")} style={{ padding: "16px", borderRadius: "12px", background: "rgba(255,255,255,0.03)", border: "1px solid var(--border-light)", cursor: "pointer" }}>
+                <strong>Product Approvals Desk</strong>
+                <p style={{ margin: "4px 0 0 0", fontSize: "0.82rem", color: "var(--text-muted)" }}>Review product pricing, stock, images, and grant catalog clearance.</p>
+              </div>
+
+              <div className="shortcut-item" onClick={() => navigate("/admin/complaints")} style={{ padding: "16px", borderRadius: "12px", background: "rgba(255,255,255,0.03)", border: "1px solid var(--border-light)", cursor: "pointer" }}>
+                <strong>Dispute & Complaint Center</strong>
+                <p style={{ margin: "4px 0 0 0", fontSize: "0.82rem", color: "var(--text-muted)" }}>Investigate customer & seller complaints and flag bad sellers.</p>
+              </div>
             </div>
           </div>
 
@@ -242,7 +316,7 @@ function AdminDashboard() {
                       <td>
                         <button
                           className="btn btn-secondary btn-sm"
-                          onClick={() => alert(`Viewing full order details & audit trail for Order #${ord.orderId}`)}
+                          onClick={() => navigate("/admin/orders")}
                         >
                           Audit Details
                         </button>
