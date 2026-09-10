@@ -3,8 +3,55 @@ import { useSearchParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import { getProducts } from "../services/productService";
 import { getCategories } from "../services/categoryService";
-import { Search, X, Zap, Trophy, Tag, ShieldCheck, RefreshCw } from "lucide-react";
+import { Search, X, Zap, Trophy, Tag, ShieldCheck, RefreshCw, Lightbulb, Sparkles, HelpCircle, ArrowRight } from "lucide-react";
 import "../css/Products.css";
+
+// Helper function: Levenshtein distance for fuzzy matching
+function levenshteinDistance(a, b) {
+  if (!a || !b) return (a || b || "").length;
+  a = a.toLowerCase();
+  b = b.toLowerCase();
+  if (a === b) return 0;
+  if (a.length === 0) return b.length;
+  if (b.length === 0) return a.length;
+
+  const matrix = Array.from({ length: a.length + 1 }, () => Array(b.length + 1).fill(0));
+  for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+  for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      matrix[i][j] = Math.min(
+        matrix[i - 1][j] + 1,
+        matrix[i][j - 1] + 1,
+        matrix[i - 1][j - 1] + cost
+      );
+    }
+  }
+  return matrix[a.length][b.length];
+}
+
+// Check if search query fuzzy-matches target string
+function isFuzzyMatch(query, targetStr) {
+  if (!query || !targetStr) return false;
+  const q = query.toLowerCase().trim();
+  const target = targetStr.toLowerCase().trim();
+
+  if (target.includes(q)) return true;
+
+  const qWords = q.split(/\s+/);
+  const targetWords = target.split(/\s+/);
+
+  return qWords.every((qWord) => {
+    if (qWord.length <= 2) return target.includes(qWord);
+    return targetWords.some((tWord) => {
+      if (tWord.includes(qWord) || qWord.includes(tWord)) return true;
+      const maxDist = qWord.length <= 4 ? 1 : qWord.length <= 7 ? 2 : 3;
+      return levenshteinDistance(qWord, tWord) <= maxDist;
+    });
+  });
+}
 
 function Products() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -59,47 +106,149 @@ function Products() {
     return counts;
   }, [products]);
 
-  // Filter and sort products
-  const filteredProducts = useMemo(() => {
+  // Calculate Exact & Fuzzy Matches + Suggested Corrections + Alternative Recommendations
+  const { filteredProducts, isFuzzyResult, suggestedCorrection, fallbackProducts, availableBrands } = useMemo(() => {
     const term = search.toLowerCase().trim();
 
-    let result = products.filter((p) => {
+    // Collect available brands for alternative brand chips
+    const brandSet = new Set();
+    products.forEach((p) => {
+      if (p.brand) brandSet.add(p.brand);
+    });
+    const availableBrandsList = Array.from(brandSet);
+
+    const sortProducts = (arr, mode) => {
+      if (mode === "price-low") {
+        arr.sort((a, b) => (a.price || a.bestPrice || 0) - (b.price || b.bestPrice || 0));
+      } else if (mode === "price-high") {
+        arr.sort((a, b) => (b.price || b.bestPrice || 0) - (a.price || a.bestPrice || 0));
+      } else if (mode === "name") {
+        arr.sort((a, b) => (a.productName || "").localeCompare(b.productName || ""));
+      } else if (mode === "rating") {
+        arr.sort((a, b) => (b.rating || 4.8) - (a.rating || 4.8));
+      }
+    };
+
+    if (!term) {
+      let result = products.filter((p) => {
+        const matchesCat =
+          selectedCategory === "All" ||
+          p.category?.toLowerCase() === selectedCategory.toLowerCase();
+        const stock = p.stock ?? p.stockQuantity ?? 10;
+        const matchesStock = !inStockOnly || stock > 0;
+        const rating = p.rating || 4.8;
+        const matchesRating = !highRatingOnly || rating >= 4.7;
+        const price = p.price || p.bestPrice || 0;
+        const matchesUnder50k = !under50kOnly || price <= 50000;
+        return matchesCat && matchesStock && matchesRating && matchesUnder50k;
+      });
+
+      sortProducts(result, sortBy);
+      return {
+        filteredProducts: result,
+        isFuzzyResult: false,
+        suggestedCorrection: null,
+        fallbackProducts: [],
+        availableBrands: availableBrandsList
+      };
+    }
+
+    // 1. Pass 1: Exact Substring Matching
+    let exactMatches = products.filter((p) => {
       const matchesSearch =
-        !term ||
         p.productName?.toLowerCase().includes(term) ||
         p.brand?.toLowerCase().includes(term) ||
-        p.description?.toLowerCase().includes(term);
+        p.description?.toLowerCase().includes(term) ||
+        p.category?.toLowerCase().includes(term);
 
       const matchesCat =
         selectedCategory === "All" ||
-        p.category?.toLowerCase() === selectedCategory.toLowerCase() ||
-        p.productName?.toLowerCase().includes(selectedCategory.toLowerCase()) ||
-        p.description?.toLowerCase().includes(selectedCategory.toLowerCase());
-
+        p.category?.toLowerCase() === selectedCategory.toLowerCase();
       const stock = p.stock ?? p.stockQuantity ?? 10;
       const matchesStock = !inStockOnly || stock > 0;
-
       const rating = p.rating || 4.8;
       const matchesRating = !highRatingOnly || rating >= 4.7;
-
       const price = p.price || p.bestPrice || 0;
       const matchesUnder50k = !under50kOnly || price <= 50000;
 
       return matchesSearch && matchesCat && matchesStock && matchesRating && matchesUnder50k;
     });
 
-    // Sorting
-    if (sortBy === "price-low") {
-      result.sort((a, b) => (a.price || a.bestPrice || 0) - (b.price || b.bestPrice || 0));
-    } else if (sortBy === "price-high") {
-      result.sort((a, b) => (b.price || b.bestPrice || 0) - (a.price || a.bestPrice || 0));
-    } else if (sortBy === "name") {
-      result.sort((a, b) => a.productName.localeCompare(b.productName));
-    } else if (sortBy === "rating") {
-      result.sort((a, b) => (b.rating || 4.8) - (a.rating || 4.8));
+    if (exactMatches.length > 0) {
+      sortProducts(exactMatches, sortBy);
+      return {
+        filteredProducts: exactMatches,
+        isFuzzyResult: false,
+        suggestedCorrection: null,
+        fallbackProducts: [],
+        availableBrands: availableBrandsList
+      };
     }
 
-    return result;
+    // 2. Pass 2: Fuzzy Matching (Typo Tolerance)
+    let fuzzyMatches = products.filter((p) => {
+      const fuzzySearch =
+        isFuzzyMatch(term, p.productName || "") ||
+        isFuzzyMatch(term, p.brand || "") ||
+        isFuzzyMatch(term, p.category || "") ||
+        isFuzzyMatch(term, p.description || "");
+
+      const matchesCat =
+        selectedCategory === "All" ||
+        p.category?.toLowerCase() === selectedCategory.toLowerCase();
+
+      return fuzzySearch && matchesCat;
+    });
+
+    // Find best correction term for "Did you mean?" banner
+    let bestCorrection = null;
+    let minDistance = Infinity;
+    const knownTerms = new Set();
+    products.forEach((p) => {
+      if (p.brand) knownTerms.add(p.brand);
+      if (p.category) knownTerms.add(p.category);
+      if (p.productName) p.productName.split(/\s+/).forEach((w) => {
+        if (w.length >= 3) knownTerms.add(w);
+      });
+    });
+
+    knownTerms.forEach((kTerm) => {
+      const dist = levenshteinDistance(term, kTerm);
+      if (dist < minDistance && dist <= (term.length <= 4 ? 1 : 2)) {
+        minDistance = dist;
+        bestCorrection = kTerm;
+      }
+    });
+
+    if (fuzzyMatches.length > 0) {
+      sortProducts(fuzzyMatches, sortBy);
+      return {
+        filteredProducts: fuzzyMatches,
+        isFuzzyResult: true,
+        suggestedCorrection: bestCorrection,
+        fallbackProducts: [],
+        availableBrands: availableBrandsList
+      };
+    }
+
+    // 3. Pass 3: Fallback & Alternative Brand Recommendations
+    // If no exact or fuzzy match is available for search term, select top items from other brands
+    let alternatives = [...products];
+    if (selectedCategory !== "All") {
+      alternatives = alternatives.filter(
+        (p) => p.category?.toLowerCase() === selectedCategory.toLowerCase()
+      );
+    }
+    if (alternatives.length === 0) alternatives = [...products];
+    sortProducts(alternatives, "rating");
+
+    return {
+      filteredProducts: [],
+      isFuzzyResult: false,
+      suggestedCorrection: bestCorrection,
+      fallbackProducts: alternatives.slice(0, 8),
+      availableBrands: availableBrandsList
+    };
   }, [products, search, selectedCategory, sortBy, inStockOnly, highRatingOnly, under50kOnly]);
 
   const handleCategorySelect = (catName) => {
@@ -237,11 +386,45 @@ function Products() {
         })}
       </div>
 
+      {/* Typo Correction & Fuzzy Suggestion Banner */}
+      {search && suggestedCorrection && suggestedCorrection.toLowerCase() !== search.toLowerCase() && (
+        <div
+          className="glass-panel"
+          style={{
+            padding: "12px 18px",
+            marginBottom: "16px",
+            borderRadius: "12px",
+            border: "1px solid var(--border-medium)",
+            display: "flex",
+            alignItems: "center",
+            justify: "space-between",
+            gap: "12px",
+            background: "linear-gradient(135deg, rgba(245,158,11,0.08), rgba(99,102,241,0.08))"
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <Lightbulb className="w-5 h-5 text-amber-500" aria-hidden="true" />
+            <span>
+              Did you mean <strong style={{ color: "var(--primary)" }}>"{suggestedCorrection}"</strong>?
+              {isFuzzyResult && " Showing fuzzy matching results below."}
+            </span>
+          </div>
+          <button
+            className="btn btn-secondary btn-sm"
+            onClick={() => setSearch(suggestedCorrection)}
+            style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}
+          >
+            Search "{suggestedCorrection}" <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+          </button>
+        </div>
+      )}
+
       {/* Results Meta Info */}
       <div className="results-meta-row">
         <p className="results-count-text">
-          Showing <strong>{filteredProducts.length}</strong> of {products.length} products
+          Showing <strong>{filteredProducts.length > 0 ? filteredProducts.length : fallbackProducts.length}</strong> {filteredProducts.length === 0 ? "suggested alternative" : ""} products
           {selectedCategory !== "All" && ` in ${selectedCategory}`}
+          {search && ` for "${search}"`}
         </p>
 
         {hasActiveFilters && (
@@ -251,25 +434,74 @@ function Products() {
         )}
       </div>
 
-      {/* Product Grid or Empty State */}
+      {/* Product Grid or Smart Alternative Recommendations */}
       {loading ? (
         <div className="loading-container glass-panel">
           <div className="loader-spinner"></div>
           <p>Loading catalog items...</p>
         </div>
-      ) : filteredProducts.length === 0 ? (
-        <div className="empty-results-box glass-panel">
-          <h3>No matching products found</h3>
-          <p>Try refining your search keyword or reset active filter options.</p>
-          <button className="btn btn-primary btn-sm" onClick={handleResetFilters}>
-            View All Products
-          </button>
-        </div>
-      ) : (
+      ) : filteredProducts.length > 0 ? (
         <div className="products-grid">
           {filteredProducts.map((prod) => (
             <ProductCard key={prod.sellerProductId || prod.productId} product={prod} />
           ))}
+        </div>
+      ) : (
+        /* Alternative Brand & Related Products Recommendation Section */
+        <div className="fallback-recommendations-wrapper">
+          <div
+            className="glass-panel"
+            style={{
+              padding: "24px",
+              borderRadius: "16px",
+              marginBottom: "24px",
+              border: "1px solid var(--border-medium)",
+              background: "linear-gradient(135deg, rgba(99,102,241,0.06), rgba(16,185,129,0.06))"
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
+              <HelpCircle className="w-6 h-6 text-indigo-500" aria-hidden="true" />
+              <div>
+                <h3 style={{ margin: 0 }}>No exact match found for "{search}"</h3>
+                <p style={{ margin: "2px 0 0 0", color: "var(--text-muted)", fontSize: "0.9rem" }}>
+                  The requested item may be temporarily unavailable or misspelled. Explore top-rated products and alternative items from other leading brands below:
+                </p>
+              </div>
+            </div>
+
+            {/* Quick Brand Explorer Chips */}
+            {availableBrands.length > 0 && (
+              <div style={{ marginTop: "16px" }}>
+                <span style={{ fontSize: "0.82rem", fontWeight: "600", color: "var(--text-muted)", display: "block", marginBottom: "8px" }}>
+                  Explore Top Brands:
+                </span>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+                  {availableBrands.map((brand) => (
+                    <button
+                      key={brand}
+                      type="button"
+                      className="btn btn-secondary btn-sm"
+                      onClick={() => setSearch(brand)}
+                      style={{ borderRadius: "20px", padding: "4px 14px", fontSize: "0.82rem" }}
+                    >
+                      {brand}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div style={{ marginBottom: "12px", display: "flex", alignItems: "center", gap: "8px" }}>
+            <Sparkles className="w-5 h-5 text-amber-500" aria-hidden="true" />
+            <h3 style={{ margin: 0 }}>Recommended Alternative Products</h3>
+          </div>
+
+          <div className="products-grid">
+            {fallbackProducts.map((prod) => (
+              <ProductCard key={prod.sellerProductId || prod.productId} product={prod} />
+            ))}
+          </div>
         </div>
       )}
     </div>
@@ -277,3 +509,4 @@ function Products() {
 }
 
 export default Products;
+
