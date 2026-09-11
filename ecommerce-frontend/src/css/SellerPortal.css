@@ -880,3 +880,47 @@ html:has(.seller-portal-wrapper) {
     justify-content: flex-end;
     gap: 10px;
 }
+
+/* --------------------------------------------------------------------------
+   10. FLEX & SPACING UTILITIES (FOR ISOLATED SELLER PORTAL COMPONENTS)
+   -------------------------------------------------------------------------- */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.justify-end { justify-content: flex-end; }
+.gap-1 { gap: 6px !important; }
+.gap-2 { gap: 12px !important; }
+.gap-3 { gap: 16px !important; }
+.gap-4 { gap: 20px !important; }
+.gap-6 { gap: 28px !important; }
+.mb-2 { margin-bottom: 8px !important; }
+.mb-4 { margin-bottom: 16px !important; }
+.mb-6 { margin-bottom: 24px !important; }
+.w-full { width: 100%; }
+
+/* Quick Action Control Buttons Container & Spacing */
+.seller-quick-actions {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 14px 16px !important;
+    padding: 24px !important;
+}
+
+.seller-quick-actions .btn {
+    margin: 0 !important;
+    padding: 10px 18px !important;
+    font-size: 0.84rem !important;
+    font-weight: 600 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 6px rgba(44, 36, 30, 0.04);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.seller-quick-actions .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(44, 36, 30, 0.08);
+}
+

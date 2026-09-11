@@ -131,7 +131,7 @@ function SellerDashboard() {
             Quick Merchant Control Actions
           </h3>
         </div>
-        <div className="seller-card-body flex flex-wrap gap-2">
+        <div className="seller-card-body seller-quick-actions">
           <button className="btn btn-outline btn-sm" onClick={() => navigate("/seller/products")}>
             <Package className="w-4 h-4" aria-hidden="true" /> View Products
           </button>
