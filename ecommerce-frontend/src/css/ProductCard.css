@@ -92,14 +92,14 @@
   bottom: 12px;
   left: 12px;
   padding: 4px 10px;
-  background: #0f172a;
-  color: #ffffff;
+  background: #5B3A23;
+  color: #FFFBF2;
   font-size: 0.7rem;
   font-weight: 700;
   border-radius: var(--radius-sm);
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.15);
+  box-shadow: 0 2px 6px rgba(91, 58, 35, 0.15);
 }
 
 /* Product Card Body */
@@ -118,7 +118,7 @@
   gap: 6px;
   font-size: 0.82rem;
   font-weight: 700;
-  color: #d97706;
+  color: #E69B3D;
 }
 
 .rating-count {

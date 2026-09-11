@@ -8,39 +8,40 @@
    1. DESIGN TOKENS & CSS CUSTOM PROPERTIES (THEMING & CONFIGURATION)
    -------------------------------------------------------------------------- */
 :root {
-  /* --- Color Palette --- */
-  /* Primary Brand: Deep Slate Navy */
-  --color-primary: #0F172A;
-  --color-primary-hover: #1E293B;
-  --color-primary-light: #F1F5F9;
+  /* --- Color Palette: Requested 5-Color System (#D6B65D, #A67C3D, #E69B3D, #F5E2B8, #5B3A23) --- */
+  /* Primary Brand: Deep Espresso Coffee */
+  --color-primary: #5B3A23;
+  --color-primary-hover: #442A18;
+  --color-primary-light: #FAF0D8;
 
-  /* Accent & Highlight: Warm Sand / Gold & DTC Sage Teal */
-  --color-accent: #B08D57;
-  --color-accent-hover: #967440;
-  --color-accent-light: #FDFBF7;
-  --color-teal: #0D9488;
-  --color-teal-light: #CCFBF1;
+  /* Accent & Highlight: Warm Amber & Antique Bronze & Champagne Gold */
+  --color-accent: #E69B3D;
+  --color-accent-hover: #C8822B;
+  --color-accent-light: #FDF4E7;
+  --color-gold: #D6B65D;
+  --color-gold-light: #FAF4E5;
+  --color-bronze: #A67C3D;
 
-  /* Neutrals & Surfaces */
-  --color-bg-app: #F8FAFC;
-  --color-surface: #FFFFFF;
-  --color-surface-subtle: #F1F5F9;
-  --color-border: #E2E8F0;
-  --color-border-hover: #CBD5E1;
+  /* Neutrals & Surfaces: Light Cream & Warm Vanilla */
+  --color-bg-app: #F5E2B8;
+  --color-surface: #FFFBF2;
+  --color-surface-subtle: #FAF0D8;
+  --color-border: #D6B65D;
+  --color-border-hover: #A67C3D;
 
   /* Typography Colors */
-  --color-text-heading: #0F172A;
-  --color-text-body: #334155;
-  --color-text-muted: #64748B;
-  --color-text-inverse: #FFFFFF;
+  --color-text-heading: #5B3A23;
+  --color-text-body: #4A3220;
+  --color-text-muted: #7D5E46;
+  --color-text-inverse: #FFFBF2;
 
   /* Status Colors */
-  --color-success: #10B981;
-  --color-success-bg: #ECFDF5;
-  --color-warning: #F59E0B;
-  --color-warning-bg: #FFFBEB;
-  --color-error: #EF4444;
-  --color-error-bg: #FEF2F2;
+  --color-success: #2D5230;
+  --color-success-bg: #E4EFE5;
+  --color-warning: #A67C3D;
+  --color-warning-bg: #FAF4E5;
+  --color-error: #8C3333;
+  --color-error-bg: #F8E8E8;
 
   /* --- Spacing Scale (4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 px) --- */
   --space-1: 4px;

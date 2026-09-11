@@ -23,12 +23,12 @@
 
 /* Announcement Bar */
 .nav-top-bar {
-  background: #0f172a;
-  color: #f8fafc;
+  background: #5B3A23;
+  color: #FFFBF2;
   font-family: var(--font-sans);
   font-size: 0.78rem;
   padding: 6px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(214, 182, 93, 0.2);
 }
 
 .nav-top-content {
@@ -45,7 +45,7 @@
 }
 
 .top-announcement strong {
-  color: #38bdf8;
+  color: #E69B3D;
   font-weight: 700;
 }
 
@@ -56,13 +56,13 @@
 }
 
 .top-quick-links a {
-  color: #cbd5e1;
+  color: #F5E2B8;
   font-size: 0.76rem;
   transition: color var(--transition-fast);
 }
 
 .top-quick-links a:hover {
-  color: #ffffff;
+  color: #D6B65D;
 }
 
 /* Main Header Row */
@@ -82,7 +82,7 @@
   font-family: var(--font-sans);
   font-size: 1.5rem;
   font-weight: 800;
-  color: #0f172a;
+  color: #5B3A23;
   text-decoration: none;
   letter-spacing: -0.02em;
 }

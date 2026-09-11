@@ -48,15 +48,15 @@
   width: 30px;
   height: 30px;
   border-radius: var(--radius-btn);
-  background: #0f172a;
-  color: #ffffff;
+  background: #5B3A23;
+  color: #FFFBF2;
   font-weight: 800;
   font-size: 0.88rem;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border: 1px solid #1e293b;
+  border: 1px solid #A67C3D;
 }
 
 .card-step-header h3 {

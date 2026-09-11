@@ -23,11 +23,11 @@
   align-items: center;
   gap: 10px;
   padding: 11px 22px;
-  background: #0f172a;
-  color: #ffffff;
+  background: #5B3A23;
+  color: #FFFBF2;
   border-radius: var(--radius-full);
-  border: 1px solid #1e293b;
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.25);
+  border: 1px solid #A67C3D;
+  box-shadow: 0 4px 16px rgba(91, 58, 35, 0.25);
   font-family: var(--font-sans);
   font-size: 0.86rem;
   font-weight: 700;
@@ -40,8 +40,8 @@
 .compare-launcher-btn.annachi-launcher:hover,
 .compare-launcher-btn.aura-launcher:hover {
   transform: translateY(-2px);
-  background: #1e293b;
-  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.35);
+  background: #442A18;
+  box-shadow: 0 6px 20px rgba(91, 58, 35, 0.35);
 }
 
 .annachi-symbol-badge,
@@ -49,8 +49,8 @@
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: #2563eb;
-  color: #ffffff;
+  background: #E69B3D;
+  color: #FFFBF2;
   font-weight: 800;
   font-size: 0.9rem;
   display: flex;

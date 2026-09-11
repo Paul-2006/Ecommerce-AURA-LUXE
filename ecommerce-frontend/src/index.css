@@ -1,67 +1,73 @@
 :root {
-  /* Classical & Professional E-Commerce Palette - Light Mode */
-  --primary: #0f172a;            /* Deep Midnight Navy */
-  --primary-hover: #1e293b;
-  --primary-light: #334155;
-  --primary-glow: rgba(15, 23, 42, 0.08);
-  --primary-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  /* Classical & Warm Luxury E-Commerce Palette - 5-Color Requested System */
+  /* Palette: #D6B65D, #A67C3D, #E69B3D, #F5E2B8, #5B3A23 */
   
-  --secondary: #1e293b;          /* Professional Slate */
-  --secondary-hover: #334155;
-  --secondary-gradient: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  --primary: #5B3A23;            /* Deep Roasted Espresso Coffee */
+  --primary-hover: #442A18;
+  --primary-light: #7A5134;
+  --primary-glow: rgba(91, 58, 35, 0.12);
+  --primary-gradient: linear-gradient(135deg, #5B3A23 0%, #442A18 100%);
   
-  --accent: #2563eb;             /* Refined Royal Blue Accent */
-  --accent-hover: #1d4ed8;
-  --accent-light: #eff6ff;
-  --accent-gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-
-  --emerald: #059669;            /* Success Emerald Green */
-  --emerald-hover: #047857;
-  --emerald-light: #ecfdf5;
+  --secondary: #A67C3D;          /* Rich Antique Bronze / Dark Gold */
+  --secondary-hover: #8C6730;
+  --secondary-gradient: linear-gradient(135deg, #A67C3D 0%, #8C6730 100%);
   
-  --success: #059669;
-  --success-dark: #047857;
-  --success-glow: rgba(5, 150, 105, 0.1);
+  --accent: #E69B3D;             /* Warm Amber Accent / Add-to-Cart Highlight */
+  --accent-hover: #C8822B;
+  --accent-light: #FDF4E7;
+  --accent-gradient: linear-gradient(135deg, #E69B3D 0%, #C8822B 100%);
 
-  --warning: #d97706;
-  --warning-dark: #b45309;
-  --warning-glow: rgba(217, 119, 6, 0.1);
+  --gold: #D6B65D;               /* Warm Soft Gold / Champagne Gold */
+  --gold-hover: #C5A44B;
+  --gold-light: #FAF4E5;
+
+  --emerald: #2D5230;            /* Restrained Warm Success Green */
+  --emerald-hover: #213D24;
+  --emerald-light: #E4EFE5;
   
-  --danger: #dc2626;
-  --danger-dark: #b91c1c;
-  --danger-glow: rgba(220, 38, 38, 0.1);
+  --success: #2D5230;
+  --success-dark: #213D24;
+  --success-glow: rgba(45, 82, 48, 0.12);
 
-  /* Neutrals & Surfaces - Clean Crisp Light Mode */
-  --bg-main: #f8fafc;            /* Crisp Warm Slate Neutral */
-  --bg-surface: #ffffff;
-  --bg-card: #ffffff;
-  --bg-card-hover: #f1f5f9;
-  --bg-glass: rgba(255, 255, 255, 0.95);
-  --bg-header: #ffffff;
-  --bg-subnav: #0f172a;
+  --warning: #A67C3D;
+  --warning-dark: #8C6730;
+  --warning-glow: rgba(166, 124, 61, 0.12);
+  
+  --danger: #8C3333;
+  --danger-dark: #6E2626;
+  --danger-glow: rgba(140, 51, 51, 0.12);
 
-  --text-main: #0f172a;          /* Dark Slate Charcoal */
-  --text-sub: #334155;           /* Slate Gray */
-  --text-muted: #64748b;         /* Muted Slate */
-  --text-inverse: #ffffff;
+  /* Neutrals & Surfaces - Warm Cream & Vanilla Palette */
+  --bg-main: #F5E2B8;            /* Light Cream / Warm Ivory Main Background */
+  --bg-surface: #FFFBF2;         /* Warm Vanilla Surface */
+  --bg-card: #FFFBF2;            /* Card Surface */
+  --bg-card-hover: #FAF0D8;
+  --bg-glass: rgba(255, 251, 242, 0.95);
+  --bg-header: #FFFBF2;
+  --bg-subnav: #5B3A23;          /* Dark Espresso Subnav / Top Announcement Bar */
 
-  --border-light: #e2e8f0;
-  --border-medium: #cbd5e1;
-  --border-glass: #cbd5e1;
-  --border-focus: #2563eb;
+  --text-main: #5B3A23;          /* Deep Roasted Coffee Main Text */
+  --text-sub: #4A3220;           /* Medium Coffee Subtext */
+  --text-muted: #7D5E46;         /* Warm Wood Muted Text */
+  --text-inverse: #FFFBF2;
+
+  --border-light: #D6B65D;       /* Champagne Gold Soft Border */
+  --border-medium: #A67C3D;      /* Antique Bronze Medium Border */
+  --border-glass: #D6B65D;
+  --border-focus: #E69B3D;
 
   /* Classic Elevation Shadows */
-  --shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.03);
-  --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -2px rgba(15, 23, 42, 0.04);
-  --shadow-lg: 0 12px 24px -4px rgba(15, 23, 42, 0.12), 0 4px 8px -4px rgba(15, 23, 42, 0.06);
-  --shadow-glow: 0 0 20px rgba(37, 99, 235, 0.2);
+  --shadow-sm: 0 1px 3px 0 rgba(91, 58, 35, 0.06), 0 1px 2px -1px rgba(91, 58, 35, 0.04);
+  --shadow-md: 0 4px 12px -2px rgba(91, 58, 35, 0.09), 0 2px 6px -2px rgba(91, 58, 35, 0.05);
+  --shadow-lg: 0 12px 24px -4px rgba(91, 58, 35, 0.14), 0 4px 8px -4px rgba(91, 58, 35, 0.08);
+  --shadow-glow: 0 0 20px rgba(230, 155, 61, 0.25);
 
   /* Clean Typography Hierarchy */
   --font-sans: 'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-serif: var(--font-sans);
   --font-heading: var(--font-sans);
 
-  /* Unified Rounded Geometry (No Sharp 4px Rectangles!) */
+  /* Unified Rounded Geometry */
   --radius-btn: 10px;
   --radius-input: 10px;
   --radius-card: 12px;
@@ -77,8 +83,8 @@
   --transition-normal: 0.25s ease;
   --transition-bounce: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
-  --scrollbar-thumb: #94a3b8;
-  --scrollbar-track: #f8fafc;
+  --scrollbar-thumb: #A67C3D;
+  --scrollbar-track: #F5E2B8;
 }
 
 /* Dark Theme Palette (Obsidian & Deep Slate) */

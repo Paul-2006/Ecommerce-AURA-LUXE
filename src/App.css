@@ -35,7 +35,7 @@
 .blob-1 {
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, #2563eb 0%, rgba(37, 99, 235, 0) 70%);
+  background: radial-gradient(circle, #E69B3D 0%, rgba(230, 155, 61, 0) 70%);
   top: -120px;
   left: -100px;
   animation: floatMesh1 25s ease-in-out infinite alternate;
@@ -44,7 +44,7 @@
 .blob-2 {
   width: 650px;
   height: 650px;
-  background: radial-gradient(circle, #0f172a 0%, rgba(15, 23, 42, 0) 70%);
+  background: radial-gradient(circle, #5B3A23 0%, rgba(91, 58, 35, 0) 70%);
   bottom: -150px;
   right: -100px;
   animation: floatMesh2 30s ease-in-out infinite alternate;
@@ -53,7 +53,7 @@
 .blob-3 {
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, #059669 0%, rgba(5, 150, 105, 0) 70%);
+  background: radial-gradient(circle, #D6B65D 0%, rgba(214, 182, 93, 0) 70%);
   top: 45%;
   left: 60%;
   animation: floatMesh3 28s ease-in-out infinite alternate;
