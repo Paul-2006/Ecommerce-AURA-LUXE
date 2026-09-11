@@ -471,7 +471,7 @@ function MyProducts() {
                   style={{ width: "100px", height: "100px", borderRadius: "8px", objectFit: "cover" }}
                 />
                 <div>
-                  <h4 style={{ margin: 0, fontWeight: 700, color: "#172033" }}>{selectedProduct.productName}</h4>
+                  <h4 style={{ margin: 0, fontWeight: 700, color: "var(--merchant-text-heading)" }}>{selectedProduct.productName}</h4>
                   <p className="text-xs text-slate-500" style={{ margin: "2px 0 6px 0" }}>
                     Brand: {selectedProduct.brand || "Brand"} • Category: {selectedProduct.category || "Electronics"}
                   </p>

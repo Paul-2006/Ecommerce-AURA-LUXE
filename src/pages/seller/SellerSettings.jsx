@@ -123,7 +123,7 @@ function SellerSettings() {
                     type="checkbox"
                     checked={settings.orderAlerts}
                     onChange={() => handleToggle("orderAlerts")}
-                    style={{ width: "18px", height: "18px", accentColor: "#172033" }}
+                    style={{ width: "18px", height: "18px", accentColor: "var(--merchant-accent)" }}
                   />
                 </div>
 
@@ -138,7 +138,7 @@ function SellerSettings() {
                     type="checkbox"
                     checked={settings.dailySummaryEmail}
                     onChange={() => handleToggle("dailySummaryEmail")}
-                    style={{ width: "18px", height: "18px", accentColor: "#172033" }}
+                    style={{ width: "18px", height: "18px", accentColor: "var(--merchant-accent)" }}
                   />
                 </div>
 

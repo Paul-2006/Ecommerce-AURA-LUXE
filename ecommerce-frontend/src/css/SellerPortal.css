@@ -1,95 +1,120 @@
 /* ==========================================================================
-   ENTERPRISE MERCHANT SELLER PORTAL - DEDICATED STYLESHEET
+   PREMIUM MERCHANT SELLER PORTAL STYLESHEET
+   Design Palette: Warm Neutral Luxury (#F0E5D8, #D1C6B0, #B7A99A, #EAE1DD, #C2B6A5)
+   Text Palette: Deep Charcoal Brown (#2C241E, #3D332A, #6E6153)
    ========================================================================== */
 
 :root {
-    --seller-primary: #172033;
-    --seller-primary-dark: #0E1524;
-    --seller-secondary: #B08D57;
-    --seller-accent: #D4B483;
-    --seller-background: #F6F3ED;
-    --seller-surface: #FFFFFF;
-    --seller-surface-alt: #ECE7DD;
-    --seller-text: #1C2431;
-    --seller-text-secondary: #667085;
-    --seller-border: #D9D3C7;
-    --seller-success: #3F7652;
-    --seller-warning: #A8752A;
-    --seller-danger: #A54A4A;
+    /* Centralized Warm Palette CSS Variables */
+    --merchant-bg: #F0E5D8;
+    --merchant-surface: #EAE1DD;
+    --merchant-secondary: #D1C6B0;
+    --merchant-muted: #B7A99A;
+    --merchant-accent: #C2B6A5;
+    --merchant-accent-hover: #B4A795;
+    --merchant-primary-dark: #2C241E;
+    
+    /* Typography Palette */
+    --merchant-text-heading: #2C241E;
+    --merchant-text-body: #3D332A;
+    --merchant-text-muted: #6E6153;
+    
+    /* Borders & Outlines */
+    --merchant-border: #D8CEBE;
+    --merchant-border-dark: #C5B8A6;
+
+    /* Legacy Map for Existing Components */
+    --seller-background: #F0E5D8;
+    --seller-surface: #EAE1DD;
+    --seller-surface-alt: #D1C6B0;
+    --seller-primary: #2C241E;
+    --seller-primary-dark: #2C241E;
+    --seller-secondary: #C2B6A5;
+    --seller-accent: #C2B6A5;
+    --seller-text: #3D332A;
+    --seller-text-secondary: #6E6153;
+    --seller-border: #D8CEBE;
+
+    /* Status Colors (Warm Restrained Neutral Variations) */
+    --seller-success: #2D5230;
+    --seller-success-bg: #DCE6D8;
+    --seller-warning: #7A541E;
+    --seller-warning-bg: #F5E8D3;
+    --seller-danger: #7E3B3B;
+    --seller-danger-bg: #EAD3D3;
+    --seller-info: #4D3A5D;
+    --seller-info-bg: #E0D8E8;
+
+    /* Border Radius Scale */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-full: 9999px;
+
+    /* Refined Subtle Shadows */
+    --shadow-subtle: 0 2px 8px rgba(44, 36, 30, 0.04);
+    --shadow-card: 0 4px 14px rgba(44, 36, 30, 0.05);
+    --shadow-modal: 0 12px 32px rgba(44, 36, 30, 0.12);
 }
 
-/* Global Body Override when on Seller Portal */
+/* Global Application Body Override */
 body:has(.seller-portal-wrapper),
 html:has(.seller-portal-wrapper) {
-    background-color: #F6F3ED !important;
-    background: #F6F3ED !important;
+    background-color: #F0E5D8 !important;
+    background: #F0E5D8 !important;
+    color: #3D332A !important;
 }
 
-/* Base Scope & Layout */
+/* Base Subtree Isolation */
 .seller-portal-wrapper {
-    --seller-primary: #172033;
-    --seller-primary-dark: #0E1524;
-    --seller-secondary: #B08D57;
-    --seller-accent: #D4B483;
-    --seller-background: #F6F3ED;
-    --seller-surface: #FFFFFF;
-    --seller-surface-alt: #ECE7DD;
-    --seller-text: #1C2431;
-    --seller-text-secondary: #667085;
-    --seller-border: #D9D3C7;
-    --seller-success: #3F7652;
-    --seller-warning: #A8752A;
-    --seller-danger: #A54A4A;
-
-    /* Override global theme variable names within seller portal subtree */
-    --bg-main: #F6F3ED !important;
-    --bg-surface: #FFFFFF !important;
-    --bg-card: #FFFFFF !important;
-    --text-main: #1C2431 !important;
-    --text-sub: #1C2431 !important;
-    --text-muted: #667085 !important;
-    --border-light: #D9D3C7 !important;
-    --border-medium: #D9D3C7 !important;
-    --primary: #172033 !important;
-    --accent: #B08D57 !important;
-    --radius-btn: 10px !important;
-    --radius-card: 14px !important;
-    --radius-input: 10px !important;
+    --bg-main: #F0E5D8 !important;
+    --bg-surface: #EAE1DD !important;
+    --bg-card: #EAE1DD !important;
+    --text-main: #2C241E !important;
+    --text-sub: #3D332A !important;
+    --text-muted: #6E6153 !important;
+    --border-light: #D8CEBE !important;
+    --border-medium: #C5B8A6 !important;
+    --primary: #2C241E !important;
+    --accent: #C2B6A5 !important;
+    --radius-btn: 12px !important;
+    --radius-card: 16px !important;
+    --radius-input: 12px !important;
 
     min-height: 100vh;
-    background-color: #F6F3ED !important;
-    color: #1C2431 !important;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+    background-color: #F0E5D8 !important;
+    color: #3D332A !important;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
     display: flex;
     position: relative;
     z-index: 10;
 }
 
-/* Dark Mode Override Enforcement for Seller Portal */
+/* Dark Mode Enforcement for Seller Portal */
 [data-theme="dark"] .seller-portal-wrapper,
 [data-theme="dark"] body:has(.seller-portal-wrapper) {
-    background-color: #F6F3ED !important;
-    background: #F6F3ED !important;
-    color: #1C2431 !important;
-    --bg-main: #F6F3ED !important;
-    --bg-surface: #FFFFFF !important;
-    --bg-card: #FFFFFF !important;
-    --text-main: #1C2431 !important;
-    --text-sub: #1C2431 !important;
-    --text-muted: #667085 !important;
-    --border-light: #D9D3C7 !important;
-    --border-medium: #D9D3C7 !important;
-    --primary: #172033 !important;
+    background-color: #F0E5D8 !important;
+    background: #F0E5D8 !important;
+    color: #3D332A !important;
+    --bg-main: #F0E5D8 !important;
+    --bg-surface: #EAE1DD !important;
+    --bg-card: #EAE1DD !important;
+    --text-main: #2C241E !important;
+    --text-sub: #3D332A !important;
+    --text-muted: #6E6153 !important;
+    --border-light: #D8CEBE !important;
+    --primary: #2C241E !important;
 }
 
-/* Main Container Area */
+/* Main Workspace Container */
 .seller-main-container {
     flex: 1;
     margin-left: 260px;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: var(--seller-background) !important;
+    background-color: var(--merchant-bg) !important;
     transition: margin-left 0.3s ease;
     width: calc(100% - 260px);
 }
@@ -102,7 +127,7 @@ html:has(.seller-portal-wrapper) {
 }
 
 /* --------------------------------------------------------------------------
-   1. FIXED SELLER SIDEBAR
+   1. PREMIUM SIDEBAR
    -------------------------------------------------------------------------- */
 .seller-sidebar {
     width: 260px;
@@ -110,20 +135,20 @@ html:has(.seller-portal-wrapper) {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #172033 !important;
-    color: #F6F3ED !important;
+    background-color: #2C241E !important;
+    color: #F0E5D8 !important;
     display: flex;
     flex-direction: column;
     z-index: 1000;
-    border-right: 1px solid #0E1524 !important;
-    box-shadow: 4px 0 20px rgba(14, 21, 36, 0.15);
+    border-right: 1px solid #1E1814 !important;
+    box-shadow: 4px 0 20px rgba(44, 36, 30, 0.12);
     transition: transform 0.3s ease;
     overflow-y: auto;
 }
 
 .seller-sidebar-header {
-    padding: 20px 20px 16px 20px;
-    border-bottom: 1px solid rgba(217, 211, 199, 0.15) !important;
+    padding: 22px 20px 18px 20px;
+    border-bottom: 1px solid rgba(240, 229, 216, 0.12) !important;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -137,16 +162,17 @@ html:has(.seller-portal-wrapper) {
 }
 
 .seller-brand-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    background: #B08D57 !important;
-    color: #FFFFFF !important;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-md);
+    background: #C2B6A5 !important;
+    color: #2C241E !important;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 700;
     font-size: 1.1rem;
+    box-shadow: var(--shadow-subtle);
 }
 
 .seller-brand-text {
@@ -155,102 +181,78 @@ html:has(.seller-portal-wrapper) {
 }
 
 .seller-brand-title {
-    font-size: 0.95rem;
-    font-weight: 800;
+    font-size: 1rem;
+    font-weight: 700;
     letter-spacing: 0.05em;
-    color: #FFFFFF !important;
-    line-height: 1.2;
+    color: #F0E5D8 !important;
+    line-height: 1.1;
 }
 
 .seller-brand-subtitle {
     font-size: 0.72rem;
-    color: #D4B483 !important;
-    letter-spacing: 0.03em;
-    font-weight: 600;
+    color: #B7A99A !important;
+    margin-top: 2px;
 }
 
-/* Sidebar Navigation Menu */
 .seller-sidebar-nav {
     flex: 1;
     padding: 16px 12px;
     display: flex;
     flex-direction: column;
     gap: 4px;
-    overflow-y: auto;
 }
 
 .seller-nav-item {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 10px 16px;
-    border-radius: 10px !important;
-    font-size: 0.86rem;
-    font-weight: 600;
-    color: #ECE7DD !important;
-    text-decoration: none !important;
+    padding: 10px 14px;
+    border-radius: var(--radius-md) !important;
+    color: #D1C6B0 !important;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
     transition: all 0.2s ease;
-    cursor: pointer;
-    border: none;
-    background: transparent;
-    width: 100%;
-    text-align: left;
 }
 
 .seller-nav-item:hover {
-    background-color: rgba(212, 180, 131, 0.15) !important;
-    color: #D4B483 !important;
-    transform: translateX(3px);
+    background-color: rgba(209, 198, 176, 0.12) !important;
+    color: #F0E5D8 !important;
 }
 
 .seller-nav-item.active {
-    background-color: #B08D57 !important;
-    color: #FFFFFF !important;
-    font-weight: 700;
-    box-shadow: 0 4px 12px rgba(176, 141, 87, 0.3);
-}
-
-.seller-nav-item.active svg {
-    color: #FFFFFF !important;
-}
-
-.seller-nav-item svg {
-    width: 17px;
-    height: 17px;
-    flex-shrink: 0;
-    color: #D4B483 !important;
-    transition: color 0.2s ease;
+    background-color: #C2B6A5 !important;
+    color: #2C241E !important;
+    font-weight: 700 !important;
+    box-shadow: var(--shadow-subtle);
 }
 
 .seller-sidebar-footer {
     padding: 16px;
-    border-top: 1px solid rgba(217, 211, 199, 0.15) !important;
+    border-top: 1px solid rgba(240, 229, 216, 0.12) !important;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    background-color: #0E1524 !important;
+    background-color: #241D18 !important;
 }
 
 .seller-operator-card {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(217, 211, 199, 0.15) !important;
-    border-radius: 10px;
+    gap: 12px;
 }
 
 .seller-operator-avatar {
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
-    background: #B08D57 !important;
-    color: #FFFFFF !important;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    background-color: #D1C6B0 !important;
+    color: #2C241E !important;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 700;
+    font-size: 0.9rem;
 }
 
 .seller-operator-info {
@@ -260,9 +262,9 @@ html:has(.seller-portal-wrapper) {
 }
 
 .seller-operator-name {
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: #FFFFFF !important;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #F0E5D8 !important;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -270,10 +272,18 @@ html:has(.seller-portal-wrapper) {
 
 .seller-operator-role {
     font-size: 0.72rem;
-    color: #D4B483 !important;
+    color: #B7A99A !important;
 }
 
-/* Sidebar Responsive Overlay */
+/* Mobile Sidebar Drawer Overlay */
+.seller-sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(44, 36, 30, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+}
+
 @media (max-width: 1024px) {
     .seller-sidebar {
         transform: translateX(-100%);
@@ -281,29 +291,23 @@ html:has(.seller-portal-wrapper) {
     .seller-sidebar.open {
         transform: translateX(0);
     }
-    .seller-sidebar-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(14, 21, 36, 0.6);
-        backdrop-filter: blur(4px);
-        z-index: 999;
-    }
 }
 
 /* --------------------------------------------------------------------------
-   2. CLEAN SELLER TOP BAR
+   2. HEADER / TOPBAR
    -------------------------------------------------------------------------- */
 .seller-topbar {
-    background-color: #FFFFFF !important;
-    border-bottom: 1px solid #D9D3C7 !important;
-    padding: 14px 28px;
+    height: 70px;
+    background-color: #EAE1DD !important;
+    border-bottom: 1px solid #D8CEBE !important;
+    padding: 0 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: sticky;
     top: 0;
-    z-index: 900;
-    box-shadow: 0 1px 4px rgba(23, 32, 51, 0.04);
+    z-index: 100;
+    box-shadow: var(--shadow-subtle);
 }
 
 .seller-topbar-left {
@@ -312,392 +316,567 @@ html:has(.seller-portal-wrapper) {
     gap: 16px;
 }
 
-.seller-mobile-toggle {
-    display: none;
-    background: transparent;
-    border: 1px solid #D9D3C7 !important;
-    border-radius: 8px;
-    padding: 6px;
-    cursor: pointer;
-    color: #1C2431 !important;
-}
-
-@media (max-width: 1024px) {
-    .seller-mobile-toggle {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-}
-
-.seller-page-header-title {
-    margin: 0;
-    font-size: 1.15rem;
+.seller-topbar-title {
+    font-size: 1.1rem;
     font-weight: 700;
-    color: #172033 !important;
-    letter-spacing: -0.01em;
+    color: #2C241E !important;
+    margin: 0;
 }
 
 .seller-topbar-search {
     position: relative;
-    width: 280px;
+    min-width: 260px;
 }
 
-.seller-topbar-search input {
+.seller-search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6E6153 !important;
+    width: 16px;
+    height: 16px;
+}
+
+.seller-search-input {
     width: 100%;
-    padding: 8px 12px 8px 36px;
-    border-radius: 10px !important;
-    border: 1px solid #D9D3C7 !important;
-    background: #F6F3ED !important;
-    color: #1C2431 !important;
+    padding: 8px 14px 8px 36px;
+    border-radius: var(--radius-md) !important;
+    border: 1px solid #D8CEBE !important;
+    background-color: #F0E5D8 !important;
+    color: #2C241E !important;
     font-size: 0.85rem;
-    outline: none;
     transition: all 0.2s ease;
 }
 
-.seller-topbar-search input:focus {
-    border-color: #B08D57 !important;
-    box-shadow: 0 0 0 3px rgba(176, 141, 87, 0.18) !important;
-    background: #FFFFFF !important;
+.seller-search-input:focus {
+    outline: none;
+    border-color: #C2B6A5 !important;
+    box-shadow: 0 0 0 3px rgba(194, 182, 165, 0.3);
 }
 
-.seller-topbar-search svg {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 16px;
-    height: 16px;
-    color: #667085 !important;
-}
-
-.seller-topbar-right {
+.seller-topbar-actions {
     display: flex;
     align-items: center;
-    gap: 14px;
-}
-
-.seller-topbar-badge {
-    padding: 4px 10px;
-    border-radius: 20px;
-    background: #ECE7DD !important;
-    border: 1px solid #D9D3C7 !important;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #172033 !important;
-}
-
-/* --------------------------------------------------------------------------
-   3. SELLER CONTENT AREA & CONTAINERS
-   -------------------------------------------------------------------------- */
-.seller-portal-content {
-    padding: 24px 28px 48px 28px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    flex: 1;
-}
-
-/* Header Banners inside pages */
-.seller-dashboard-header,
-.seller-page-header,
-.seller-portal-wrapper .glass-panel {
-    background: #FFFFFF !important;
-    border: 1px solid #D9D3C7 !important;
-    border-radius: 14px !important;
-    box-shadow: 0 2px 8px rgba(23, 32, 51, 0.04) !important;
-    color: #1C2431 !important;
-}
-
-.seller-dashboard-header h1,
-.seller-page-header h1,
-.seller-portal-wrapper .glass-panel h1,
-.seller-portal-wrapper .glass-panel h2,
-.seller-portal-wrapper .glass-panel h3 {
-    color: #172033 !important;
-    font-family: inherit !important;
-    font-weight: 700 !important;
-}
-
-.seller-dashboard-header p,
-.seller-page-header p,
-.seller-portal-wrapper .glass-panel p {
-    color: #667085 !important;
-}
-
-/* --------------------------------------------------------------------------
-   4. REDESIGNED METRICS CARDS
-   -------------------------------------------------------------------------- */
-.seller-metrics-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
-    width: 100%;
-}
-
-.seller-metric-card,
-.seller-portal-wrapper .metric-card {
-    background: #FFFFFF !important;
-    border: 1px solid #D9D3C7 !important;
-    border-radius: 14px !important;
-    padding: 20px 18px !important;
-    box-shadow: 0 2px 8px rgba(23, 32, 51, 0.04) !important;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     gap: 12px;
-    transition: all 0.2s ease !important;
+}
+
+.seller-topbar-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-md) !important;
+    border: 1px solid #D8CEBE !important;
+    background-color: #F0E5D8 !important;
+    color: #2C241E !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.seller-topbar-btn:hover {
+    background-color: #D1C6B0 !important;
+}
+
+.seller-badge-count {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background-color: #7E3B3B !important;
+    color: #FFFFFF !important;
+    font-size: 0.65rem;
+    font-weight: 700;
+    min-width: 16px;
+    height: 16px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Profile Chip Dropdown Trigger */
+.seller-topbar-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 10px 4px 6px;
+    border-radius: var(--radius-md) !important;
+    border: 1px solid #D8CEBE !important;
+    background-color: #F0E5D8 !important;
     cursor: pointer;
 }
 
-.seller-metric-card:hover,
-.seller-portal-wrapper .metric-card:hover {
-    transform: translateY(-2px) !important;
-    border-color: #B08D57 !important;
-    box-shadow: 0 4px 14px rgba(176, 141, 87, 0.15) !important;
+.seller-profile-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-sm);
+    background-color: #C2B6A5 !important;
+    color: #2C241E !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
 }
 
-.seller-metric-card .metric-val,
-.seller-metric-card .metric-value,
-.seller-portal-wrapper .metric-card .metric-val,
-.seller-portal-wrapper .metric-info strong {
-    font-size: 1.6rem !important;
-    font-weight: 800 !important;
-    color: #172033 !important;
+.seller-profile-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.seller-profile-name {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #2C241E !important;
+}
+
+.seller-profile-role {
+    font-size: 0.68rem;
+    color: #6E6153 !important;
+}
+
+/* --------------------------------------------------------------------------
+   3. PAGE LAYOUT, CARDS & CONTAINERS
+   -------------------------------------------------------------------------- */
+.seller-page-container {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.seller-page-header {
+    background-color: #EAE1DD !important;
+    border: 1px solid #D8CEBE !important;
+    border-radius: var(--radius-lg) !important;
+    padding: 20px 24px;
+    box-shadow: var(--shadow-card);
+}
+
+.seller-page-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #2C241E !important;
+    margin: 0 0 4px 0;
+}
+
+.seller-page-subtitle {
+    font-size: 0.86rem;
+    color: #6E6153 !important;
+    margin: 0;
+}
+
+.seller-card {
+    background-color: #EAE1DD !important;
+    border: 1px solid #D8CEBE !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+}
+
+.seller-card-header {
+    padding: 18px 24px;
+    border-bottom: 1px solid #D8CEBE !important;
+    background-color: #EAE1DD !important;
+}
+
+.seller-card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #2C241E !important;
+    margin: 0;
+}
+
+.seller-card-body {
+    padding: 24px;
+}
+
+.seller-card-footer {
+    padding: 16px 24px;
+    border-top: 1px solid #D8CEBE !important;
+    background-color: #F0E5D8 !important;
+}
+
+/* --------------------------------------------------------------------------
+   4. METRIC KPI CARDS & GRID
+   -------------------------------------------------------------------------- */
+.seller-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.seller-metric-card {
+    background-color: #EAE1DD !important;
+    border: 1px solid #D8CEBE !important;
+    border-radius: var(--radius-lg) !important;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow-subtle);
+    transition: all 0.2s ease;
+}
+
+.seller-metric-card:hover {
+    transform: translateY(-2px);
+    border-color: #C2B6A5 !important;
+    box-shadow: var(--shadow-card);
+}
+
+.metric-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.metric-val {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: #2C241E !important;
     line-height: 1.2;
 }
 
-.seller-metric-card .metric-title,
-.seller-metric-card .metric-name,
-.seller-portal-wrapper .metric-card .metric-title,
-.seller-portal-wrapper .metric-info span {
-    font-size: 0.78rem !important;
-    font-weight: 700 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.05em !important;
-    color: #667085 !important;
+.metric-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #6E6153 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+/* Grid Utilities */
+.seller-grid {
+    display: grid;
+    gap: 16px;
+}
+.seller-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.seller-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.seller-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.seller-col-span-2 { grid-column: span 2 / span 2; }
+
+@media (max-width: 768px) {
+    .seller-grid-2, .seller-grid-3, .seller-grid-4 {
+        grid-template-columns: 1fr;
+    }
+    .seller-col-span-2 { grid-column: span 1 / span 1; }
 }
 
 /* --------------------------------------------------------------------------
-   5. REUSABLE ENTERPRISE TABLE STYLE
+   5. BUTTON SYSTEM (WARM NEUTRAL ACCENTS & ROUNDED 12px EDGES)
    -------------------------------------------------------------------------- */
-.seller-portal-wrapper .table-responsive,
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: var(--radius-md) !important;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+/* Primary Accent Button (#C2B6A5) */
+.btn-primary {
+    background-color: #C2B6A5 !important;
+    color: #2C241E !important;
+    box-shadow: var(--shadow-subtle);
+}
+
+.btn-primary:hover {
+    background-color: #B4A795 !important;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-card);
+}
+
+/* Secondary Button (#D1C6B0) */
+.btn-secondary {
+    background-color: #D1C6B0 !important;
+    color: #2C241E !important;
+}
+
+.btn-secondary:hover {
+    background-color: #C2B6A5 !important;
+}
+
+/* Outline Button */
+.btn-outline {
+    background-color: #F0E5D8 !important;
+    border: 1px solid #B7A99A !important;
+    color: #2C241E !important;
+}
+
+.btn-outline:hover {
+    background-color: #EAE1DD !important;
+    border-color: #C2B6A5 !important;
+}
+
+/* Restrained Warm Danger Button */
+.btn-danger {
+    background-color: #EAD3D3 !important;
+    color: #7E3B3B !important;
+    border: 1px solid #DDB5B5 !important;
+}
+
+.btn-danger:hover {
+    background-color: #E2C2C2 !important;
+}
+
+.btn-sm {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    border-radius: var(--radius-sm) !important;
+}
+
+.btn-icon {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border-radius: var(--radius-sm) !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: #6E6153;
+    border: none;
+}
+
+.btn-icon:hover {
+    background-color: #D1C6B0 !important;
+    color: #2C241E !important;
+}
+
+.btn:focus-visible {
+    outline: 2px solid #C2B6A5;
+    outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   6. TABLES
+   -------------------------------------------------------------------------- */
 .seller-table-container {
-    background: #FFFFFF !important;
-    border: 1px solid #D9D3C7 !important;
-    border-radius: 14px !important;
-    overflow-x: auto;
-    box-shadow: 0 2px 8px rgba(23, 32, 51, 0.04) !important;
-}
-
-.seller-portal-wrapper .table-modern,
-table.seller-table,
-.seller-portal-wrapper .table-responsive table {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    color: #1C2431 !important;
-    background: #FFFFFF !important;
+    overflow-x: auto;
+    background-color: #EAE1DD !important;
+    border-radius: var(--radius-lg) !important;
 }
 
-.seller-portal-wrapper .table-modern th,
-table.seller-table th,
-.seller-portal-wrapper .table-responsive th {
-    background: #172033 !important;
-    color: #FFFFFF !important;
-    font-weight: 700 !important;
-    font-size: 0.8rem !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.05em !important;
-    padding: 14px 16px !important;
-    text-align: left !important;
-    border-bottom: 2px solid #0E1524 !important;
+.seller-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.875rem;
 }
 
-.seller-portal-wrapper .table-modern th:first-child,
-.seller-portal-wrapper .table-responsive th:first-child {
-    border-top-left-radius: 12px;
+.seller-table th {
+    background-color: #D1C6B0 !important;
+    color: #2C241E !important;
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 14px 18px;
+    border-bottom: 1px solid #B7A99A !important;
 }
 
-.seller-portal-wrapper .table-modern th:last-child,
-.seller-portal-wrapper .table-responsive th:last-child {
-    border-top-right-radius: 12px;
-}
-
-.seller-portal-wrapper .table-modern td,
-table.seller-table td,
-.seller-portal-wrapper .table-responsive td {
-    padding: 14px 16px !important;
-    border-bottom: 1px solid #D9D3C7 !important;
-    color: #1C2431 !important;
-    font-size: 0.86rem !important;
+.seller-table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #D8CEBE !important;
+    color: #3D332A !important;
     vertical-align: middle;
 }
 
-.seller-portal-wrapper .table-modern tr:last-child td,
-.seller-portal-wrapper .table-responsive tr:last-child td {
+.seller-table tr:last-child td {
     border-bottom: none !important;
 }
 
-.seller-portal-wrapper .table-modern tr:hover td,
-.seller-portal-wrapper .table-responsive tr:hover td {
-    background-color: #ECE7DD !important;
+.seller-table tr:hover td {
+    background-color: #F0E5D8 !important;
 }
 
 /* --------------------------------------------------------------------------
-   6. ROUNDED STATUS BADGES
+   7. FORMS, INPUTS & CONTROLS
    -------------------------------------------------------------------------- */
-.seller-portal-wrapper .badge-pill,
-.status-badge {
-    border-radius: 20px !important;
-    font-size: 0.74rem !important;
-    font-weight: 700 !important;
-    padding: 4px 12px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 4px !important;
-    line-height: 1.4 !important;
+.seller-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
-/* Success / Active / Approved */
-.seller-portal-wrapper .badge-success,
-.badge-approved,
-.badge-active {
-    background-color: #EBF3ED !important;
-    color: #3F7652 !important;
-    border: 1px solid rgba(63, 118, 82, 0.3) !important;
+.seller-form-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #2C241E !important;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
 }
 
-/* Warning / Pending */
-.seller-portal-wrapper .badge-warning,
-.badge-pending {
-    background-color: #FDF7EC !important;
-    color: #A8752A !important;
-    border: 1px solid rgba(168, 117, 42, 0.3) !important;
+.seller-form-input,
+.seller-form-textarea,
+.seller-form-select {
+    width: 100%;
+    padding: 10px 14px;
+    background-color: #F0E5D8 !important;
+    border: 1px solid #B7A99A !important;
+    border-radius: var(--radius-md) !important;
+    color: #2C241E !important;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
 }
 
-/* Danger / Rejected / Suspended */
-.seller-portal-wrapper .badge-danger,
-.badge-rejected,
-.badge-suspended {
-    background-color: #FDF0F0 !important;
-    color: #A54A4A !important;
-    border: 1px solid rgba(165, 74, 74, 0.3) !important;
+.seller-form-input:focus,
+.seller-form-textarea:focus,
+.seller-form-select:focus {
+    outline: none;
+    border-color: #C2B6A5 !important;
+    box-shadow: 0 0 0 3px rgba(194, 182, 165, 0.3);
 }
 
-/* Slate / Inactive / Secondary */
-.seller-portal-wrapper .badge-secondary,
-.seller-portal-wrapper .badge-primary,
-.badge-inactive {
-    background-color: #F1F3F5 !important;
-    color: #667085 !important;
-    border: 1px solid #D9D3C7 !important;
+.seller-form-textarea {
+    resize: vertical;
+    min-height: 90px;
 }
 
 /* --------------------------------------------------------------------------
-   7. SELLER BUTTON SYSTEM (All buttons 10px rounded edges)
+   8. STATUS BADGES & ALERTS (WARM NEUTRAL TONAL VARIATIONS)
    -------------------------------------------------------------------------- */
-.seller-portal-wrapper button,
-.seller-portal-wrapper .btn {
-    border-radius: 10px !important;
-    font-size: 0.84rem !important;
-    font-weight: 600 !important;
-    padding: 9px 18px !important;
-    transition: all 0.2s ease !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 6px !important;
-    cursor: pointer !important;
+.seller-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: var(--radius-full) !important;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: capitalize;
+    white-space: nowrap;
 }
 
-.seller-portal-wrapper .btn-primary {
-    background-color: #172033 !important;
-    color: #FFFFFF !important;
-    border: 1px solid #0E1524 !important;
+.seller-badge-success {
+    background-color: var(--seller-success-bg) !important;
+    color: var(--seller-success) !important;
+    border: 1px solid #C5D6BF !important;
 }
 
-.seller-portal-wrapper .btn-primary:hover {
-    background-color: #0E1524 !important;
-    box-shadow: 0 4px 10px rgba(14, 21, 36, 0.2) !important;
+.seller-badge-warning {
+    background-color: var(--seller-warning-bg) !important;
+    color: var(--seller-warning) !important;
+    border: 1px solid #EAD4B4 !important;
 }
 
-.seller-portal-wrapper .btn-secondary {
-    background-color: #B08D57 !important;
-    color: #FFFFFF !important;
-    border: 1px solid #B08D57 !important;
+.seller-badge-danger {
+    background-color: var(--seller-danger-bg) !important;
+    color: var(--seller-danger) !important;
+    border: 1px solid #DDB5B5 !important;
 }
 
-.seller-portal-wrapper .btn-secondary:hover {
-    background-color: #9C7A48 !important;
-    box-shadow: 0 4px 10px rgba(176, 141, 87, 0.25) !important;
+.seller-badge-info {
+    background-color: var(--seller-info-bg) !important;
+    color: var(--seller-info) !important;
+    border: 1px solid #CEBFDB !important;
 }
 
-.seller-portal-wrapper .btn-danger {
-    background-color: #A54A4A !important;
-    color: #FFFFFF !important;
-    border: 1px solid #A54A4A !important;
+.seller-badge-secondary {
+    background-color: #D1C6B0 !important;
+    color: #2C241E !important;
+    border: 1px solid #B7A99A !important;
 }
 
-.seller-portal-wrapper .btn-danger:hover {
-    background-color: #8C3E3E !important;
-    box-shadow: 0 4px 10px rgba(165, 74, 74, 0.25) !important;
+/* Alerts */
+.seller-alert {
+    padding: 14px 18px;
+    border-radius: var(--radius-md) !important;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.86rem;
+    font-weight: 500;
 }
 
-.seller-portal-wrapper .btn-warning {
-    background-color: #A8752A !important;
-    color: #FFFFFF !important;
-    border: 1px solid #A8752A !important;
+.seller-alert-success {
+    background-color: var(--seller-success-bg) !important;
+    color: var(--seller-success) !important;
+    border: 1px solid #C5D6BF !important;
 }
 
-.seller-portal-wrapper .btn-warning:hover {
-    background-color: #8E6221 !important;
+.seller-alert-warning {
+    background-color: var(--seller-warning-bg) !important;
+    color: var(--seller-warning) !important;
+    border: 1px solid #EAD4B4 !important;
 }
 
-.seller-portal-wrapper .btn-outline,
-.seller-portal-wrapper .btn-ghost {
-    background-color: transparent !important;
-    color: #172033 !important;
-    border: 1px solid #D9D3C7 !important;
-}
-
-.seller-portal-wrapper .btn-outline:hover,
-.seller-portal-wrapper .btn-ghost:hover {
-    background-color: #ECE7DD !important;
-    border-color: #D9D3C7 !important;
+.seller-alert-danger {
+    background-color: var(--seller-danger-bg) !important;
+    color: var(--seller-danger) !important;
+    border: 1px solid #DDB5B5 !important;
 }
 
 /* --------------------------------------------------------------------------
-   8. SELLER FORMS & INPUTS
+   9. MODALS & POPUPS
    -------------------------------------------------------------------------- */
-.seller-portal-wrapper input[type="text"],
-.seller-portal-wrapper input[type="email"],
-.seller-portal-wrapper input[type="password"],
-.seller-portal-wrapper input[type="search"],
-.seller-portal-wrapper select,
-.seller-portal-wrapper textarea,
-.seller-form-input {
-    border-radius: 10px !important;
-    border: 1px solid #D9D3C7 !important;
-    background-color: #FFFFFF !important;
-    color: #1C2431 !important;
-    padding: 10px 14px !important;
-    font-size: 0.88rem !important;
-    outline: none !important;
-    transition: all 0.2s ease !important;
+.seller-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(44, 36, 30, 0.45);
+    backdrop-filter: blur(4px);
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
 }
 
-.seller-portal-wrapper input:focus,
-.seller-portal-wrapper select:focus,
-.seller-portal-wrapper textarea:focus {
-    border-color: #B08D57 !important;
-    box-shadow: 0 0 0 3px rgba(176, 141, 87, 0.2) !important;
+.seller-modal {
+    background-color: #EAE1DD !important;
+    border: 1px solid #C5B8A6 !important;
+    border-radius: var(--radius-xl) !important;
+    box-shadow: var(--shadow-modal);
+    width: 100%;
+    max-width: 500px;
+    overflow: hidden;
+    animation: modalFade 0.25s ease-out;
 }
 
-.seller-portal-wrapper label {
-    font-size: 0.82rem !important;
-    font-weight: 700 !important;
-    color: #172033 !important;
-    margin-bottom: 6px !important;
-    display: block !important;
+@keyframes modalFade {
+    from { opacity: 0; transform: scale(0.96) translateY(8px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.seller-modal-header {
+    padding: 18px 22px;
+    border-bottom: 1px solid #D8CEBE !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #EAE1DD !important;
+}
+
+.seller-modal-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #2C241E !important;
+    margin: 0;
+}
+
+.seller-modal-body {
+    padding: 22px;
+    max-height: 75vh;
+    overflow-y: auto;
+}
+
+.seller-modal-footer {
+    padding: 16px 22px;
+    border-top: 1px solid #D8CEBE !important;
+    background-color: #F0E5D8 !important;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
 }

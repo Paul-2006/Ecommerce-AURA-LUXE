@@ -99,7 +99,7 @@ function SellerStore() {
                         height: "56px",
                         borderRadius: "8px",
                         objectFit: "cover",
-                        border: "2px solid #B08D57"
+                        border: "2px solid var(--merchant-accent)"
                       }}
                     />
                     <div>
@@ -289,10 +289,10 @@ function SellerStore() {
             </div>
 
             {/* Store Verification Card */}
-            <div className="seller-card" style={{ background: "rgba(176, 141, 87, 0.05)", borderColor: "rgba(176, 141, 87, 0.3)" }}>
+            <div className="seller-card" style={{ background: "rgba(194, 182, 165, 0.15)", borderColor: "var(--merchant-border)" }}>
               <div className="seller-card-body text-center space-y-2">
                 <ShieldCheck className="w-10 h-10 text-muted-gold mx-auto" aria-hidden="true" />
-                <h4 style={{ margin: 0, fontWeight: 700, color: "#172033" }}>Verified Merchant Badge</h4>
+                <h4 style={{ margin: 0, fontWeight: 700, color: "var(--merchant-text-heading)" }}>Verified Merchant Badge</h4>
                 <p style={{ fontSize: "0.825rem", color: "#667085" }}>
                   Your store displays the official Verified Merchant mark on all customer product listings.
                 </p>

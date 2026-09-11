@@ -169,7 +169,7 @@ function SellerDashboard() {
       </div>
 
       {/* 17 BUSINESS OVERVIEW STATS (Required by Section 2) */}
-      <h2 style={{ fontSize: "1.1rem", fontWeight: 700, margin: "0 0 12px 0", color: "#172033" }}>
+      <h2 style={{ fontSize: "1.1rem", fontWeight: 700, margin: "0 0 12px 0", color: "var(--merchant-text-heading)" }}>
         Business Overview Metrics
       </h2>
       <div className="seller-grid seller-grid-4 mb-6">
