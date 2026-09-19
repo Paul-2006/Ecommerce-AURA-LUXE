@@ -70,6 +70,15 @@ const AdminReports = lazy(() => import("./pages/admin/AdminReports"));
 const ManageLoginActivity = lazy(() => import("./pages/admin/ManageLoginActivity"));
 const AdminProfile = lazy(() => import("./pages/admin/AdminProfile"));
 
+// Verification System Pages
+const AdminVerificationCenter = lazy(() => import("./pages/admin/AdminVerificationCenter"));
+const SellerVerificationList = lazy(() => import("./pages/admin/SellerVerificationList"));
+const SellerVerificationDetail = lazy(() => import("./pages/admin/SellerVerificationDetail"));
+const DeliveryVerificationList = lazy(() => import("./pages/admin/DeliveryVerificationList"));
+const DeliveryVerificationDetail = lazy(() => import("./pages/admin/DeliveryVerificationDetail"));
+const SellerOnboardingVerification = lazy(() => import("./pages/seller/SellerOnboardingVerification"));
+const DeliveryOnboardingVerification = lazy(() => import("./pages/delivery/DeliveryOnboardingVerification"));
+
 // Warehouse Actions
 const Inventory = lazy(() => import("./pages/warehouse/Inventory"));
 const PackingOrders = lazy(() => import("./pages/warehouse/PackingOrders"));
@@ -200,6 +209,7 @@ function App() {
         >
           <Route index element={<Navigate to="/seller/dashboard" replace />} />
           <Route path="dashboard" element={<SellerDashboard />} />
+          <Route path="verification" element={<SellerOnboardingVerification />} />
           <Route path="products" element={<MyProducts />} />
           <Route path="products/add" element={<AddProduct />} />
           <Route path="products/edit/:id" element={<EditProduct />} />
@@ -232,6 +242,11 @@ function App() {
         >
           <Route index element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="verification" element={<AdminVerificationCenter />} />
+          <Route path="verification/sellers" element={<SellerVerificationList />} />
+          <Route path="verification/seller/:id" element={<SellerVerificationDetail />} />
+          <Route path="verification/delivery" element={<DeliveryVerificationList />} />
+          <Route path="verification/delivery/:id" element={<DeliveryVerificationDetail />} />
           <Route path="customers" element={<ManageCustomers />} />
           <Route path="sellers" element={<ManageSellers />} />
           <Route path="products" element={<ManageProducts />} />
@@ -277,6 +292,14 @@ function App() {
           element={
             <ProtectedRoute allowedRoles={["Delivery", 4]}>
               <DeliveryDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/delivery/verification"
+          element={
+            <ProtectedRoute allowedRoles={["Delivery", 4]}>
+              <DeliveryOnboardingVerification />
             </ProtectedRoute>
           }
         />

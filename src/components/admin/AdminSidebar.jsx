@@ -30,6 +30,7 @@ function AdminSidebar({ isOpen, onClose }) {
 
   const navItems = [
     { label: "Dashboard", path: "/admin/dashboard", icon: LayoutDashboard },
+    { label: "Verification Center", path: "/admin/verification", icon: ShieldCheck },
     { label: "Customers", path: "/admin/customers", icon: Users },
     { label: "Sellers", path: "/admin/sellers", icon: Store },
     { label: "Products Approval", path: "/admin/products", icon: CheckSquare },

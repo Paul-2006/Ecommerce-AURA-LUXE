@@ -33,6 +33,7 @@ function SellerSidebar({ isOpen, onClose }) {
 
   const navItems = [
     { label: "Dashboard", path: "/seller/dashboard", icon: LayoutDashboard },
+    { label: "Verification Status", path: "/seller/verification", icon: ShieldCheck },
     { label: "Products", path: "/seller/products", icon: Package },
     { label: "Inventory", path: "/seller/inventory", icon: Warehouse },
     { label: "Orders", path: "/seller/orders", icon: ShoppingBag },
