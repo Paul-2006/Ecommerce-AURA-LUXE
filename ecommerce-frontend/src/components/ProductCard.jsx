@@ -1,6 +1,6 @@
 import { useState, useContext, memo } from "react";
 import { useNavigate } from "react-router-dom";
-import { Star, Heart, ShoppingCart, CheckCircle2, Zap } from "lucide-react";
+import { Star, Heart, ShoppingCart, CheckCircle2, Zap, Loader2 } from "lucide-react";
 import { AuthContext } from "../context/AuthContext";
 import { useLanguage } from "../context/LanguageContext";
 import { addCart } from "../services/cartService";
@@ -141,13 +141,23 @@ function ProductCard({ product }) {
         {/* Wishlist Heart Action */}
         <button
           type="button"
-          className={`wishlist-toggle-btn ${isWishlisted ? "active" : ""}`}
+          className={`wishlist-toggle-btn ${isWishlisted ? "active" : ""} ${loadingWishlist ? "is-loading" : ""}`}
           onClick={handleToggleWishlist}
           disabled={loadingWishlist}
           title={isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
           aria-label="Wishlist"
         >
-          <Heart size={16} fill={isWishlisted ? "#DC2626" : "none"} stroke={isWishlisted ? "#DC2626" : "#64748B"} aria-hidden="true" />
+          {loadingWishlist ? (
+            <Loader2 size={16} className="wishlist-spinner-icon" aria-hidden="true" />
+          ) : (
+            <Heart
+              size={16}
+              className="heart-icon-svg"
+              fill={isWishlisted ? "#DC2626" : "none"}
+              stroke={isWishlisted ? "#DC2626" : "#64748B"}
+              aria-hidden="true"
+            />
+          )}
         </button>
 
         {/* Brand Pill */}

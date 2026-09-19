@@ -66,19 +66,69 @@
   color: #64748B;
   cursor: pointer;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  transition: all 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, border-color 0.2s ease;
   z-index: 10;
+  padding: 0;
 }
 
-.wishlist-toggle-btn:hover {
+.wishlist-toggle-btn:hover:not(:disabled) {
   transform: scale(1.1);
   background: #FFFFFF;
   border-color: #FCA5A5;
 }
 
+.wishlist-toggle-btn:active:not(:disabled) {
+  transform: scale(0.92);
+}
+
 .wishlist-toggle-btn.active {
   background: #FEF2F2;
   border-color: #FCA5A5;
+  color: #DC2626;
+}
+
+/* Subtle scale pop animation on heart icon when active state changes */
+.wishlist-toggle-btn .heart-icon-svg {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), fill 0.2s ease, stroke 0.2s ease;
+}
+
+.wishlist-toggle-btn.active .heart-icon-svg {
+  animation: heartPop 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes heartPop {
+  0% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Disabled/Loading state */
+.wishlist-toggle-btn:disabled,
+.wishlist-toggle-btn.is-loading {
+  cursor: not-allowed;
+  opacity: 0.9;
+  border-color: #CBD5E1;
+}
+
+/* Small rotating CSS spinner icon inside the 36px circle */
+.wishlist-spinner-icon {
+  animation: wishlistSpin 0.75s linear infinite;
+  color: #2563EB;
+}
+
+@keyframes wishlistSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Brand Tag */
