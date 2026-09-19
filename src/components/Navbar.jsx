@@ -222,7 +222,7 @@ function Navbar() {
             title={isDark ? "Switch to White / Light Mode" : "Switch to Dark Mode"}
             aria-label="Toggle Theme"
           >
-            {isDark ? <Sun size={18} style={{ color: "#f59e0b" }} aria-hidden="true" /> : <Moon size={18} style={{ color: "#0f172a" }} aria-hidden="true" />}
+            {isDark ? <Sun size={18} style={{ color: "#5B3A23" }} aria-hidden="true" /> : <Moon size={18} style={{ color: "#5B3A23" }} aria-hidden="true" />}
           </button>
 
           {user ? (
@@ -234,7 +234,7 @@ function Navbar() {
                 title="Account & Profile Menu"
                 aria-label="User Menu"
               >
-                <div className="profile-avatar-circle" style={{ width: "32px", height: "32px", borderRadius: "50%", background: "#0f172a", color: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "700", fontSize: "14px" }}>
+                <div className="profile-avatar-circle" style={{ width: "32px", height: "32px", borderRadius: "50%", background: "#5B3A23", color: "#FAF4E5", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "700", fontSize: "14px" }}>
                   {(user.username || user.name || "A")[0].toUpperCase()}
                 </div>
                 <div className="user-meta">

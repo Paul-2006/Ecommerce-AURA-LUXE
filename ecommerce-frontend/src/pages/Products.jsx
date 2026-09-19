@@ -434,11 +434,23 @@ function Products() {
         )}
       </div>
 
-      {/* Product Grid or Smart Alternative Recommendations */}
+      {/* Product Grid or Skeleton Shimmer Loaders */}
       {loading ? (
-        <div className="loading-container glass-panel">
-          <div className="loader-spinner"></div>
-          <p>Loading catalog items...</p>
+        <div className="products-grid">
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+            <div key={n} className="glass-panel skeleton-card">
+              <div className="skeleton-box" style={{ height: "180px", width: "100%", borderRadius: "10px" }} />
+              <div style={{ marginTop: "12px" }}>
+                <div className="skeleton-box skeleton-title" style={{ width: "80%" }} />
+                <div className="skeleton-box skeleton-text" style={{ width: "50%" }} />
+                <div className="skeleton-box skeleton-text" style={{ width: "90%" }} />
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "16px" }}>
+                <div className="skeleton-box" style={{ width: "80px", height: "24px" }} />
+                <div className="skeleton-box" style={{ width: "100px", height: "36px", borderRadius: "8px" }} />
+              </div>
+            </div>
+          ))}
         </div>
       ) : filteredProducts.length > 0 ? (
         <div className="products-grid">

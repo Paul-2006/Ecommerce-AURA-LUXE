@@ -8,7 +8,7 @@ import {
   verifyForgotOtp,
   resetPasswordWithToken
 } from "../../services/authService";
-import { Zap, ArrowLeft, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import "../../css/Auth.css";
 
 function CustomerLogin() {
@@ -307,20 +307,6 @@ function CustomerLogin() {
             <button type="submit" className="btn btn-primary btn-lg btn-block" disabled={loading}>
               {loading ? "Authenticating..." : "Sign In"}
             </button>
-
-            <div style={{ marginTop: "12px", textAlign: "center" }}>
-              <button
-                type="button"
-                className="btn btn-secondary btn-sm btn-block"
-                onClick={() => {
-                  setEmail("customer@webkadai.com");
-                  setPassword("Customer@123!");
-                }}
-                style={{ background: "rgba(99, 102, 241, 0.12)", border: "1px solid rgba(99, 102, 241, 0.4)", color: "#818cf8", width: "100%", padding: "10px", borderRadius: "8px", cursor: "pointer", fontWeight: "600", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
-              >
-                <Zap className="w-4 h-4 mr-2" aria-hidden="true" /> Fill Quick Demo Credentials (customer@webkadai.com)
-              </button>
-            </div>
           </form>
         )}
 

@@ -1,6 +1,6 @@
-import { useState, useContext } from "react";
+import { useState, useContext, memo } from "react";
 import { useNavigate } from "react-router-dom";
-import { Star, Heart, ShoppingCart, CheckCircle2 } from "lucide-react";
+import { Star, Heart, ShoppingCart, CheckCircle2, Zap } from "lucide-react";
 import { AuthContext } from "../context/AuthContext";
 import { useLanguage } from "../context/LanguageContext";
 import { addCart } from "../services/cartService";
@@ -18,10 +18,12 @@ function ProductCard({ product }) {
     return local.some((item) => item.productId === product.productId);
   });
   const [addingCart, setAddingCart] = useState(false);
+  const [loadingWishlist, setLoadingWishlist] = useState(false);
 
   const priceVal = product.price || product.bestPrice || 999;
   const originalPrice = Math.round(priceVal * 1.35); // 35% higher MRP
   const discountPercent = Math.round(((originalPrice - priceVal) / originalPrice) * 100);
+  const isOutOfStock = (product.stock ?? product.stockQuantity ?? 10) <= 0;
 
   const formattedPrice = new Intl.NumberFormat("en-IN", {
     style: "currency",
@@ -44,21 +46,36 @@ function ProductCard({ product }) {
 
   const handleToggleWishlist = async (e) => {
     e.stopPropagation();
-    if (isWishlisted) {
-      await removeWishlist(product.productId);
-      setIsWishlisted(false);
-    } else {
-      await addWishlist({
-        customerId: user?.customerId || 1,
-        productId: product.productId,
-        productName: product.productName,
-        brand: product.brand,
-        price: priceVal,
-        image: getProductImage()
-      });
-      setIsWishlisted(true);
+    if (!user) {
+      alert("Please log in to add products to your wishlist.");
+      navigate("/customer/login");
+      return;
     }
-    updateCounts();
+
+    if (loadingWishlist) return;
+    setLoadingWishlist(true);
+
+    try {
+      if (isWishlisted) {
+        await removeWishlist(product.productId);
+        setIsWishlisted(false);
+      } else {
+        await addWishlist({
+          customerId: user?.customerId || user?.userId || 1,
+          productId: product.productId,
+          productName: product.productName,
+          brand: product.brand,
+          price: priceVal,
+          image: getProductImage()
+        });
+        setIsWishlisted(true);
+      }
+      updateCounts();
+    } catch (err) {
+      console.error("Wishlist toggle error:", err);
+    } finally {
+      setLoadingWishlist(false);
+    }
   };
 
   const handleAddToCart = async (e) => {
@@ -81,8 +98,34 @@ function ProductCard({ product }) {
     }
   };
 
+  const handleBuyNow = (e) => {
+    e.stopPropagation();
+    if (isOutOfStock) {
+      alert("This product is currently out of stock.");
+      return;
+    }
+
+    if (!user) {
+      alert("Please log in to purchase products.");
+      navigate("/customer/login");
+      return;
+    }
+
+    const directItem = {
+      productId: product.productId,
+      productName: product.productName,
+      price: priceVal,
+      quantity: 1,
+      image: getProductImage(),
+      sellerProductId: product.sellerProductId || product.productId
+    };
+
+    sessionStorage.setItem("buy_now_direct_item", JSON.stringify(directItem));
+    navigate("/checkout");
+  };
+
   return (
-    <div className="product-card glass-panel" onClick={() => navigate(`/product/${product.productId}`)}>
+    <div className="product-card" onClick={() => navigate(`/product/${product.productId}`)}>
       {/* Top Media, Badges & Wishlist Action */}
       <div className="product-card-media">
         <img
@@ -100,10 +143,11 @@ function ProductCard({ product }) {
           type="button"
           className={`wishlist-toggle-btn ${isWishlisted ? "active" : ""}`}
           onClick={handleToggleWishlist}
-          title={isWishlisted ? "Remove from Saved" : "Save Item"}
+          disabled={loadingWishlist}
+          title={isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
           aria-label="Wishlist"
         >
-          <Heart size={16} fill={isWishlisted ? "#dc2626" : "none"} stroke={isWishlisted ? "#dc2626" : "currentColor"} aria-hidden="true" />
+          <Heart size={16} fill={isWishlisted ? "#DC2626" : "none"} stroke={isWishlisted ? "#DC2626" : "#64748B"} aria-hidden="true" />
         </button>
 
         {/* Brand Pill */}
@@ -140,28 +184,45 @@ function ProductCard({ product }) {
           <span className="delivery-speed-tag">{t("free_delivery")}</span>
         </div>
 
-        {/* Stock & Action Buttons */}
+        {/* Action Buttons */}
         <div className="product-card-actions" onClick={(e) => e.stopPropagation()}>
+          <div className="actions-top-row">
+            <button
+              type="button"
+              className="btn btn-outline btn-sm btn-specs"
+              onClick={() => navigate(`/product/${product.productId}`)}
+            >
+              Specs
+            </button>
+            <button
+              type="button"
+              className={`btn btn-secondary btn-sm add-cart-btn ${addingCart ? "btn-success" : ""}`}
+              onClick={handleAddToCart}
+              disabled={addingCart || isOutOfStock}
+            >
+              {addingCart ? (
+                <>
+                  <CheckCircle2 size={14} aria-hidden="true" /> Added
+                </>
+              ) : (
+                <>
+                  <ShoppingCart size={14} aria-hidden="true" /> {t("add_to_cart")}
+                </>
+              )}
+            </button>
+          </div>
+
           <button
             type="button"
-            className="btn btn-secondary btn-sm"
-            onClick={() => navigate(`/product/${product.productId}`)}
+            className="btn btn-primary btn-sm btn-buy-now"
+            onClick={handleBuyNow}
+            disabled={isOutOfStock}
           >
-            Specs
-          </button>
-          <button
-            type="button"
-            className={`btn btn-primary btn-sm add-cart-btn ${addingCart ? "btn-success" : ""}`}
-            onClick={handleAddToCart}
-            disabled={addingCart}
-          >
-            {addingCart ? (
-              <>
-                <CheckCircle2 size={16} aria-hidden="true" /> Added
-              </>
+            {isOutOfStock ? (
+              "Out of Stock"
             ) : (
               <>
-                <ShoppingCart size={16} aria-hidden="true" /> {t("add_to_cart")}
+                <Zap size={15} aria-hidden="true" /> Buy Now
               </>
             )}
           </button>
@@ -171,4 +232,4 @@ function ProductCard({ product }) {
   );
 }
 
-export default ProductCard;
+export default memo(ProductCard);

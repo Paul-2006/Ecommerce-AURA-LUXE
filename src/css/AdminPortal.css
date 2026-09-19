@@ -3,62 +3,62 @@
    ========================================================================== */
 
 :root {
-    --admin-primary: #172033;
-    --admin-primary-dark: #0E1524;
-    --admin-secondary: #B08D57;
-    --admin-accent: #D4B483;
-    --admin-background: #F6F3ED;
+    --admin-primary: #1E293B;
+    --admin-primary-dark: #0F172A;
+    --admin-secondary: #2563EB;
+    --admin-accent: #2563EB;
+    --admin-background: #F8FAFC;
     --admin-surface: #FFFFFF;
-    --admin-surface-alt: #ECE7DD;
-    --admin-text: #1C2431;
-    --admin-text-secondary: #667085;
-    --admin-border: #D9D3C7;
-    --admin-success: #3F7652;
-    --admin-warning: #A8752A;
-    --admin-danger: #A54A4A;
+    --admin-surface-alt: #F1F5F9;
+    --admin-text: #0F172A;
+    --admin-text-secondary: #64748B;
+    --admin-border: #E2E8F0;
+    --admin-success: #16A34A;
+    --admin-warning: #F59E0B;
+    --admin-danger: #DC2626;
 }
 
 /* Global Body Override when on Admin Portal */
 body:has(.admin-portal-wrapper),
 html:has(.admin-portal-wrapper) {
-    background-color: #F6F3ED !important;
-    background: #F6F3ED !important;
+    background-color: #F8FAFC !important;
+    background: #F8FAFC !important;
 }
 
 /* Base Scope & Layout */
 .admin-portal-wrapper {
-    --admin-primary: #172033;
-    --admin-primary-dark: #0E1524;
-    --admin-secondary: #B08D57;
-    --admin-accent: #D4B483;
-    --admin-background: #F6F3ED;
+    --admin-primary: #1E293B;
+    --admin-primary-dark: #0F172A;
+    --admin-secondary: #2563EB;
+    --admin-accent: #2563EB;
+    --admin-background: #F8FAFC;
     --admin-surface: #FFFFFF;
-    --admin-surface-alt: #ECE7DD;
-    --admin-text: #1C2431;
-    --admin-text-secondary: #667085;
-    --admin-border: #D9D3C7;
-    --admin-success: #3F7652;
-    --admin-warning: #A8752A;
-    --admin-danger: #A54A4A;
+    --admin-surface-alt: #F1F5F9;
+    --admin-text: #0F172A;
+    --admin-text-secondary: #64748B;
+    --admin-border: #E2E8F0;
+    --admin-success: #16A34A;
+    --admin-warning: #F59E0B;
+    --admin-danger: #DC2626;
 
     /* Override global theme variable names within admin portal subtree */
-    --bg-main: #F6F3ED !important;
+    --bg-main: #F8FAFC !important;
     --bg-surface: #FFFFFF !important;
     --bg-card: #FFFFFF !important;
-    --text-main: #1C2431 !important;
-    --text-sub: #1C2431 !important;
-    --text-muted: #667085 !important;
-    --border-light: #D9D3C7 !important;
-    --border-medium: #D9D3C7 !important;
-    --primary: #172033 !important;
-    --accent: #B08D57 !important;
-    --radius-btn: 10px !important;
-    --radius-card: 14px !important;
-    --radius-input: 10px !important;
+    --text-main: #0F172A !important;
+    --text-sub: #334155 !important;
+    --text-muted: #64748B !important;
+    --border-light: #E2E8F0 !important;
+    --border-medium: #CBD5E1 !important;
+    --primary: #2563EB !important;
+    --accent: #2563EB !important;
+    --radius-btn: 8px !important;
+    --radius-card: 12px !important;
+    --radius-input: 8px !important;
 
     min-height: 100vh;
-    background-color: #F6F3ED !important;
-    color: #1C2431 !important;
+    background-color: #F8FAFC !important;
+    color: #0F172A !important;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
     display: flex;
     position: relative;
@@ -110,20 +110,20 @@ html:has(.admin-portal-wrapper) {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #172033 !important;
-    color: #F6F3ED !important;
+    background-color: #FFFFFF !important;
+    color: #0F172A !important;
     display: flex;
     flex-direction: column;
     z-index: 1000;
-    border-right: 1px solid #0E1524 !important;
-    box-shadow: 4px 0 20px rgba(14, 21, 36, 0.15);
+    border-right: 1px solid #E2E8F0 !important;
+    box-shadow: var(--shadow-sm);
     transition: transform 0.3s ease;
     overflow-y: auto;
 }
 
 .admin-sidebar-header {
     padding: 20px 20px 16px 20px;
-    border-bottom: 1px solid rgba(217, 211, 199, 0.15) !important;
+    border-bottom: 1px solid #E2E8F0 !important;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -139,8 +139,8 @@ html:has(.admin-portal-wrapper) {
 .admin-brand-icon {
     width: 36px;
     height: 36px;
-    border-radius: 10px;
-    background: #B08D57 !important;
+    border-radius: 8px;
+    background: #2563EB !important;
     color: #FFFFFF !important;
     display: flex;
     align-items: center;
@@ -158,13 +158,13 @@ html:has(.admin-portal-wrapper) {
     font-size: 0.95rem;
     font-weight: 800;
     letter-spacing: 0.05em;
-    color: #FFFFFF !important;
+    color: #0F172A !important;
     line-height: 1.2;
 }
 
 .admin-brand-subtitle {
     font-size: 0.72rem;
-    color: #D4B483 !important;
+    color: #2563EB !important;
     letter-spacing: 0.03em;
     font-weight: 600;
 }
@@ -184,10 +184,10 @@ html:has(.admin-portal-wrapper) {
     align-items: center;
     gap: 12px;
     padding: 11px 16px;
-    border-radius: 10px !important;
+    border-radius: 8px !important;
     font-size: 0.88rem;
     font-weight: 600;
-    color: #ECE7DD !important;
+    color: #334155 !important;
     text-decoration: none !important;
     transition: all 0.2s ease;
     cursor: pointer;
@@ -198,20 +198,19 @@ html:has(.admin-portal-wrapper) {
 }
 
 .admin-nav-item:hover {
-    background-color: rgba(212, 180, 131, 0.15) !important;
-    color: #D4B483 !important;
-    transform: translateX(3px);
+    background-color: #F1F5F9 !important;
+    color: #2563EB !important;
 }
 
 .admin-nav-item.active {
-    background-color: #B08D57 !important;
-    color: #FFFFFF !important;
+    background-color: #EFF6FF !important;
+    color: #2563EB !important;
     font-weight: 700;
-    box-shadow: 0 4px 12px rgba(176, 141, 87, 0.3);
+    border-left: 3px solid #2563EB;
 }
 
 .admin-nav-item.active svg {
-    color: #FFFFFF !important;
+    color: #2563EB !important;
 }
 
 .admin-nav-item svg {

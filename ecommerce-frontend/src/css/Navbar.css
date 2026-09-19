@@ -7,28 +7,20 @@
   top: 0;
   z-index: 100;
   width: 100%;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: #FFFFFF;
   border-bottom: 1px solid var(--border-light);
   box-shadow: var(--shadow-sm);
   transition: all var(--transition-normal);
 }
 
-[data-theme="dark"] .navbar-wrapper {
-  background: rgba(11, 15, 25, 0.95);
-  border-bottom: 1px solid var(--border-light);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
 /* Announcement Bar */
 .nav-top-bar {
-  background: #5B3A23;
-  color: #FFFBF2;
+  background: #1E293B;
+  color: #F8FAFC;
   font-family: var(--font-sans);
   font-size: 0.78rem;
   padding: 6px 0;
-  border-bottom: 1px solid rgba(214, 182, 93, 0.2);
+  border-bottom: 1px solid #334155;
 }
 
 .nav-top-content {
@@ -45,7 +37,7 @@
 }
 
 .top-announcement strong {
-  color: #E69B3D;
+  color: #38BDF8;
   font-weight: 700;
 }
 
@@ -56,13 +48,13 @@
 }
 
 .top-quick-links a {
-  color: #F5E2B8;
+  color: #94A3B8;
   font-size: 0.76rem;
   transition: color var(--transition-fast);
 }
 
 .top-quick-links a:hover {
-  color: #D6B65D;
+  color: #FFFFFF;
 }
 
 /* Main Header Row */
@@ -82,7 +74,7 @@
   font-family: var(--font-sans);
   font-size: 1.5rem;
   font-weight: 800;
-  color: #5B3A23;
+  color: #0F172A;
   text-decoration: none;
   letter-spacing: -0.02em;
 }
@@ -92,7 +84,7 @@
 }
 
 .brand-logo-accent {
-  color: var(--accent);
+  color: #2563EB;
 }
 
 /* Search Bar */
@@ -243,28 +235,38 @@
   width: 38px;
   height: 38px;
   border-radius: var(--radius-btn);
-  background: var(--bg-surface);
-  border: 1px solid var(--border-medium);
-  color: var(--text-main);
+  background: #D6B65D;
+  border: 1px solid #C5A44B;
+  color: #5B3A23;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   padding: 0;
-  box-shadow: none;
+  box-shadow: 0 2px 6px rgba(214, 182, 93, 0.2);
   transition: all var(--transition-fast);
 }
 
 .nav-icon-btn.notif-bell-btn:hover,
 .theme-toggle-btn:hover {
-  border-color: var(--primary);
-  color: var(--primary);
+  background: #C5A44B;
+  border-color: #A67C3D;
+  color: #3A2314;
+  transform: translateY(-1px);
+}
+
+[data-theme="dark"] .nav-icon-btn.notif-bell-btn,
+[data-theme="dark"] .theme-toggle-btn {
+  background: #D6B65D;
+  border-color: #C5A44B;
+  color: #5B3A23;
 }
 
 [data-theme="dark"] .nav-icon-btn.notif-bell-btn:hover,
 [data-theme="dark"] .theme-toggle-btn:hover {
-  border-color: #38bdf8;
-  color: #38bdf8;
+  background: #C5A44B;
+  border-color: #A67C3D;
+  color: #3A2314;
 }
 
 .notif-badge {
@@ -293,19 +295,34 @@
   align-items: center;
   gap: 6px;
   padding: 6px 12px;
-  background: var(--bg-surface);
-  color: var(--text-main);
-  border: 1px solid var(--border-medium);
+  background: #D6B65D;
+  color: #5B3A23;
+  border: 1px solid #C5A44B;
   border-radius: var(--radius-btn);
   font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: none;
+  box-shadow: 0 2px 6px rgba(214, 182, 93, 0.2);
   transition: all var(--transition-fast);
 }
 
 .lang-selector-btn:hover {
-  border-color: var(--primary);
+  background: #C5A44B;
+  border-color: #A67C3D;
+  color: #3A2314;
+  transform: translateY(-1px);
+}
+
+[data-theme="dark"] .lang-selector-btn {
+  background: #D6B65D;
+  border-color: #C5A44B;
+  color: #5B3A23;
+}
+
+[data-theme="dark"] .lang-selector-btn:hover {
+  background: #C5A44B;
+  border-color: #A67C3D;
+  color: #3A2314;
 }
 
 .lang-dropdown-menu {
@@ -352,16 +369,28 @@
   align-items: center;
   gap: 8px;
   padding: 6px 14px;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-medium);
+  background: #D6B65D;
+  border: 1px solid #C5A44B;
   border-radius: var(--radius-btn);
   cursor: pointer;
-  box-shadow: none;
+  box-shadow: 0 2px 6px rgba(214, 182, 93, 0.2);
   transition: all var(--transition-fast);
 }
 
 .user-profile-btn:hover {
-  border-color: var(--primary);
+  background: #C5A44B;
+  border-color: #A67C3D;
+  transform: translateY(-1px);
+}
+
+[data-theme="dark"] .user-profile-btn {
+  background: #D6B65D;
+  border-color: #C5A44B;
+}
+
+[data-theme="dark"] .user-profile-btn:hover {
+  background: #C5A44B;
+  border-color: #A67C3D;
 }
 
 .user-meta {
@@ -374,7 +403,7 @@
 .user-name {
   font-size: 0.84rem;
   font-weight: 600;
-  color: var(--text-main);
+  color: #5B3A23;
   line-height: 1.1;
   max-width: 110px;
   overflow: hidden;
@@ -385,7 +414,7 @@
 .user-role-badge {
   font-size: 0.68rem;
   font-weight: 700;
-  color: var(--accent);
+  color: #442A18;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }

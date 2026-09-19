@@ -13,7 +13,9 @@ function Checkout() {
   const { user, updateCounts } = useContext(AuthContext);
   const { t } = useLanguage();
 
-  const cartItems = getLocalCart();
+  const directItemStr = sessionStorage.getItem("buy_now_direct_item");
+  const isDirectBuyNow = Boolean(directItemStr);
+  const cartItems = isDirectBuyNow ? [JSON.parse(directItemStr)] : getLocalCart();
 
   // Load saved user details if available, otherwise prompt new customer
   const [address, setAddress] = useState(() => {
@@ -139,8 +141,12 @@ function Checkout() {
         paymentMethod
       });
 
-      // Clear local cart
-      saveLocalCart([]);
+      // Clear local cart or direct buy now item
+      if (isDirectBuyNow) {
+        sessionStorage.removeItem("buy_now_direct_item");
+      } else {
+        saveLocalCart([]);
+      }
       updateCounts();
 
       // Show Acknowledgement Modal
@@ -158,7 +164,11 @@ function Checkout() {
         paymentMethod
       });
 
-      saveLocalCart([]);
+      if (isDirectBuyNow) {
+        sessionStorage.removeItem("buy_now_direct_item");
+      } else {
+        saveLocalCart([]);
+      }
       updateCounts();
       setOrderAckData(ack);
     } finally {

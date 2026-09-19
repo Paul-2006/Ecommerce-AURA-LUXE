@@ -5,45 +5,45 @@
    ========================================================================== */
 
 :root {
-    /* Centralized Warm Palette CSS Variables */
-    --merchant-bg: #F0E5D8;
-    --merchant-surface: #EAE1DD;
-    --merchant-secondary: #D1C6B0;
-    --merchant-muted: #B7A99A;
-    --merchant-accent: #C2B6A5;
-    --merchant-accent-hover: #B4A795;
-    --merchant-primary-dark: #2C241E;
+    /* Centralized Clean E-Commerce Palette CSS Variables */
+    --merchant-bg: #F8FAFC;
+    --merchant-surface: #FFFFFF;
+    --merchant-secondary: #2563EB;
+    --merchant-muted: #64748B;
+    --merchant-accent: #2563EB;
+    --merchant-accent-hover: #1D4ED8;
+    --merchant-primary-dark: #1E293B;
     
     /* Typography Palette */
-    --merchant-text-heading: #2C241E;
-    --merchant-text-body: #3D332A;
-    --merchant-text-muted: #6E6153;
+    --merchant-text-heading: #0F172A;
+    --merchant-text-body: #334155;
+    --merchant-text-muted: #64748B;
     
     /* Borders & Outlines */
-    --merchant-border: #D8CEBE;
-    --merchant-border-dark: #C5B8A6;
+    --merchant-border: #E2E8F0;
+    --merchant-border-dark: #CBD5E1;
 
     /* Legacy Map for Existing Components */
-    --seller-background: #F0E5D8;
-    --seller-surface: #EAE1DD;
-    --seller-surface-alt: #D1C6B0;
-    --seller-primary: #2C241E;
-    --seller-primary-dark: #2C241E;
-    --seller-secondary: #C2B6A5;
-    --seller-accent: #C2B6A5;
-    --seller-text: #3D332A;
-    --seller-text-secondary: #6E6153;
-    --seller-border: #D8CEBE;
+    --seller-background: #F8FAFC;
+    --seller-surface: #FFFFFF;
+    --seller-surface-alt: #F1F5F9;
+    --seller-primary: #2563EB;
+    --seller-primary-dark: #1E293B;
+    --seller-secondary: #2563EB;
+    --seller-accent: #2563EB;
+    --seller-text: #0F172A;
+    --seller-text-secondary: #64748B;
+    --seller-border: #E2E8F0;
 
-    /* Status Colors (Warm Restrained Neutral Variations) */
-    --seller-success: #2D5230;
-    --seller-success-bg: #DCE6D8;
-    --seller-warning: #7A541E;
-    --seller-warning-bg: #F5E8D3;
-    --seller-danger: #7E3B3B;
-    --seller-danger-bg: #EAD3D3;
-    --seller-info: #4D3A5D;
-    --seller-info-bg: #E0D8E8;
+    /* Status Colors */
+    --seller-success: #16A34A;
+    --seller-success-bg: #DCFCE7;
+    --seller-warning: #F59E0B;
+    --seller-warning-bg: #FEF3C7;
+    --seller-danger: #DC2626;
+    --seller-danger-bg: #FEE2E2;
+    --seller-info: #0EA5E9;
+    --seller-info-bg: #E0F2FE;
 
     /* Border Radius Scale */
     --radius-sm: 8px;
@@ -53,9 +53,9 @@
     --radius-full: 9999px;
 
     /* Refined Subtle Shadows */
-    --shadow-subtle: 0 2px 8px rgba(44, 36, 30, 0.04);
-    --shadow-card: 0 4px 14px rgba(44, 36, 30, 0.05);
-    --shadow-modal: 0 12px 32px rgba(44, 36, 30, 0.12);
+    --shadow-subtle: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.06);
+    --shadow-modal: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
 }
 
 /* Global Application Body Override */
@@ -135,20 +135,20 @@ html:has(.seller-portal-wrapper) {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #2C241E !important;
-    color: #F0E5D8 !important;
+    background-color: #FFFFFF !important;
+    color: #0F172A !important;
     display: flex;
     flex-direction: column;
     z-index: 1000;
-    border-right: 1px solid #1E1814 !important;
-    box-shadow: 4px 0 20px rgba(44, 36, 30, 0.12);
+    border-right: 1px solid #E2E8F0 !important;
+    box-shadow: var(--shadow-sm);
     transition: transform 0.3s ease;
     overflow-y: auto;
 }
 
 .seller-sidebar-header {
     padding: 22px 20px 18px 20px;
-    border-bottom: 1px solid rgba(240, 229, 216, 0.12) !important;
+    border-bottom: 1px solid #E2E8F0 !important;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -164,15 +164,15 @@ html:has(.seller-portal-wrapper) {
 .seller-brand-icon {
     width: 38px;
     height: 38px;
-    border-radius: var(--radius-md);
-    background: #C2B6A5 !important;
-    color: #2C241E !important;
+    border-radius: 8px;
+    background: #2563EB !important;
+    color: #FFFFFF !important;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 700;
     font-size: 1.1rem;
-    box-shadow: var(--shadow-subtle);
+    box-shadow: var(--shadow-sm);
 }
 
 .seller-brand-text {
@@ -184,13 +184,13 @@ html:has(.seller-portal-wrapper) {
     font-size: 1rem;
     font-weight: 700;
     letter-spacing: 0.05em;
-    color: #F0E5D8 !important;
+    color: #0F172A !important;
     line-height: 1.1;
 }
 
 .seller-brand-subtitle {
     font-size: 0.72rem;
-    color: #B7A99A !important;
+    color: #2563EB !important;
     margin-top: 2px;
 }
 
@@ -207,8 +207,8 @@ html:has(.seller-portal-wrapper) {
     align-items: center;
     gap: 12px;
     padding: 10px 14px;
-    border-radius: var(--radius-md) !important;
-    color: #D1C6B0 !important;
+    border-radius: 8px !important;
+    color: #334155 !important;
     text-decoration: none;
     font-size: 0.875rem;
     font-weight: 500;
@@ -216,15 +216,15 @@ html:has(.seller-portal-wrapper) {
 }
 
 .seller-nav-item:hover {
-    background-color: rgba(209, 198, 176, 0.12) !important;
-    color: #F0E5D8 !important;
+    background-color: #F1F5F9 !important;
+    color: #2563EB !important;
 }
 
 .seller-nav-item.active {
-    background-color: #C2B6A5 !important;
-    color: #2C241E !important;
+    background-color: #EFF6FF !important;
+    color: #2563EB !important;
     font-weight: 700 !important;
-    box-shadow: var(--shadow-subtle);
+    border-left: 3px solid #2563EB;
 }
 
 .seller-sidebar-footer {

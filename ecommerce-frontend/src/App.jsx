@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext";
 import useControlledNavigation from "./hooks/useControlledNavigation";
@@ -8,75 +8,76 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import ProductCompareChatbot from "./components/ProductCompareChatbot";
 import DynamicEcommerceBackground from "./components/DynamicEcommerceBackground";
 
-// Customer & General Pages
+// Eager Core Pages
 import Home from "./pages/Home";
-import Products from "./pages/Products";
-import ProductDetails from "./pages/ProductDetails";
-import Wishlist from "./pages/Wishlist";
-import Cart from "./pages/Cart";
-import Checkout from "./pages/Checkout";
-import Orders from "./pages/Orders";
 import Register from "./pages/Register";
 import PortalLogin from "./pages/PortalLogin";
-import Profile from "./pages/Profile";
 
-// Role-Specific Authentication Logins
-import CustomerLogin from "./pages/auth/CustomerLogin";
-import SellerLogin from "./pages/auth/SellerLogin";
-import AdminLogin from "./pages/auth/AdminLogin";
-import WarehouseLogin from "./pages/auth/WarehouseLogin";
-import DeliveryLogin from "./pages/auth/DeliveryLogin";
+// Lazy-Loaded Customer Pages
+const Products = lazy(() => import("./pages/Products"));
+const ProductDetails = lazy(() => import("./pages/ProductDetails"));
+const Wishlist = lazy(() => import("./pages/Wishlist"));
+const Cart = lazy(() => import("./pages/Cart"));
+const Checkout = lazy(() => import("./pages/Checkout"));
+const Orders = lazy(() => import("./pages/Orders"));
+const Profile = lazy(() => import("./pages/Profile"));
 
-// Dashboards
-import CustomerDashboard from "./pages/dashboards/CustomerDashboard";
-import SellerDashboard from "./pages/dashboards/SellerDashboard";
-import AdminDashboard from "./pages/dashboards/AdminDashboard";
-import WarehouseDashboard from "./pages/dashboards/WarehouseDashboard";
-import DeliveryDashboard from "./pages/dashboards/DeliveryDashboard";
+// Lazy-Loaded Logins
+const CustomerLogin = lazy(() => import("./pages/auth/CustomerLogin"));
+const SellerLogin = lazy(() => import("./pages/auth/SellerLogin"));
+const AdminLogin = lazy(() => import("./pages/auth/AdminLogin"));
+const WarehouseLogin = lazy(() => import("./pages/auth/WarehouseLogin"));
+const DeliveryLogin = lazy(() => import("./pages/auth/DeliveryLogin"));
 
-// Seller Portal Components & Pages
-import SellerLayout from "./components/seller/SellerLayout";
-import AddProduct from "./pages/seller/AddProduct";
-import MyProducts from "./pages/seller/MyProducts";
-import EditProduct from "./pages/seller/EditProduct";
-import SellerInventory from "./pages/seller/SellerInventory";
-import SellerOrders from "./pages/seller/SellerOrders";
-import SellerReturns from "./pages/seller/SellerReturns";
-import SellerCustomers from "./pages/seller/SellerCustomers";
-import SellerReviews from "./pages/seller/SellerReviews";
-import SellerComplaints from "./pages/seller/SellerComplaints";
-import SellerAnalytics from "./pages/seller/SellerAnalytics";
-import SellerPayments from "./pages/seller/SellerPayments";
-import SellerShipping from "./pages/seller/SellerShipping";
-import SellerNotifications from "./pages/seller/SellerNotifications";
-import SellerReports from "./pages/seller/SellerReports";
-import SellerStore from "./pages/seller/SellerStore";
-import SellerProfile from "./pages/seller/SellerProfile";
-import SellerSettings from "./pages/seller/SellerSettings";
+// Lazy-Loaded Dashboards
+const CustomerDashboard = lazy(() => import("./pages/dashboards/CustomerDashboard"));
+const SellerDashboard = lazy(() => import("./pages/dashboards/SellerDashboard"));
+const AdminDashboard = lazy(() => import("./pages/dashboards/AdminDashboard"));
+const WarehouseDashboard = lazy(() => import("./pages/dashboards/WarehouseDashboard"));
+const DeliveryDashboard = lazy(() => import("./pages/dashboards/DeliveryDashboard"));
 
-import AdminLayout from "./components/admin/AdminLayout";
+// Seller Portal
+const SellerLayout = lazy(() => import("./components/seller/SellerLayout"));
+const AddProduct = lazy(() => import("./pages/seller/AddProduct"));
+const MyProducts = lazy(() => import("./pages/seller/MyProducts"));
+const EditProduct = lazy(() => import("./pages/seller/EditProduct"));
+const SellerInventory = lazy(() => import("./pages/seller/SellerInventory"));
+const SellerOrders = lazy(() => import("./pages/seller/SellerOrders"));
+const SellerReturns = lazy(() => import("./pages/seller/SellerReturns"));
+const SellerCustomers = lazy(() => import("./pages/seller/SellerCustomers"));
+const SellerReviews = lazy(() => import("./pages/seller/SellerReviews"));
+const SellerComplaints = lazy(() => import("./pages/seller/SellerComplaints"));
+const SellerAnalytics = lazy(() => import("./pages/seller/SellerAnalytics"));
+const SellerPayments = lazy(() => import("./pages/seller/SellerPayments"));
+const SellerShipping = lazy(() => import("./pages/seller/SellerShipping"));
+const SellerNotifications = lazy(() => import("./pages/seller/SellerNotifications"));
+const SellerReports = lazy(() => import("./pages/seller/SellerReports"));
+const SellerStore = lazy(() => import("./pages/seller/SellerStore"));
+const SellerProfile = lazy(() => import("./pages/seller/SellerProfile"));
+const SellerSettings = lazy(() => import("./pages/seller/SellerSettings"));
 
-// Admin Management Pages
-import ManageProducts from "./pages/admin/ManageProducts";
-import ManageSellers from "./pages/admin/ManageSellers";
-import ManageUsers from "./pages/admin/ManageUsers";
-import ManageCustomers from "./pages/admin/ManageCustomers";
-import ManageOrders from "./pages/admin/ManageOrders";
-import AdminWarehouseMonitoring from "./pages/admin/AdminWarehouseMonitoring";
-import AdminDeliveryMonitoring from "./pages/admin/AdminDeliveryMonitoring";
-import ManageComplaints from "./pages/admin/ManageComplaints";
-import AdminReports from "./pages/admin/AdminReports";
-import ManageLoginActivity from "./pages/admin/ManageLoginActivity";
-import AdminProfile from "./pages/admin/AdminProfile";
+// Admin Portal
+const AdminLayout = lazy(() => import("./components/admin/AdminLayout"));
+const ManageProducts = lazy(() => import("./pages/admin/ManageProducts"));
+const ManageSellers = lazy(() => import("./pages/admin/ManageSellers"));
+const ManageUsers = lazy(() => import("./pages/admin/ManageUsers"));
+const ManageCustomers = lazy(() => import("./pages/admin/ManageCustomers"));
+const ManageOrders = lazy(() => import("./pages/admin/ManageOrders"));
+const AdminWarehouseMonitoring = lazy(() => import("./pages/admin/AdminWarehouseMonitoring"));
+const AdminDeliveryMonitoring = lazy(() => import("./pages/admin/AdminDeliveryMonitoring"));
+const ManageComplaints = lazy(() => import("./pages/admin/ManageComplaints"));
+const AdminReports = lazy(() => import("./pages/admin/AdminReports"));
+const ManageLoginActivity = lazy(() => import("./pages/admin/ManageLoginActivity"));
+const AdminProfile = lazy(() => import("./pages/admin/AdminProfile"));
 
 // Warehouse Actions
-import Inventory from "./pages/warehouse/Inventory";
-import PackingOrders from "./pages/warehouse/PackingOrders";
+const Inventory = lazy(() => import("./pages/warehouse/Inventory"));
+const PackingOrders = lazy(() => import("./pages/warehouse/PackingOrders"));
 
 // Delivery Actions
-import AssignedDeliveries from "./pages/delivery/AssignedDeliveries";
-import DeliveryOTP from "./pages/delivery/DeliveryOTP";
-import DeliveryHistory from "./pages/delivery/DeliveryHistory";
+const AssignedDeliveries = lazy(() => import("./pages/delivery/AssignedDeliveries"));
+const DeliveryOTP = lazy(() => import("./pages/delivery/DeliveryOTP"));
+const DeliveryHistory = lazy(() => import("./pages/delivery/DeliveryHistory"));
 
 // Navigation Enforcer Wrapper Inside BrowserRouter
 function ControlledNavigationEnforcer() {
@@ -102,6 +103,16 @@ function MainEntryPoint() {
   return <Home />;
 }
 
+function RouteFallbackLoader() {
+  return (
+    <div style={{ minHeight: "60vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "40px 20px" }}>
+      <div className="skeleton-box" style={{ width: "80px", height: "80px", borderRadius: "50%", marginBottom: "16px" }} />
+      <div className="skeleton-box" style={{ width: "220px", height: "24px", borderRadius: "8px", marginBottom: "8px" }} />
+      <div className="skeleton-box" style={{ width: "160px", height: "14px", borderRadius: "6px" }} />
+    </div>
+  );
+}
+
 function App() {
   return (
     <BrowserRouter>
@@ -110,7 +121,8 @@ function App() {
       <Navbar />
       <ProductCompareChatbot />
 
-      <Routes>
+      <Suspense fallback={<RouteFallbackLoader />}>
+        <Routes>
         {/* Main Entry Point (First Page is Login Portal when unauthenticated) */}
         <Route path="/" element={<MainEntryPoint />} />
         <Route path="/login" element={<PortalLogin />} />
@@ -296,6 +308,7 @@ function App() {
         {/* Fallback Wildcard Catch-All */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 }

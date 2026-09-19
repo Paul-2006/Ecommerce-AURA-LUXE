@@ -2,7 +2,6 @@ import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { loginAdmin } from "../../services/authService";
-import { Zap } from "lucide-react";
 import "../../css/Auth.css";
 
 function AdminLogin() {
@@ -98,20 +97,6 @@ function AdminLogin() {
           <button type="submit" className="btn btn-luxury btn-lg btn-block" disabled={loading}>
             {loading ? "Verifying Clearance..." : "Authenticate Admin Clearance"}
           </button>
-
-          <div style={{ marginTop: "12px", textAlign: "center" }}>
-            <button
-              type="button"
-              className="btn btn-secondary btn-sm btn-block"
-              onClick={() => {
-                setEmail("admin@nexstore.com");
-                setPassword("Admin@123!");
-              }}
-              style={{ background: "rgba(239, 68, 68, 0.12)", border: "1px solid rgba(239, 68, 68, 0.4)", color: "#f87171", width: "100%", padding: "10px", borderRadius: "8px", cursor: "pointer", fontWeight: "600", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
-            >
-              <Zap className="w-4 h-4 mr-2" aria-hidden="true" /> Fill Quick Demo Credentials (admin@nexstore.com)
-            </button>
-          </div>
         </form>
 
         <div className="auth-footer-links">

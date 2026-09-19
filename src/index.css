@@ -1,77 +1,82 @@
 :root {
-  /* Classical & Warm Luxury E-Commerce Palette - 5-Color Requested System */
-  /* Palette: #D6B65D, #A67C3D, #E69B3D, #F5E2B8, #5B3A23 */
+  /* Clean Professional E-Commerce Palette System */
+  /* Primary Actions & Highlights */
+  --primary: #2563EB;            /* Primary Blue */
+  --primary-hover: #1D4ED8;      /* Primary Dark Blue */
+  --primary-light: #EFF6FF;      /* Very Light Blue */
+  --primary-glow: rgba(37, 99, 235, 0.12);
+  --primary-gradient: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
   
-  --primary: #5B3A23;            /* Deep Roasted Espresso Coffee */
-  --primary-hover: #442A18;
-  --primary-light: #7A5134;
-  --primary-glow: rgba(91, 58, 35, 0.12);
-  --primary-gradient: linear-gradient(135deg, #5B3A23 0%, #442A18 100%);
+  --secondary: #F1F5F9;          /* Secondary Light Slate */
+  --secondary-hover: #E2E8F0;
+  --secondary-gradient: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
   
-  --secondary: #A67C3D;          /* Rich Antique Bronze / Dark Gold */
-  --secondary-hover: #8C6730;
-  --secondary-gradient: linear-gradient(135deg, #A67C3D 0%, #8C6730 100%);
+  --accent: #2563EB;             /* Primary Accent */
+  --accent-hover: #1D4ED8;
+  --accent-light: #EFF6FF;
+  --accent-gradient: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+
+  --gold: #F59E0B;               /* Warning / Amber */
+  --gold-hover: #D97706;
+  --gold-light: #FEF3C7;
+
+  --emerald: #16A34A;            /* Success Green */
+  --emerald-hover: #15803D;
+  --emerald-light: #DCFCE7;
   
-  --accent: #E69B3D;             /* Warm Amber Accent / Add-to-Cart Highlight */
-  --accent-hover: #C8822B;
-  --accent-light: #FDF4E7;
-  --accent-gradient: linear-gradient(135deg, #E69B3D 0%, #C8822B 100%);
+  --success: #16A34A;
+  --success-dark: #15803D;
+  --success-glow: rgba(22, 163, 74, 0.12);
 
-  --gold: #D6B65D;               /* Warm Soft Gold / Champagne Gold */
-  --gold-hover: #C5A44B;
-  --gold-light: #FAF4E5;
-
-  --emerald: #2D5230;            /* Restrained Warm Success Green */
-  --emerald-hover: #213D24;
-  --emerald-light: #E4EFE5;
+  --warning: #F59E0B;
+  --warning-dark: #B45309;
+  --warning-glow: rgba(245, 158, 11, 0.12);
   
-  --success: #2D5230;
-  --success-dark: #213D24;
-  --success-glow: rgba(45, 82, 48, 0.12);
+  --danger: #DC2626;
+  --danger-dark: #B91C1C;
+  --danger-glow: rgba(220, 38, 38, 0.12);
 
-  --warning: #A67C3D;
-  --warning-dark: #8C6730;
-  --warning-glow: rgba(166, 124, 61, 0.12);
-  
-  --danger: #8C3333;
-  --danger-dark: #6E2626;
-  --danger-glow: rgba(140, 51, 51, 0.12);
+  --info: #0EA5E9;
+  --info-dark: #0369A1;
+  --info-light: #E0F2FE;
 
-  /* Neutrals & Surfaces - Warm Cream & Vanilla Palette */
-  --bg-main: #F5E2B8;            /* Light Cream / Warm Ivory Main Background */
-  --bg-surface: #FFFBF2;         /* Warm Vanilla Surface */
-  --bg-card: #FFFBF2;            /* Card Surface */
-  --bg-card-hover: #FAF0D8;
-  --bg-glass: rgba(255, 251, 242, 0.95);
-  --bg-header: #FFFBF2;
-  --bg-subnav: #5B3A23;          /* Dark Espresso Subnav / Top Announcement Bar */
+  /* Backgrounds & Surfaces */
+  --bg-main: #F8FAFC;            /* Main Light Gray Background */
+  --bg-surface: #FFFFFF;         /* Pure White Card Surface */
+  --bg-card: #FFFFFF;            /* Card Surface */
+  --bg-card-hover: #F8FAFC;
+  --bg-glass: #FFFFFF;
+  --bg-header: #FFFFFF;
+  --bg-subnav: #1E293B;          /* Dark Subnav / Header */
 
-  --text-main: #5B3A23;          /* Deep Roasted Coffee Main Text */
-  --text-sub: #4A3220;           /* Medium Coffee Subtext */
-  --text-muted: #7D5E46;         /* Warm Wood Muted Text */
-  --text-inverse: #FFFBF2;
+  /* Text Colors */
+  --text-main: #0F172A;          /* Main Deep Slate Text */
+  --text-sub: #334155;           /* Secondary Slate Text */
+  --text-muted: #64748B;         /* Muted Slate Text */
+  --text-inverse: #FFFFFF;
 
-  --border-light: #D6B65D;       /* Champagne Gold Soft Border */
-  --border-medium: #A67C3D;      /* Antique Bronze Medium Border */
-  --border-glass: #D6B65D;
-  --border-focus: #E69B3D;
+  /* Borders */
+  --border-light: #E2E8F0;       /* Normal Border */
+  --border-medium: #CBD5E1;      /* Stronger Border */
+  --border-glass: #E2E8F0;
+  --border-focus: #2563EB;
 
-  /* Classic Elevation Shadows */
-  --shadow-sm: 0 1px 3px 0 rgba(91, 58, 35, 0.06), 0 1px 2px -1px rgba(91, 58, 35, 0.04);
-  --shadow-md: 0 4px 12px -2px rgba(91, 58, 35, 0.09), 0 2px 6px -2px rgba(91, 58, 35, 0.05);
-  --shadow-lg: 0 12px 24px -4px rgba(91, 58, 35, 0.14), 0 4px 8px -4px rgba(91, 58, 35, 0.08);
-  --shadow-glow: 0 0 20px rgba(230, 155, 61, 0.25);
+  /* Elevation Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  --shadow-glow: 0 0 12px rgba(37, 99, 235, 0.15);
 
-  /* Clean Typography Hierarchy */
+  /* Typography */
   --font-sans: 'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-serif: var(--font-sans);
   --font-heading: var(--font-sans);
 
-  /* Unified Rounded Geometry */
-  --radius-btn: 10px;
-  --radius-input: 10px;
+  /* Geometry Tokens */
+  --radius-btn: 8px;
+  --radius-input: 8px;
   --radius-card: 12px;
-  --radius-xs: 6px;
+  --radius-xs: 4px;
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
@@ -80,11 +85,21 @@
   --radius-full: 9999px;
 
   --transition-fast: 0.15s ease;
-  --transition-normal: 0.25s ease;
-  --transition-bounce: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 0.2s ease;
+  --transition-bounce: 0.25s ease;
 
-  --scrollbar-thumb: #A67C3D;
-  --scrollbar-track: #F5E2B8;
+  --scrollbar-thumb: #CBD5E1;
+  --scrollbar-track: #F8FAFC;
+
+  /* Standardized Spacing Scale System */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
 }
 
 /* Dark Theme Palette (Obsidian & Deep Slate) */
@@ -459,3 +474,68 @@ textarea:focus,
   70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(5, 150, 105, 0); }
   100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(5, 150, 105, 0); }
 }
+
+/* Shimmer Skeleton Loaders */
+@keyframes skeleton-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-box {
+  background: linear-gradient(90deg, rgba(166, 124, 61, 0.08) 25%, rgba(166, 124, 61, 0.18) 37%, rgba(166, 124, 61, 0.08) 63%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+.skeleton-text {
+  height: 16px;
+  margin-bottom: var(--space-2);
+  border-radius: var(--radius-xs);
+}
+
+.skeleton-title {
+  height: 24px;
+  width: 60%;
+  margin-bottom: var(--space-3);
+}
+
+.skeleton-card {
+  border-radius: var(--radius-card);
+  padding: var(--space-4);
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.skeleton-table-row {
+  height: 48px;
+  width: 100%;
+  margin-bottom: var(--space-2);
+}
+
+/* Page Layout Standardization */
+.page-container-standard {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4);
+}
+
+.page-header-standard {
+  margin-bottom: var(--space-6);
+}
+
+.page-title-standard {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-main);
+}
+
+.page-desc-standard {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-top: var(--space-1);
+}
+
